@@ -8,8 +8,9 @@ because AMCs publish portfolios on their own websites in their own formats.
 
 ## 1. Monthly portfolio disclosures — P2 blocker
 
-- **Which AMCs:** every AMC with an eligible fund in `data/reference/universe.csv`, plus the AMC of the
-  chosen benchmark-weight index fund (Axis / Bandhan / HDFC Nifty 100; see DECISIONS D-010).
+- **Which AMCs:** every AMC with an eligible fund in `data/reference/universe.csv`, plus the benchmark-weight index fund,
+  which is chosen in code (`data/reference/benchmark_proxy_selection.csv`; first run: **Bandhan Nifty 100 Index Fund**). Make sure
+  every Bandhan monthly file includes that scheme.
 - **Months:** Sep-2025 … Aug-2026 (12 files per AMC; see DECISIONS D-011).
 - **Where:** the AMC's own "Statutory disclosures → Monthly portfolio" page. Download the
   **month-end** portfolio, not the fortnightly one.

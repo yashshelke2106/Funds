@@ -13,7 +13,7 @@ import sys
 
 from src import config
 
-STEPS = ["universe", "nav", "quality", "checklist", "test"]
+STEPS = ["universe", "nav", "benchmark", "quality", "checklist", "test"]
 
 
 def step_universe(offline: bool) -> int:
@@ -33,6 +33,12 @@ def step_universe(offline: bool) -> int:
 def step_nav(offline: bool) -> int:
     from src.ingest import nav
     nav.run(refresh=False)  # cached JSON is reused; delete data/raw/nav/*.json to refetch
+    return 0
+
+
+def step_benchmark(offline: bool) -> int:
+    from src.ingest import benchmark
+    benchmark.run()
     return 0
 
 
