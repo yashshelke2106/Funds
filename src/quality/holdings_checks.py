@@ -104,7 +104,9 @@ def run() -> int:
     h = pd.read_parquet(config.INTERIM / "holdings.parquet")
     meta = pd.read_parquet(config.INTERIM / "portfolio_meta.parquet")
     issues, summ = check_holdings(h, meta)
-    issues = pd.concat([issues, pd.DataFrame(check_index_future_coverage(h), columns=ISSUE_COLS)], ignore_index=True)
+    extra = check_index_future_coverage(h)
+    if extra:
+        issues = pd.concat([issues, pd.DataFrame(extra, columns=ISSUE_COLS)], ignore_index=True)
     issues.to_csv(config.QUALITY / "holdings_issues.csv", index=False)
     summ.to_csv(config.QUALITY / "holdings_summary.csv", index=False)
     counts = issues.groupby(["check", "severity"]).size().to_dict() if len(issues) else {}
