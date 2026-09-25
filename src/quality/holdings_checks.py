@@ -44,7 +44,7 @@ def check_holdings(h: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, p
     for _, r in w[diff > WEIGHT_TOL].iterrows():
         _issue(issues, r, "weight_mv_vs_reported", "flag", r.weight_nav - r.weight_reported,
                f"mv/nav={r.weight_nav:.6f} reported={r.weight_reported:.6f}", r["isin"], r.instrument_name)
-    der = h[(h.section == "derivative") & h.underlying_isin.isna()]
+    der = h[(h.section == "derivative") & (h.derivative_kind == "stock_future") & h.underlying_isin.isna()]
     for _, r in der.iterrows():
         _issue(issues, r, "future_underlying_unmapped", "flag", r.weight_nav, f"name_key={r.name_key}", None, r.instrument_name)
 
@@ -72,7 +72,8 @@ def check_holdings(h: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, p
             equity_weight_raw=m.equity_weight_raw, excluded_non_equity_weight=1 - m.equity_weight_raw,
             futures_long_weight=d.loc[d.weight_nav > 0, "weight_nav"].sum(),
             futures_short_weight=d.loc[d.weight_nav < 0, "weight_nav"].sum(),
-            futures_unmapped=int(d.underlying_isin.isna().sum()),
+            futures_unmapped=int(((d.derivative_kind == "stock_future") & d.underlying_isin.isna()).sum()),
+            index_future_weight=d.loc[d.derivative_kind == "index_future", "weight_nav"].sum(),
             equity_recon_gap_lakh=(m.equity_mv_sum_lakh - m.reported_equity_total_lakh)
             if pd.notna(m.reported_equity_total_lakh) else None,
             stated_benchmark=m.stated_benchmark,

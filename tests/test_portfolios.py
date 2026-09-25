@@ -140,3 +140,41 @@ def test_quality_rules_fire_on_corrupted_copies(parsed):
     assert ("equity_without_isin", "flag") in got
     assert ("duplicate_isin", "fail") in got
     assert ("raw_equity_total_out_of_range", "flag") in got
+
+
+# ---------------------------------------------------------------- Motilal: two layouts inside the window
+def _motilal(name):
+    f = FX / "motilal_oswal" / name
+    fr, me, _ = parse_file(f, "motilal_oswal", IDX)
+    return pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+
+
+def test_motilal_old_layout_fraction_units_and_index_future():
+    h, m = _motilal("IN_MF_MOTILAL_FACTSHEET_31.03.2026_Final.xlsx")    # filename says FACTSHEET
+    assert list(m.index) == ["2026-03"] and m.loc["2026-03", "as_of"] == date(2026, 3, 31)
+    r = h[h["isin"] == "INE040A01034"].iloc[0]
+    assert r.market_value_lakh == pytest.approx(27067.35)
+    assert r.weight_reported == pytest.approx(0.09436815556832857)         # fraction in this layout
+    f = h[h.section == "derivative"].iloc[0]
+    assert f.derivative_kind == "index_future" and f.instrument_name == "NIFTY April 2026 Future"
+    assert f.market_value_lakh == pytest.approx(9795.76)
+    assert m.loc["2026-03", "nav_lakh"] == pytest.approx(286827.16)       # GRAND TOTAL after derivatives
+    assert abs(m.loc["2026-03", "equity_mv_sum_lakh"] - 275439.72) < 0.01
+
+
+def test_motilal_new_layout_percent_units_and_isin_code_header():
+    h, m = _motilal("Motilal Portfolio 30 April 2026 - Final.xlsx")      # header says 'ISIN Code'
+    assert list(m.index) == ["2026-04"]
+    eq = h[h.section == "equity"]
+    assert eq["isin"].notna().all() and len(eq) == 50
+    r = eq[eq["isin"] == "INE040A01034"].iloc[0]
+    assert r.weight_reported == pytest.approx(0.0925)                      # file shows 9.25 (percent)
+
+
+def test_isin_change_detected_for_corporate_action():
+    from src.ingest.portfolios import detect_isin_changes
+    h = pd.DataFrame({
+        "section": "equity", "name_key": "kotak mahindra bank",
+        "isin": ["INE237A01028", "INE237A01036"], "month": ["2025-12", "2026-01"]})
+    c = detect_isin_changes(h).iloc[0]
+    assert (c.old_isin, c.new_isin, bool(c.accepted)) == ("INE237A01028", "INE237A01036", True)

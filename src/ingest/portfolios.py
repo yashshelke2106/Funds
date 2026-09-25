@@ -21,7 +21,7 @@ from src.ingest.portfolio_common import (PortfolioFormatError, check_units, pars
                                          read_grid)
 
 HOLDING_COLS = ["fund_id", "amc_slug", "month", "as_of", "available_from", "section",
-                "section_label", "instrument_name", "name_key", "isin", "isin_raw",
+                "section_label", "derivative_kind", "instrument_name", "name_key", "isin", "isin_raw",
                 "isin_checksum_ok", "underlying_isin", "industry", "quantity",
                 "market_value_lakh", "weight_nav", "weight_reported", "source_file",
                 "source_sheet", "source_row"]
@@ -53,7 +53,7 @@ def scheme_index(sm: pd.DataFrame) -> dict[str, str]:
     return idx
 
 
-def identify_scheme(grid: list[list], idx: dict[str, str], max_rows: int = 6) -> tuple[str | None, str | None]:
+def identify_scheme(grid: list[list], idx: dict[str, str], max_rows: int = 12) -> tuple[str | None, str | None]:
     for row in grid[:max_rows]:
         for v in row:
             if isinstance(v, str) and v.strip():
@@ -98,25 +98,64 @@ def parse_file(path: Path, slug: str, idx: dict[str, str]) -> tuple[list[pd.Data
             equity_mv_sum_lakh=eq["market_value_lakh"].sum(), equity_weight_raw=eq["weight_nav"].sum(),
             n_equity_rows=len(eq), n_derivative_rows=int((df.section == "derivative").sum()),
             derivative_net_weight=df.loc[df.section == "derivative", "weight_nav"].sum(),
+            index_future_weight=df.loc[df.derivative_kind == "index_future", "weight_nav"].sum(),
             stated_benchmark=ps.stated_benchmark, source_file=f"{slug}/{path.name}", source_sheet=sheet,
         ))
     return frames, metas, log
 
 
 def map_derivative_underlyings(h: pd.DataFrame, overrides: pd.DataFrame | None = None) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Stock futures -> underlying equity ISIN by company name, SAME MONTH first.
+
+    ISINs change on corporate actions (Kotak INE237A01028 -> INE237A01036 between Dec-2025
+    and Jan-2026), so an all-time name lookup can be ambiguous; the month's own equity rows
+    decide. All-time lookup is only a fallback when it is unambiguous.
+    """
     eq = h[(h.section == "equity") & h["isin"].notna()]
     master = (eq.groupby("isin").agg(name_key=("name_key", "first"), instrument_name=("instrument_name", "first"),
+                                     first_month=("month", "min"), last_month=("month", "max"),
                                      n_sources=("source_file", "nunique")).reset_index())
+    by_month = eq.groupby(["month", "name_key"])["isin"].unique()
     by_key = eq.groupby("name_key")["isin"].unique()
-    lookup = {k: v[0] for k, v in by_key.items() if len(v) == 1}
-    ambiguous = {k for k, v in by_key.items() if len(v) > 1}
-    if overrides is not None and len(overrides):
-        lookup.update(dict(zip(overrides["name_key"], overrides["isin"])))
-    d = h.section == "derivative"
-    h.loc[d, "underlying_isin"] = h.loc[d, "name_key"].map(lookup)
-    if ambiguous & set(h.loc[d, "name_key"]):
-        raise PortfolioFormatError(f"ambiguous futures underlyings: {ambiguous & set(h.loc[d, 'name_key'])}")
+    ov = dict(zip(overrides["name_key"], overrides["isin"])) if overrides is not None and len(overrides) else {}
+    d = (h.section == "derivative") & (h.derivative_kind == "stock_future")
+    out = []
+    for i in h.index[d]:
+        k, m = h.at[i, "name_key"], h.at[i, "month"]
+        isin = None
+        if (m, k) in by_month.index and len(by_month[(m, k)]) == 1:
+            isin = by_month[(m, k)][0]
+        elif (m, k) in by_month.index:
+            raise PortfolioFormatError(f"{m}: several ISINs for '{k}' in the same month: {list(by_month[(m, k)])}")
+        elif k in by_key.index and len(by_key[k]) == 1:
+            isin = by_key[k][0]
+        elif k in ov:
+            isin = ov[k]
+        out.append((i, isin))
+    for i, isin in out:
+        h.at[i, "underlying_isin"] = isin
     return h, master
+
+
+def detect_isin_changes(h: pd.DataFrame) -> pd.DataFrame:
+    """Corporate-action ISIN changes: same company name key, same issuer code (chars 3-7),
+    never held under both ISINs in the same month. Written for review; used by turnover (P4)."""
+    eq = h[(h.section == "equity") & h["isin"].notna()]
+    rows = []
+    for k, g in eq.groupby("name_key"):
+        isins = g.groupby("isin")["month"].agg(["min", "max"]).sort_values("min")
+        if len(isins) < 2:
+            continue
+        months = {i: set(g.loc[g["isin"] == i, "month"]) for i in isins.index}
+        seq = list(isins.index)
+        for a, b in zip(seq, seq[1:]):
+            same_issuer = a[2:7] == b[2:7]
+            overlap = bool(months[a] & months[b])
+            rows.append(dict(name_key=k, old_isin=a, new_isin=b, old_last_month=isins.at[a, "max"],
+                             new_first_month=isins.at[b, "min"], same_issuer_code=same_issuer,
+                             months_overlap=overlap, accepted=same_issuer and not overlap))
+    return pd.DataFrame(rows, columns=["name_key", "old_isin", "new_isin", "old_last_month", "new_first_month",
+                                       "same_issuer_code", "months_overlap", "accepted"])
 
 
 def run() -> Path:
@@ -153,6 +192,10 @@ def run() -> Path:
     h.to_parquet(config.INTERIM / "holdings.parquet", index=False)
     meta.to_parquet(config.INTERIM / "portfolio_meta.parquet", index=False)
     master.to_csv(config.REFERENCE / "isin_master.csv", index=False)
+    changes = detect_isin_changes(h)
+    changes.to_csv(config.REFERENCE / "isin_changes.csv", index=False)
+    if len(changes):
+        log.append(f"ISIN changes detected: {len(changes)} ({int(changes.accepted.sum())} accepted) -> data/reference/isin_changes.csv")
     (config.QUALITY / "portfolio_parse_log.txt").write_text("\n".join(log) + "\n", encoding="utf-8")
     print(f"portfolios: {len(meta)} fund-months, {len(h):,} holding rows -> data/interim/holdings.parquet")
     for line in log:

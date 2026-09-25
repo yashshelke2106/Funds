@@ -34,20 +34,26 @@ import pandas as pd
 ISIN_RE = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
 
 HEADER_SYNONYMS = {
-    "name": ("name of the instrument", "company/issuer/instrument name", "name of the instrument / issuer"),
+    "name": ("name of the instrument", "company/issuer/instrument name", "name of the instrument / issuer",
+             "name of instrument"),
     "isin": ("isin",),
-    "industry": ("industry / rating", "industry+ /rating", "industry/rating", "rating / industry^", "industry ^"),
+    "industry": ("industry / rating", "industry+ /rating", "industry/rating", "rating / industry^", "industry ^",
+                 "rating / industry", "industry*"),
     "quantity": ("quantity",),
     "mv": ("market/fair value ( rs. in lacs)", "market/ fair value (rs. in lacs.)",
-           "exposure/market value(rs.lakh)", "market value (rs. in lakhs)", "market value  (rs. in lakhs)"),
-    "pct": ("% to nav", "% to aum"),
+           "exposure/market value(rs.lakh)", "market value (rs. in lakhs)", "market value  (rs. in lakhs)",
+           "market/fair value (rs. in lakhs)"),
+    "pct": ("% to nav", "% to aum", "% to net assets"),
     "side": ("long / short",),
 }
 EQUITY_LABELS = ("equity & equity related", "equity and equity related")
 NON_EQUITY_LABELS = ("debt instruments", "money market instruments", "others", "treps",
+                     "cash & cash equivalents", "cash and cash equivalents",
                      "other current assets", "units of real estate", "units of an alternative",
                      "term deposits", "short term deposits", "mutual fund units")
-DERIVATIVE_LABELS = ("derivatives", "details of stock future", "stock / index futures", "stock futures")
+DERIVATIVE_LABELS = ("derivatives", "details of stock future", "stock / index futures", "stock futures",
+                     "index / stock futures")
+INDEX_FUTURE_RE = re.compile(r"\b(nifty|banknifty|finnifty|midcpnifty|sensex|bankex)\b", re.I)
 GRAND_TOTAL_LABELS = ("grand total", "total net assets")
 TOTAL_LABELS = ("total", "sub total", "subtotal")
 DERIVATIVE_END = ("derivatives total", "notes", "note-", "note -")
@@ -60,7 +66,7 @@ class PortfolioFormatError(RuntimeError):
 @dataclass
 class ParserConfig:
     amc_slug: str
-    pct_unit: str                      # 'fraction' | 'percent'
+    pct_unit: str                      # 'fraction' | 'percent' | 'auto' (decided per file from GRAND TOTAL %) | 'auto' (read from GRAND TOTAL row)
     skip_sheets: tuple[str, ...] = ()  # sheet names to ignore entirely
     name_junk: tuple[str, ...] = ()    # footnote markers to strip from names
 
@@ -136,13 +142,13 @@ DATE_PATTERNS = (
 )
 
 
-def find_as_of(grid: list[list], max_rows: int = 8) -> date:
+def find_as_of(grid: list[list], max_rows: int = 12) -> date:
     for row in grid[:max_rows]:
         for v in row:
             if v is None:
                 continue
             s = str(v)
-            if not re.search(r"as on|as on :|portfolio", s, re.I) and not re.fullmatch(r"\s*[A-Za-z]+ \d{1,2}, \d{4}\s*", s):
+            if not re.search(r"as on|portfolio", s, re.I) and not re.fullmatch(r"\s*[A-Za-z]+ \d{1,2}, \d{4}\s*", s):
                 continue
             for rx, _, order in DATE_PATTERNS:
                 m = rx.search(s)
@@ -163,13 +169,29 @@ def row_label(row: list) -> str:
     return ""
 
 
+HEADER_RULES = (
+    # (key, predicate on the normalised header text). First matching cell, left to right, wins.
+    ("name", lambda t: t.startswith("name of") or t.startswith("company/issuer") or t == "instrument name"),
+    ("isin", lambda t: t.startswith("isin")),
+    ("industry", lambda t: "industry" in t),
+    ("quantity", lambda t: t.startswith("quantity")),
+    ("mv", lambda t: ("market" in t and "value" in t) or t.startswith("exposure/market value")),
+    ("pct", lambda t: t.startswith("% to")),
+    ("side", lambda t: t == "long / short"),
+)
+
+
 def map_header(row: list) -> dict[str, int] | None:
-    cells = {j: norm_text(v).replace("\n", " ") for j, v in enumerate(row) if v not in (None, "")}
+    """Locate columns by RULE on header text (not exact strings), because wording varies
+    across AMCs and across months within one AMC (Motilal: 'ISIN' -> 'ISIN Code')."""
+    cells = {j: norm_text(v).replace("\n", " ") for j, v in enumerate(row) if isinstance(v, str) and v.strip()}
     found: dict[str, int] = {}
-    for key, syns in HEADER_SYNONYMS.items():
-        for j, t in cells.items():
-            if t in syns or any(t == s for s in syns):
-                found.setdefault(key, j)
+    for j in sorted(cells):
+        t = cells[j]
+        for key, pred in HEADER_RULES:
+            if key not in found and pred(t):
+                found[key] = j
+                break
     if "name" in found and ("quantity" in found or "mv" in found):
         return found
     return None
@@ -205,6 +227,13 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
         qty, mv = to_number(g("quantity")), to_number(g("mv"))
 
         # ---- state transitions on label rows
+        if section == "derivative" and nav is None and starts(label, GRAND_TOTAL_LABELS):
+            nav, gt_pct = mv, to_number(g("pct"))
+            section = "post"
+            continue
+        if section == "derivative" and nav is None and qty is None and starts(label, NON_EQUITY_LABELS):
+            section, section_label = "non_equity", label
+            continue
         if section == "derivative" and starts(label, DERIVATIVE_END):
             section = "done"
             continue
@@ -243,8 +272,11 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
             if qty < 0 or mv < 0:
                 sign = 1.0  # already signed in the file (ICICI)
             qty, mv = qty * sign, mv * sign
+        kind = None
+        if section == "derivative":
+            kind = "index_future" if INDEX_FUTURE_RE.search(name) else "stock_future"
         rows.append(dict(
-            section=section, section_label=section_label, instrument_name=name,
+            section=section, section_label=section_label, instrument_name=name, derivative_kind=kind,
             isin=isin if isin and isin_valid(isin) else None,
             isin_raw=isin, isin_checksum_ok=bool(isin and isin_valid(isin)),
             industry=str(g("industry")).strip() if g("industry") not in (None, "") else None,
@@ -260,6 +292,12 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
 
 def check_units(ps: ParsedSheet, cfg: ParserConfig) -> float:
     """Return the divisor that turns reported % into a fraction; verify via grand total."""
+    if cfg.pct_unit == "auto":
+        if ps.grand_total_pct is not None and abs(ps.grand_total_pct - 1.0) <= 0.01:
+            return 1.0
+        if ps.grand_total_pct is not None and abs(ps.grand_total_pct - 100.0) <= 1.0:
+            return 100.0
+        raise PortfolioFormatError(f"{ps.scheme_title}: cannot infer % unit from grand total {ps.grand_total_pct}")
     expect = 1.0 if cfg.pct_unit == "fraction" else 100.0
     if ps.grand_total_pct is None or abs(ps.grand_total_pct - expect) > 0.01 * expect:
         raise PortfolioFormatError(f"{ps.scheme_title}: grand-total % {ps.grand_total_pct} "
