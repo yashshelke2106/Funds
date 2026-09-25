@@ -40,6 +40,36 @@ def is_growth(option: str | None) -> bool:
     return not any(bad in o for bad in ("bonus", "idcw", "institutional", "dividend"))
 
 
+def infer_from_name(name: str | None) -> tuple[str | None, bool]:
+    """(plan, is_growth) from a history-report NAV Name such as
+    'Motilal Oswal Large Cap Direct Plan Growth' (DECISIONS D-022)."""
+    n = (name or "").lower()
+    plan = "direct" if "direct" in n else ("regular" if "regular" in n else None)
+    return plan, is_growth(n)
+
+
+def resolve_blank_plans(df: pd.DataFrame, history: pd.DataFrame | None) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Fill blank Plan/Option in NAVAll rows from the history snapshot's NAV Name (same scheme code).
+
+    Returns (df with plan_n / growth / plan_source, unresolved rows)."""
+    out = df.copy()
+    out["plan_n"] = out["plan"].map(normalise_plan)
+    out["growth"] = out["option"].map(is_growth)
+    out["plan_source"] = "navall"
+    blank = out["plan_n"].isna() | (out["option"].fillna("").str.strip() == "")
+    if history is not None and blank.any():
+        hname = history.drop_duplicates("scheme_code").set_index("scheme_code")["scheme_name"]
+        for i in out.index[blank]:
+            code = out.at[i, "scheme_code"]
+            if code in hname.index:
+                plan, growth = infer_from_name(hname[code])
+                if plan is not None:
+                    out.at[i, "plan_n"], out.at[i, "growth"] = plan, growth
+                    out.at[i, "plan_source"] = "history_name"
+    unresolved = out[out["plan_n"].isna()]
+    return out, unresolved
+
+
 def slugify(s: str) -> str:
     s = re.sub(r"\bmutual fund\b", "", s, flags=re.I)
     return re.sub(r"[^a-z0-9]+", "_", s.lower()).strip("_")
@@ -52,15 +82,18 @@ def select_growth_plans(df: pd.DataFrame) -> pd.DataFrame:
         df["scheme_name"].str.contains(NIFTY100_RE)
     out = df[is_lc | is_idx].copy()
     out["role"] = pd.Series("active", index=out.index).where(is_lc[out.index], "index")
-    out["plan_n"] = out["plan"].map(normalise_plan)
-    out = out[out["option"].map(is_growth) & out["plan_n"].notna()]
+    if "plan_n" not in out:
+        out["plan_n"] = out["plan"].map(normalise_plan)
+        out["growth"] = out["option"].map(is_growth)
+    out = out[out["growth"].astype(bool) & out["plan_n"].notna()]
     return out
 
 
 STALE_NAV_DAYS = 10
 
 
-def build_scheme_map(df: pd.DataFrame, source_file: str) -> pd.DataFrame:
+def build_scheme_map(df: pd.DataFrame, source_file: str, history: pd.DataFrame | None = None) -> pd.DataFrame:
+    df, _ = resolve_blank_plans(df, history)
     g = select_growth_plans(df)
     problems = []
     if g["amc"].isna().any():
@@ -107,7 +140,9 @@ def survivorship_events(then: pd.DataFrame, now: pd.DataFrame) -> pd.DataFrame:
     Both names are written out for human review instead.
     """
     def lc(df):
-        x = df[df["category"].eq(LARGE_CAP) & df["option"].map(is_growth)]
+        # every Large Cap plan code, any option: Plan/Option is blank for some live schemes
+        # in NAVAll (D-022), so filtering on growth would invent closures.
+        x = df[df["category"].eq(LARGE_CAP)]
         return x.set_index("scheme_code")[["amc", "scheme_name", "plan"]]
 
     t, n = lc(then), lc(now)
@@ -132,13 +167,23 @@ def survivorship_events(then: pd.DataFrame, now: pd.DataFrame) -> pd.DataFrame:
 
 
 def run(navall_path: Path, history_path: Path) -> tuple[Path, Path]:
+    config.QUALITY.mkdir(parents=True, exist_ok=True)
     now = parse_amfi_text(navall_path.read_text(encoding="utf-8"), "navall")
     then = parse_amfi_text(history_path.read_text(encoding="utf-8"), "history")
-    sm = build_scheme_map(now, navall_path.name)
+    sm = build_scheme_map(now, navall_path.name, then)
+    _, unresolved = resolve_blank_plans(now, then)
+    in_scope = unresolved[unresolved["category"].eq(LARGE_CAP) |
+                          unresolved["scheme_name"].str.contains(NIFTY100_RE)]
+    in_scope[["scheme_code", "scheme_name", "amc", "category"]].to_csv(
+        config.QUALITY / "universe_unresolved_plans.csv", index=False)
+    if len(in_scope):
+        print(f"WARNING: {len(in_scope)} in-scope NAVAll rows with blank plan not resolvable from "
+              "the history snapshot -> data/quality/universe_unresolved_plans.csv")
     ev = survivorship_events(then, now)
     config.REFERENCE.mkdir(parents=True, exist_ok=True)
     p1 = config.REFERENCE / "scheme_map.csv"
     p2 = config.REFERENCE / "scheme_events.csv"
+    config.QUALITY.mkdir(parents=True, exist_ok=True)
     sm.to_csv(p1, index=False)
     ev.to_csv(p2, index=False)
     print(f"scheme_map: {len(sm)} funds "

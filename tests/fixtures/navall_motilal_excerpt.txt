@@ -1,0 +1,19 @@
+Scheme Code;ISIN Div Payout/ ISIN Growth;ISIN Div Reinvestment;Scheme Name;Plan;Option;Net Asset Value;Date
+
+Open Ended Schemes(Equity Scheme - Large & Mid Cap Fund)
+
+Motilal Oswal Mutual Fund
+
+147704;INF247L01999;-;Motilal Oswal Large and Midcap Fund;Direct Plan;Growth;40.8372;24-Sep-2026
+147701;INF247L01965;-;Motilal Oswal Large and Midcap Fund;Regular Plan;Growth;37.0036;24-Sep-2026
+147706;INF247L01AB3;INF247L01AA5;Motilal Oswal Large and Midcap Fund;;;28.8635;24-Sep-2026
+147703;INF247L01981;INF247L01973;Motilal Oswal Large and Midcap Fund;Regular Plan;Payout/Reinvestment;26.2713;24-Sep-2026
+
+Open Ended Schemes(Equity Scheme - Large Cap Fund)
+
+Motilal Oswal Mutual Fund
+
+152354;INF247L01CE3;-;Motilal Oswal Large Cap Fund;;;13.7208;24-Sep-2026
+152351;INF247L01CF0;INF247L01CG8;Motilal Oswal Large Cap Fund;;;12.3675;24-Sep-2026
+152352;INF247L01CB9;-;Motilal Oswal Large Cap Fund;;;13.2738;24-Sep-2026
+152353;INF247L01CC7;INF247L01CD5;Motilal Oswal Large Cap Fund;;;11.8231;24-Sep-2026

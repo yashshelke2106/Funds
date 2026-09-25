@@ -1,69 +1,165 @@
 scheme_code,amc,plan,name_at_start,name_now,event
+100218,JM Financial Mutual Fund,Regular Plan,JM Large Cap Fund (Regular) - IDCW,JM Large Cap Fund,present_at_start_and_now
 100219,JM Financial Mutual Fund,Regular Plan,JM Large Cap Fund (Regular) - Growth Option,JM Large Cap Fund,present_at_start_and_now
+100332,LIC Mutual Fund,Regular Plan,LIC MF Large Cap Fund-Regular Plan-IDCW,LIC MF Large Cap Fund,present_at_start_and_now
+100470,Franklin Templeton Mutual Fund,Regular Plan,Franklin India Large Cap Fund - IDCW,Franklin India Large Cap Fund,present_at_start_and_now
 100471,Franklin Templeton Mutual Fund,Regular Plan,Franklin India Large Cap Fund-Growth,Franklin India Large Cap Fund,present_at_start_and_now
 100475,Tata Mutual Fund,Regular Plan,Tata Large Cap Fund -Regular Plan - Growth Option,Tata Large Cap Fund,present_at_start_and_now
+100650,UTI Mutual Fund,Regular Plan,UTI Large Cap Fund - Regular Plan - IDCW,UTI - Large Cap Fund,present_at_start_and_now
 100651,UTI Mutual Fund,Regular Plan,UTI Large Cap Fund - Regular Plan - Growth Option,UTI - Large Cap Fund,present_at_start_and_now
 101209,Taurus Mutual Fund,Regular Plan,Taurus Large Cap Fund - Regular Plan - Growth,Taurus Large Cap Fund,present_at_start_and_now
+101593,HSBC Mutual Fund,Regular Plan,HSBC Large Cap Fund - Regular IDCW,HSBC Large Cap Fund,present_at_start_and_now
 101594,HSBC Mutual Fund,Regular Plan,HSBC Large Cap Fund - Regular Growth,HSBC Large Cap Fund,present_at_start_and_now
 101635,DSP Mutual Fund,Regular Plan,DSP Large Cap Fund - Regular Plan - Growth,DSP Large Cap Fund,present_at_start_and_now
+101636,DSP Mutual Fund,Regular Plan,DSP Large Cap Fund - Regular Plan - IDCW,DSP Large Cap Fund,present_at_start_and_now
 102000,HDFC Mutual Fund,Regular Plan,HDFC Large Cap Fund - Growth Option - Regular Plan,HDFC Large Cap Fund,present_at_start_and_now
+102001,HDFC Mutual Fund,Regular Plan,HDFC Large Cap Fund - IDCW Option - Regular Plan,HDFC Large Cap Fund,present_at_start_and_now
+102036,Tata Mutual Fund,Regular Plan,Tata Large Cap Fund- Regular Plan - Payout of IDCW Option,Tata Large Cap Fund,present_at_start_and_now
+103173,Aditya Birla Sun Life Mutual Fund,Regular Plan,Aditya Birla Sun Life Large Cap Fund-Regular - IDCW,Aditya Birla Sun Life Large Cap Fund,present_at_start_and_now
 103174,Aditya Birla Sun Life Mutual Fund,Regular Plan,Aditya Birla Sun Life Large Cap Fund-Growth,Aditya Birla Sun Life Large Cap Fund,present_at_start_and_now
 103504,SBI Mutual Fund,Regular Plan,SBI Large Cap FUND-REGULAR PLAN GROWTH,SBI Large Cap Fund,present_at_start_and_now
+103616,SBI Mutual Fund,Regular Plan,SBI Large Cap Fund - Regular Plan - Income Distribution cum Capital Withdrawal Option (IDCW),SBI Large Cap Fund,present_at_start_and_now
 106235,Nippon India Mutual Fund,Regular Plan,Nippon India Large Cap  Fund- Growth Plan -Growth Option,Nippon India Large Cap Fund,present_at_start_and_now
+106236,Nippon India Mutual Fund,Regular Plan,NIPPON INDIA LARGE CAP FUND - IDCW Option,Nippon India Large Cap Fund,present_at_start_and_now
+106238,Nippon India Mutual Fund,Regular Plan,,Nippon India Large Cap Fund,not_large_cap_at_window_start
+106240,Nippon India Mutual Fund,Regular Plan,Nippon India Large Cap Fund- Growth Plan Bonus Option,Nippon India Large Cap Fund,present_at_start_and_now
 106871,LIC Mutual Fund,Regular Plan,LIC MF Large Cap Fund-Regular Plan-Growth,LIC MF Large Cap Fund,present_at_start_and_now
 107578,Mirae Asset Mutual Fund,Regular Plan,Mirae Asset Large Cap Fund - Regular Plan - Growth,Mirae Asset Large Cap Fund,present_at_start_and_now
+107579,Mirae Asset Mutual Fund,Regular Plan,Mirae Asset Large Cap Fund - Regular Plan - IDCW,Mirae Asset Large Cap Fund,present_at_start_and_now
+108403,Taurus Mutual Fund,Regular Plan,Taurus Large Cap Fund - Regular Plan - Payout of Income Distribution cum Capital Withdrawal option,Taurus Large Cap Fund,present_at_start_and_now
+108465,ICICI Prudential Mutual Fund,Regular Plan,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund)  - IDCW,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),present_at_start_and_now
 108466,ICICI Prudential Mutual Fund,Regular Plan,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund)  - Growth,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),present_at_start_and_now
+108467,ICICI Prudential Mutual Fund,,,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),not_large_cap_at_window_start
 108799,Bandhan Mutual Fund,Regular Plan,BANDHAN Large Cap Fund - Regular Plan - Growth,BANDHAN LARGE CAP FUND,present_at_start_and_now
+108800,Bandhan Mutual Fund,Regular Plan,BANDHAN Large Cap Fund - Regular Plan - IDCW,BANDHAN LARGE CAP FUND,present_at_start_and_now
+111935,Edelweiss Mutual Fund,,Edelweiss Large Cap Fund -Plan B - Growth option,Edelweiss Large Cap Fund,present_at_start_and_now
+111936,Edelweiss Mutual Fund,Regular Plan,Edelweiss Large Cap Fund - Regular Plan - IDCW Option,Edelweiss Large Cap Fund,present_at_start_and_now
+111937,Edelweiss Mutual Fund,,Edelweiss Large Cap Fund -Plan C - Growth option,Edelweiss Large Cap Fund,present_at_start_and_now
+111938,Edelweiss Mutual Fund,,Edelweiss Large Cap Fund - Plan B - IDCW Option,Edelweiss Large Cap Fund,present_at_start_and_now
+111939,Edelweiss Mutual Fund,,Edelweiss Large Cap Fund - Plan C - IDCW Option,Edelweiss Large Cap Fund,present_at_start_and_now
 111940,Edelweiss Mutual Fund,Regular Plan,Edelweiss Large Cap Fund - Regular Plan - Growth Option,Edelweiss Large Cap Fund,present_at_start_and_now
 112098,Invesco Mutual Fund,Regular Plan,Invesco India Large Cap Fund - Regular Plan - Growth,Invesco India Large Cap Fund,present_at_start_and_now
+112099,Invesco Mutual Fund,Regular Plan,Invesco India Large Cap Fund - Regular Plan - IDCW (Payout / Reinvestment),Invesco India Large Cap Fund,present_at_start_and_now
 112277,Axis Mutual Fund,Regular Plan,Axis Large Cap Fund - Regular Plan - Growth,Axis Large Cap Fund,present_at_start_and_now
+112278,Axis Mutual Fund,Regular Plan,Axis Large Cap Fund - Regular Plan - IDCW,Axis Large Cap Fund,present_at_start_and_now
 113221,Canara Robeco Mutual Fund,Regular Plan,CANARA ROBECO LARGE CAP FUND - REGULAR PLAN - GROWTH OPTION,Canara Robeco Large Cap Fund,present_at_start_and_now
+113222,Canara Robeco Mutual Fund,Regular Plan,CANARA ROBECO LARGE CAP FUND - REGULAR PLAN - IDCW (Payout/Reinvestment),Canara Robeco Large Cap Fund,present_at_start_and_now
+114457,Kotak Mahindra Mutual Fund,Regular Plan,Kotak Large Cap Fund - Payout of Income Distribution cumcapital withdrawal option,Kotak Large Cap Fund,present_at_start_and_now
 114458,Kotak Mahindra Mutual Fund,Regular Plan,Kotak Large Cap Fund - Growth,Kotak Large Cap Fund,present_at_start_and_now
 116547,Groww Mutual Fund,Regular Plan,Groww Largecap Fund (formerly known as Indiabulls Blue Chip Fund) - Regular Plan- Growth Option,Groww Large Cap Fund,present_at_start_and_now
+116548,Groww Mutual Fund,Regular Plan,Groww Largecap Fund (formerly known as Indiabulls Bluechip Fund)- Regular Plan- - Income Distribution cum capital withdrawal Option (Payout & Reinvestment),Groww Large Cap Fund,present_at_start_and_now
 118269,Canara Robeco Mutual Fund,Direct Plan,CANARA ROBECO LARGE CAP FUND - DIRECT PLAN - GROWTH OPTION,Canara Robeco Large Cap Fund,present_at_start_and_now
+118270,Canara Robeco Mutual Fund,Direct Plan,CANARA ROBECO LARGE CAP FUND - DIRECT PLAN - IDCW (Payout/Reinvestment),Canara Robeco Large Cap Fund,present_at_start_and_now
+118462,Franklin Templeton Mutual Fund,Direct Plan,Franklin India Large Cap Fund - Direct - IDCW,Franklin India Large Cap Fund,present_at_start_and_now
+118478,Bandhan Mutual Fund,Direct Plan,BANDHAN Large Cap Fund-Direct Plan-IDCW,BANDHAN LARGE CAP FUND,present_at_start_and_now
 118479,Bandhan Mutual Fund,Direct Plan,BANDHAN Large Cap Fund-Direct Plan-Growth,BANDHAN LARGE CAP FUND,present_at_start_and_now
 118531,Franklin Templeton Mutual Fund,Direct Plan,Franklin India Large Cap Fund- Direct - Growth,Franklin India Large Cap Fund,present_at_start_and_now
+118616,Edelweiss Mutual Fund,Direct Plan,Edelweiss Large Cap Fund - Direct Plan - IDCW Option,Edelweiss Large Cap Fund,present_at_start_and_now
 118617,Edelweiss Mutual Fund,Direct Plan,Edelweiss Large Cap Fund - Direct Plan-Growth option,Edelweiss Large Cap Fund,present_at_start_and_now
 118632,Nippon India Mutual Fund,Direct Plan,Nippon India Large Cap Fund - Direct Plan Growth Plan - Growth Option,Nippon India Large Cap Fund,present_at_start_and_now
+118633,Nippon India Mutual Fund,Direct Plan,Nippon India Large Cap Fund - Direct Plan Growth Plan - Bonus Option,Nippon India Large Cap Fund,present_at_start_and_now
+118634,Nippon India Mutual Fund,Direct Plan,NIPPON INDIA LARGE CAP FUND - DIRECT Plan - IDCW Option,Nippon India Large Cap Fund,present_at_start_and_now
 118825,Mirae Asset Mutual Fund,Direct Plan,Mirae Asset Large Cap Fund - Direct Plan - Growth,Mirae Asset Large Cap Fund,present_at_start_and_now
+118826,Mirae Asset Mutual Fund,Direct Plan,Mirae Asset Large Cap Fund - Direct Plan - IDCW,Mirae Asset Large Cap Fund,present_at_start_and_now
 118870,Taurus Mutual Fund,Direct Plan,Taurus Large Cap Fund - Direct Plan - Growth,Taurus Large Cap Fund,present_at_start_and_now
+118871,Taurus Mutual Fund,Direct Plan,Taurus Large Cap Fund - Direct Plan - Payout of Income Distribution cum Capital Withdrawal option,Taurus Large Cap Fund,present_at_start_and_now
+119017,HDFC Mutual Fund,Direct Plan,HDFC Large Cap Fund - IDCW Option - Direct Plan,HDFC Large Cap Fund,present_at_start_and_now
 119018,HDFC Mutual Fund,Direct Plan,HDFC Large Cap Fund - Growth Option - Direct Plan,HDFC Large Cap Fund,present_at_start_and_now
 119133,Groww Mutual Fund,Direct Plan,Groww Largecap Fund (formerly known as Indiabulls Blue Chip Fund) - Direct Plan - Growth Option,Groww Large Cap Fund,present_at_start_and_now
+119134,Groww Mutual Fund,Direct Plan,Groww Largecap Fund (formerly known as Indiabulls Bluechip Fund)- Direct Plan- - Income Distribution cum capital withdrawal Option (Payout & Reinvestment),Groww Large Cap Fund,present_at_start_and_now
+119159,Tata Mutual Fund,Direct Plan,Tata Large Cap Fund- Direct Plan - Payout of IDCW Option,Tata Large Cap Fund,present_at_start_and_now
 119160,Tata Mutual Fund,Direct Plan,Tata Large Cap Fund -Direct Plan Growth Option,Tata Large Cap Fund,present_at_start_and_now
+119249,DSP Mutual Fund,Direct Plan,DSP Large Cap Fund - Direct Plan - IDCW,DSP Large Cap Fund,present_at_start_and_now
 119250,DSP Mutual Fund,Direct Plan,DSP Large Cap Fund - Direct Plan - Growth,DSP Large Cap Fund,present_at_start_and_now
+119527,Aditya Birla Sun Life Mutual Fund,,Aditya Birla Sun Life Large Cap Fund-DIRECT - IDCW,Aditya Birla Sun Life Large Cap Fund,present_at_start_and_now
 119528,Aditya Birla Sun Life Mutual Fund,Direct Plan,Aditya Birla Sun Life Large Cap Fund - Growth - Direct Plan,Aditya Birla Sun Life Large Cap Fund,present_at_start_and_now
+119585,SBI Mutual Fund,Direct Plan,SBI Large Cap Fund - Direct Plan - Income Distribution cum Capital Withdrawal Option (IDCW),SBI Large Cap Fund,present_at_start_and_now
 119598,SBI Mutual Fund,Direct Plan,SBI Large Cap FUND-DIRECT PLAN -GROWTH,SBI Large Cap Fund,present_at_start_and_now
+120029,HSBC Mutual Fund,Direct Plan,HSBC Large Cap Fund - Direct IDCW,HSBC Large Cap Fund,present_at_start_and_now
 120030,HSBC Mutual Fund,Direct Plan,HSBC Large Cap Fund - Direct Growth,HSBC Large Cap Fund,present_at_start_and_now
 120152,Kotak Mahindra Mutual Fund,Direct Plan,Kotak Large Cap  Fund - Growth - Direct,Kotak Large Cap Fund,present_at_start_and_now
+120153,Kotak Mahindra Mutual Fund,Direct Plan,Kotak Large Cap Fund - Payout of Income Distribution cum capital withdrawal option - Direct,Kotak Large Cap Fund,present_at_start_and_now
 120267,LIC Mutual Fund,Direct Plan,LIC MF Large Cap Fund-Direct Plan-Growth,LIC MF Large Cap Fund,present_at_start_and_now
+120268,LIC Mutual Fund,Direct Plan,LIC MF Large Cap Fund-Direct Plan-IDCW,LIC MF Large Cap Fund,present_at_start_and_now
 120392,Invesco Mutual Fund,Direct Plan,Invesco India Large Cap Fund - Direct Plan - Growth,Invesco India Large Cap Fund,present_at_start_and_now
+120393,Invesco Mutual Fund,Direct Plan,Invesco India Large Cap Fund - Direct Plan - IDCW (Payout / Reinvestment),Invesco India Large Cap Fund,present_at_start_and_now
 120465,Axis Mutual Fund,Direct Plan,Axis Large Cap Fund - Direct Plan - Growth,Axis Large Cap Fund,present_at_start_and_now
+120466,Axis Mutual Fund,Direct Plan,Axis Large Cap Fund - Direct Plan - IDCW,Axis Large Cap Fund,present_at_start_and_now
+120489,JM Financial Mutual Fund,Direct Plan,JM Large Cap Fund (Direct) - IDCW,JM Large Cap Fund,present_at_start_and_now
 120490,JM Financial Mutual Fund,Direct Plan,JM Large Cap Fund (Direct) - Growth Option,JM Large Cap Fund,present_at_start_and_now
+120585,ICICI Prudential Mutual Fund,Direct Plan,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund)  - Direct Plan - IDCW,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),present_at_start_and_now
 120586,ICICI Prudential Mutual Fund,Direct Plan,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund) - Direct Plan - Growth,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),present_at_start_and_now
 120656,UTI Mutual Fund,Direct Plan,UTI Large Cap Fund - Direct Plan - Growth Option,UTI - Large Cap Fund,present_at_start_and_now
+120657,UTI Mutual Fund,Direct Plan,UTI Large Cap Fund - Direct Plan - IDCW,UTI - Large Cap Fund,present_at_start_and_now
+134954,JM Financial Mutual Fund,Regular Plan,JM Large Cap Fund (Regular) - Quarterly IDCW,JM Large Cap Fund,present_at_start_and_now
+134955,JM Financial Mutual Fund,Regular Plan,JM Large Cap Fund (Regular) - Half Yearly IDCW,JM Large Cap Fund,present_at_start_and_now
+134956,JM Financial Mutual Fund,Direct Plan,JM Large Cap Fund (Direct) - Monthly IDCW,JM Large Cap Fund,present_at_start_and_now
+134957,JM Financial Mutual Fund,Direct Plan,JM Large Cap Fund (Direct) - Half Yearly IDCW,JM Large Cap Fund,present_at_start_and_now
+134958,JM Financial Mutual Fund,Direct Plan,JM Large Cap Fund (Direct) - Annual IDCW,JM Large Cap Fund,present_at_start_and_now
+134959,JM Financial Mutual Fund,Regular Plan,JM Large Cap Fund (Regular) - Monthly IDCW,JM Large Cap Fund,present_at_start_and_now
+134960,JM Financial Mutual Fund,Direct Plan,JM Large Cap Fund (Direct) - Quarterly IDCW,JM Large Cap Fund,present_at_start_and_now
+134961,JM Financial Mutual Fund,Regular Plan,JM Large Cap Fund (Regular) - Annual IDCW,JM Large Cap Fund,present_at_start_and_now
+138307,PGIM India Mutual Fund,Regular Plan,PGIM India Large Cap Fund - Dividend,PGIM India Large Cap Fund,present_at_start_and_now
 138308,PGIM India Mutual Fund,Regular Plan,PGIM India Large Cap Fund - Growth,PGIM India Large Cap Fund,present_at_start_and_now
+138309,PGIM India Mutual Fund,,,PGIM India Large Cap Fund,not_large_cap_at_window_start
+138310,PGIM India Mutual Fund,,,PGIM India Large Cap Fund,not_large_cap_at_window_start
+138311,PGIM India Mutual Fund,,,PGIM India Large Cap Fund,not_large_cap_at_window_start
 138312,PGIM India Mutual Fund,Direct Plan,PGIM India Large Cap Fund - Direct Plan - Growth,PGIM India Large Cap Fund,present_at_start_and_now
+138313,PGIM India Mutual Fund,Direct Plan,PGIM India Large Cap Fund - Direct Plan - Dividend,PGIM India Large Cap Fund,present_at_start_and_now
+138314,PGIM India Mutual Fund,,,PGIM India Large Cap Fund,not_large_cap_at_window_start
+140809,Groww Mutual Fund,Direct Plan,Groww Largecap Fund (formerly known as Indiabulls Bluechip Fund)- Direct Plan- Monthly - Income Distribution cum capital withdrawal Option (Payout & Reinvestment),Groww Large Cap Fund,present_at_start_and_now
+140810,Groww Mutual Fund,Regular Plan,Groww Largecap Fund (formerly known as Indiabulls Bluechip Fund)- Regular Plan- Monthly - Income Distribution cum capital withdrawal Option (Payout & Reinvestment),Groww Large Cap Fund,present_at_start_and_now
+140811,Groww Mutual Fund,Direct Plan,Groww Largecap Fund (formerly known as Indiabulls Bluechip Fund)- Direct Plan- Quarterly - Income Distribution cum capital withdrawal Option (Payout & Reinvestment),Groww Large Cap Fund,present_at_start_and_now
+140812,Groww Mutual Fund,Regular Plan,Groww Largecap Fund (formerly known as Indiabulls Bluechip Fund)- Regular Plan- Quarterly - Income Distribution cum capital withdrawal Option (Payout & Reinvestment),Groww Large Cap Fund,present_at_start_and_now
+140813,Groww Mutual Fund,Regular Plan,Groww Largecap Fund (formerly known as Indiabulls Bluechip Fund)- Regular Plan- Half Yearly - Income Distribution cum capital withdrawal Option (Payout & Reinvestment),Groww Large Cap Fund,present_at_start_and_now
+140814,Groww Mutual Fund,Direct Plan,Groww Largecap Fund (formerly known as Indiabulls Bluechip Fund)- Direct Plan- Half Yearly -Income Distribution cum capital withdrawal Option (Payout & Reinvestment),Groww Large Cap Fund,present_at_start_and_now
 141247,Union Mutual Fund,Regular Plan,Union Largecap Fund - Regular Plan - Growth Option,Union Largecap Fund,present_at_start_and_now
 141248,Union Mutual Fund,Direct Plan,Union Largecap Fund - Direct Plan - Growth Option,Union Largecap Fund,present_at_start_and_now
+141249,Union Mutual Fund,Direct Plan,Union Largecap Fund - Direct Plan - IDCW Option,Union Largecap Fund,present_at_start_and_now
+141250,Union Mutual Fund,Regular Plan,Union Largecap Fund - Regular Plan - IDCW Option,Union Largecap Fund,present_at_start_and_now
+146548,Mahindra Manulife Mutual Fund,Regular Plan,Mahindra Manulife Large Cap Fund - Regular Plan - IDCW,Mahindra Manulife Large Cap Fund,present_at_start_and_now
 146549,Mahindra Manulife Mutual Fund,Direct Plan,Mahindra Manulife Large Cap Fund - Direct Plan -Growth,Mahindra Manulife Large Cap Fund,present_at_start_and_now
+146550,Mahindra Manulife Mutual Fund,Direct Plan,Mahindra Manulife Large Cap Fund - Direct Plan - IDCW,Mahindra Manulife Large Cap Fund,present_at_start_and_now
 146551,Mahindra Manulife Mutual Fund,Regular Plan,Mahindra Manulife Large Cap Fund - Regular Plan - Growth,Mahindra Manulife Large Cap Fund,present_at_start_and_now
 148351,ITI Mutual Fund,Regular Plan,ITI Large Cap Fund - Regular Plan - Growth Option,ITI Large Cap Fund,present_at_start_and_now
+148352,ITI Mutual Fund,Direct Plan,ITI Large Cap Fund - Direct Plan - IDCW Option,ITI Large Cap Fund,present_at_start_and_now
 148353,ITI Mutual Fund,Direct Plan,ITI Large Cap Fund - Direct Plan - Growth Option,ITI Large Cap Fund,present_at_start_and_now
+148354,ITI Mutual Fund,Regular Plan,ITI Large Cap Fund - Regular Plan - IDCW Option,ITI Large Cap Fund,present_at_start_and_now
 148504,Sundaram Mutual Fund,Regular Plan,Sundaram Large Cap Fund(Formerly Known as Sundaram Blue Chip Fund) Regular Plan - Growth,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),present_at_start_and_now
+148505,Sundaram Mutual Fund,Regular Plan,Sundaram Large Cap Fund (Formerly Known as Sundaram Blue Chip Fund)  Regular Plan - Payout of Income Distribution cum Capital Withdrawal (IDCW),Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),present_at_start_and_now
+148506,Sundaram Mutual Fund,Regular Plan,Sundaram Large Cap Fund (Formerly Known as Sundaram Blue Chip Fund) Regular Plan - Reinvestment of Income Distribution cum Capital Withdrawal (IDCW),Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),present_at_start_and_now
 148507,Sundaram Mutual Fund,Direct Plan,Sundaram Large Cap Fund (Formerly Known as Sundaram Blue Chip Fund)Direct Plan - Growth,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),present_at_start_and_now
+148508,Sundaram Mutual Fund,Direct Plan,Sundaram Large Cap Fund (Formerly Known as Sundaram Blue Chip Fund) Direct Plan - Payout of Income Distribution cum Capital Withdrawal (IDCW),Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),present_at_start_and_now
+148509,Sundaram Mutual Fund,Direct Plan,Sundaram Large Cap Fund (Formerly Known as Sundaram Blue Chip  Fund)  Direct Plan - Reinvestment of Income Distribution cum Capital Withdrawal (IDCW),Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),present_at_start_and_now
 148980,Bank of India Mutual Fund,Direct Plan,BANK OF INDIA Large Cap Fund Direct Plan Growth,BANK OF INDIA LARGE CAP FUND,present_at_start_and_now
+148981,Bank of India Mutual Fund,Direct Plan,BANK OF INDIA Large Cap Fund Direct Plan IDCW,BANK OF INDIA LARGE CAP FUND,present_at_start_and_now
 148982,Bank of India Mutual Fund,Regular Plan,BANK OF INDIA Large Cap Fund Regular Plan Growth,BANK OF INDIA LARGE CAP FUND,present_at_start_and_now
+148983,Bank of India Mutual Fund,Regular Plan,BANK OF INDIA Large Cap Fund Regular Plan IDCW,BANK OF INDIA LARGE CAP FUND,present_at_start_and_now
 150185,Baroda BNP Paribas Mutual Fund,Regular Plan,BARODA BNP PARIBAS LARGE CAP Fund- Regular Plan - Growth Option,BARODA BNP PARIBAS LARGE CAP FUND,present_at_start_and_now
+150186,Baroda BNP Paribas Mutual Fund,Regular Plan,BARODA BNP PARIBAS LARGE CAP Fund - Regular Plan - IDCW Option,BARODA BNP PARIBAS LARGE CAP FUND,present_at_start_and_now
 150187,Baroda BNP Paribas Mutual Fund,Direct Plan,BARODA BNP PARIBAS LARGE CAP Fund - Direct Plan - Growth Option,BARODA BNP PARIBAS LARGE CAP FUND,present_at_start_and_now
+150188,Baroda BNP Paribas Mutual Fund,Direct Plan,BARODA BNP PARIBAS LARGE CAP Fund - Direct Plan - IDCW Option,BARODA BNP PARIBAS LARGE CAP FUND,present_at_start_and_now
+150439,quant Mutual Fund,Direct Plan,quant Large Cap Fund - IDCW Option - Direct Plan,quant Large Cap Fund,present_at_start_and_now
 150440,quant Mutual Fund,Direct Plan,quant Large Cap Fund - Growth Option - Direct Plan,quant Large Cap Fund,present_at_start_and_now
 150441,quant Mutual Fund,Regular Plan,quant Large Cap Fund - Growth Option - Regular Plan,quant Large Cap Fund,present_at_start_and_now
+150442,quant Mutual Fund,Regular Plan,quant Large Cap Fund - IDCW Option - Regular Plan,quant Large Cap Fund,present_at_start_and_now
 150797,WhiteOak Capital Mutual Fund,Direct Plan,WhiteOak Capital Large Cap Fund Direct Plan Growth,WhiteOak Capital Large Cap Fund,present_at_start_and_now
+150798,WhiteOak Capital Mutual Fund,Direct Plan,WhiteOak Capital Large Cap Fund Direct Plan IDCW,WhiteOak Capital Large Cap Fund,present_at_start_and_now
 150799,WhiteOak Capital Mutual Fund,Regular Plan,WhiteOak Capital Large Cap Fund Regular Plan Growth,WhiteOak Capital Large Cap Fund,present_at_start_and_now
+150800,WhiteOak Capital Mutual Fund,Regular Plan,WhiteOak Capital Large Cap Fund Regular Plan IDCW,WhiteOak Capital Large Cap Fund,present_at_start_and_now
+152351,Motilal Oswal Mutual Fund,,Motilal Oswal Large Cap Direct Plan IDCW,Motilal Oswal Large Cap Fund,present_at_start_and_now
+152352,Motilal Oswal Mutual Fund,,Motilal Oswal Large Cap Regular Plan Growth,Motilal Oswal Large Cap Fund,present_at_start_and_now
+152353,Motilal Oswal Mutual Fund,,Motilal Oswal Large Cap Regular Plan IDCW,Motilal Oswal Large Cap Fund,present_at_start_and_now
+152354,Motilal Oswal Mutual Fund,,Motilal Oswal Large Cap Direct Plan Growth,Motilal Oswal Large Cap Fund,present_at_start_and_now
 152780,Bajaj Finserv Mutual Fund,Regular Plan,BAJAJ FINSERV LARGE CAP FUND - REGULAR PLAN - GROWTH,BAJAJ FINSERV LARGE CAP FUND,present_at_start_and_now
+152781,Bajaj Finserv Mutual Fund,Direct Plan,BAJAJ FINSERV LARGE CAP FUND - DIRECT PLAN - IDCW,BAJAJ FINSERV LARGE CAP FUND,present_at_start_and_now
+152782,Bajaj Finserv Mutual Fund,Regular Plan,BAJAJ FINSERV LARGE CAP FUND - REGULAR PLAN - IDCW,BAJAJ FINSERV LARGE CAP FUND,present_at_start_and_now
 152783,Bajaj Finserv Mutual Fund,Direct Plan,BAJAJ FINSERV LARGE CAP FUND - DIRECT PLAN - GROWTH,BAJAJ FINSERV LARGE CAP FUND,present_at_start_and_now
 153238,Samco Mutual Fund,Regular Plan,,Samco Large Cap Fund,not_large_cap_at_window_start
 153239,Samco Mutual Fund,Direct Plan,,Samco Large Cap Fund,not_large_cap_at_window_start
+154153,PPFAS Mutual Fund,Regular Plan,,Parag Parikh Large Cap Fund,not_large_cap_at_window_start
 154154,PPFAS Mutual Fund,Regular Plan,,Parag Parikh Large Cap Fund,not_large_cap_at_window_start
 154155,PPFAS Mutual Fund,Direct Plan,,Parag Parikh Large Cap Fund,not_large_cap_at_window_start
+154156,PPFAS Mutual Fund,Direct Plan,,Parag Parikh Large Cap Fund,not_large_cap_at_window_start
 154307,Jio BlackRock Mutual Fund,Direct Plan,,JioBlackRock Large Cap Fund,not_large_cap_at_window_start
 154632,Jio BlackRock Mutual Fund,Regular Plan,,JioBlackRock Large Cap Fund,not_large_cap_at_window_start

@@ -137,3 +137,27 @@ def test_stale_nav_in_selected_scheme_stops_universe(navall):
     stale.loc[stale.scheme_code == 120465, "nav_date"] = date(2026, 8, 1)
     with pytest.raises(FormatChangedError, match="stale NAV"):
         build_scheme_map(stale, "x")
+
+
+# ---- D-022: blank Plan/Option in NAVAll (real Motilal Oswal rows, verbatim) ----------
+def test_blank_plan_resolved_from_history_name():
+    now = parse_amfi_text((FX / "navall_motilal_excerpt.txt").read_text(encoding="utf-8"), "navall")
+    then = parse_amfi_text((FX / "history_motilal_excerpt.txt").read_text(encoding="utf-8"), "history")
+    assert now.loc[now.scheme_code == 152354, "plan"].iloc[0] == ""        # the defect in the source
+    sm = build_scheme_map(now, "x", then).set_index("fund_id")
+    assert "motilal_oswal_lc" in sm.index                                  # previously dropped silently
+    assert sm.loc["motilal_oswal_lc", ["direct_code", "regular_code"]].tolist() == [152354, 152352]
+    assert "motilal_oswal_lm" not in sm.index                              # Large & Mid Cap stays out
+
+
+def test_blank_plan_without_history_is_not_guessed():
+    now = parse_amfi_text((FX / "navall_motilal_excerpt.txt").read_text(encoding="utf-8"), "navall")
+    sm = build_scheme_map(now, "x", None)
+    assert "motilal_oswal_lc" not in set(sm.fund_id)
+
+
+def test_survivorship_counts_blank_option_growth_rows():
+    now = parse_amfi_text((FX / "navall_motilal_excerpt.txt").read_text(encoding="utf-8"), "navall")
+    then = parse_amfi_text((FX / "history_motilal_excerpt.txt").read_text(encoding="utf-8"), "history")
+    ev = survivorship_events(then, now).set_index("scheme_code")
+    assert ev.loc[152354, "event"] == "present_at_start_and_now"
