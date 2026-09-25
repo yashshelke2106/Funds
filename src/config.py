@@ -26,6 +26,9 @@ DOCS = ROOT / "docs"
 # Holdings window: 24 complete calendar months of portfolio disclosures.
 WINDOW_START = date(2024, 9, 1)
 WINDOW_END = date(2026, 8, 31)
+# Portfolio disclosures are ingested only for the last 12 months (D-011).
+# NAV-based metrics (TE, returns, IR) still use the full 24-month window.
+HOLDINGS_START = date(2025, 9, 1)
 # NAV history starts 12 months earlier so rolling-12m tracking error is
 # defined for every month of the holdings window (D-004).
 NAV_START = date(2023, 9, 1)

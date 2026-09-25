@@ -98,6 +98,13 @@ def eligibility(scheme_map: pd.DataFrame, nav: pd.DataFrame, metas: dict[int, di
         if not (rec["direct_isin_match"] and rec["regular_isin_match"]):
             reasons.append("isin_mismatch_amfi_vs_mfapi")
         rec["exclusion_reason"] = ";".join(reasons) or None
+        # D-012: funds without the 12m pre-window lookback are reported separately
+        if not rec["eligible"]:
+            rec["report_group"] = "excluded"
+        elif rec["covers_rolling_lookback"]:
+            rec["report_group"] = "main"
+        else:
+            rec["report_group"] = "partial_history"
         rows.append(rec)
     return pd.DataFrame(rows)
 
@@ -130,6 +137,9 @@ def run(refresh: bool = False) -> Path:
     print(f"eligible funds: active={int(uni[(uni.role == 'active')].eligible.sum())}"
           f"/{int((uni.role == 'active').sum())}, index={int(uni[(uni.role == 'index')].eligible.sum())}"
           f"/{int((uni.role == 'index').sum())}")
+    print("report groups (active):", uni[uni.role == "active"].report_group.value_counts().to_dict())
+    for _, r in uni[uni.report_group == "partial_history"].iterrows():
+        print(f"  partial_history: {r.fund_id} (no 12m lookback before {config.WINDOW_START})")
     ex = uni[~uni["eligible"]]
     for _, r in ex.iterrows():
         print(f"  excluded: {r.fund_id}: {r.exclusion_reason}")

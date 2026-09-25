@@ -33,7 +33,8 @@ docs/              download_checklist.md, interview_defense.md (P7)
 
 - **Universe:** every AMFI "Large Cap Fund" scheme with Direct and Regular Growth plans (34 today),
   derived from AMFI, not hand-picked. Funds whose NAV history doesn't cover the window are excluded and listed.
-- **Window:** holdings Sep-2024 … Aug-2026; NAVs from Sep-2023 for the rolling 12-month tracking error.
+- **Window:** NAV metrics Sep-2024 … Aug-2026 (NAVs from Sep-2023 for rolling 12-month tracking error); holdings Sep-2025 … Aug-2026 (D-011).
+- **Separate report:** eligible funds without the 12-month lookback (Bajaj Finserv) are reported apart from the main ranking (D-012).
 - **Survivorship:** scheme codes in AMFI's 02-Sep-2024 snapshot compared with today's.
 - **Look-ahead:** month M's holdings count as known only from day 11 of month M+1.
 

@@ -10,7 +10,7 @@ because AMCs publish portfolios on their own websites in their own formats.
 
 - **Which AMCs:** every AMC with an eligible fund in `data/reference/universe.csv`, plus the AMC of the
   chosen benchmark-weight index fund (Axis / Bandhan / HDFC Nifty 100; see DECISIONS D-010).
-- **Months:** Sep-2024 … Aug-2026 (24 files per AMC).
+- **Months:** Sep-2025 … Aug-2026 (12 files per AMC; see DECISIONS D-011).
 - **Where:** the AMC's own "Statutory disclosures → Monthly portfolio" page. Download the
   **month-end** portfolio, not the fortnightly one.
 - **Save as:** `data/raw/portfolios/<amc_slug>/<YYYY-MM>__<original filename>`.

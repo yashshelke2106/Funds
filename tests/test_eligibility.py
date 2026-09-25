@@ -30,6 +30,8 @@ def test_old_fund_eligible_young_fund_excluded():
     assert bool(u.loc["old_lc", "eligible"]) and bool(u.loc["old_lc", "covers_rolling_lookback"])
     assert not bool(u.loc["young_lc", "eligible"])
     assert u.loc["young_lc", "exclusion_reason"] == "nav_history_shorter_than_window"
+    assert u.loc["old_lc", "report_group"] == "main"
+    assert u.loc["young_lc", "report_group"] == "excluded"
 
 
 def test_isin_mismatch_excludes():
@@ -46,3 +48,10 @@ def test_window_start_boundary_inclusive():
     u = eligibility(SM.iloc[:1], nav, _metas({1: "INF1", 2: "INF2"})).set_index("fund_id")
     assert bool(u.loc["old_lc", "covers_holdings_window"])
     assert not bool(u.loc["old_lc", "covers_rolling_lookback"])
+    assert u.loc["old_lc", "report_group"] == "partial_history"   # the Bajaj Finserv case
+
+
+def test_checklist_covers_12_holdings_months():
+    from src.ingest.checklist import months
+    m = months()
+    assert len(m) == 12 and m[0] == "2025-09" and m[-1] == "2026-08"

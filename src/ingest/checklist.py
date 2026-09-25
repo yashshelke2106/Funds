@@ -17,7 +17,7 @@ from src import config
 from src.ingest.universe import slugify
 
 
-def months(start=config.WINDOW_START, end=config.WINDOW_END) -> list[str]:
+def months(start=config.HOLDINGS_START, end=config.WINDOW_END) -> list[str]:
     return [p.strftime("%Y-%m") for p in pd.period_range(start, end, freq="M")]
 
 
