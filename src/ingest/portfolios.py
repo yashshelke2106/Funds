@@ -199,6 +199,15 @@ def run() -> Path:
         log.append(f"ISIN changes detected: {len(changes)} ({int(changes.accepted.sum())} accepted) -> data/reference/isin_changes.csv")
     (config.QUALITY / "portfolio_parse_log.txt").write_text("\n".join(log) + "\n", encoding="utf-8")
     print(f"portfolios: {len(meta)} fund-months, {len(h):,} holding rows -> data/interim/holdings.parquet")
+    # sheets of non-study schemes in AMC-wide workbooks are expected; summarise, keep detail in the log file
+    ignored = [l for l in log if "no study scheme in title rows" in l or "skipped by parser config" in l]
+    per_file: dict[str, int] = {}
+    for l in ignored:
+        per_file[l.split("[")[0]] = per_file.get(l.split("[")[0], 0) + 1
+    if ignored:
+        print(f"  {len(ignored)} non-study sheets ignored across {len(per_file)} files "
+              "(detail: data/quality/portfolio_parse_log.txt)")
     for line in log:
-        print("  " + line)
+        if line not in ignored:
+            print("  " + line)
     return config.INTERIM / "holdings.parquet"
