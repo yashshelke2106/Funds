@@ -13,7 +13,7 @@ import sys
 
 from src import config
 
-STEPS = ["universe", "nav", "benchmark", "portfolios", "quality", "checklist", "test"]
+STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "checklist", "test"]
 
 
 def step_universe(offline: bool) -> int:
@@ -48,9 +48,19 @@ def step_portfolios(offline: bool) -> int:
     return 0
 
 
+def step_ter(offline: bool) -> int:
+    from src.ingest import ter
+    if not any(config.RAW_TER.rglob("*.xlsx")):
+        print("no TER files yet - skipped")
+        return 0
+    ter.run()
+    return 0
+
+
 def step_quality(offline: bool) -> int:
-    from src.quality import holdings_checks, nav_checks
+    from src.quality import holdings_checks, nav_checks, nav_crosscheck
     rc = nav_checks.run()
+    rc = max(rc, nav_crosscheck.run())
     if (config.INTERIM / "holdings.parquet").exists():
         rc = max(rc, holdings_checks.run())
     return rc

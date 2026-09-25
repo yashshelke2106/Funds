@@ -39,11 +39,19 @@ def build(universe: pd.DataFrame) -> pd.DataFrame:
                              expected_path=f"data/raw/portfolios/{slug}/<original filename>",
                              status="present" if present else "missing"))
     ter_present = config.RAW_TER.exists() and any(config.RAW_TER.iterdir())
-    rows.append(dict(source="ter", amc="AMFI", amc_slug="amfi", month=f"{months()[0]}..{months()[-1]}",
-                     schemes="all eligible direct+regular plans + index funds",
-                     expected_path="data/raw/ter/",
-                     # files on disk != coverage: AMFI exports can silently omit funds (D-023)
-                     status="files_present_coverage_unchecked" if ter_present else "missing"))
+    cov_path = config.QUALITY / "ter_coverage.csv"
+    if cov_path.exists():   # per fund x month status from the TER parser (D-023)
+        cov = pd.read_csv(cov_path)
+        for (f, m), g in cov.groupby(["fund_id", "month"]):
+            st = "present" if (g.status == "complete").all() else ("missing" if (g.status == "missing").all() else "partial")
+            rows.append(dict(source="ter", amc=f, amc_slug=f, month=m, schemes="regular+direct",
+                             expected_path="data/raw/ter/", status=st))
+        ter_present = None
+    if ter_present is not None:   # no parsed coverage yet: say only that files exist
+        rows.append(dict(source="ter", amc="AMFI", amc_slug="amfi", month=f"{months()[0]}..{months()[-1]}",
+                         schemes="all eligible direct+regular plans + index funds",
+                         expected_path="data/raw/ter/",
+                         status="files_present_coverage_unchecked" if ter_present else "missing"))
     bm_present = config.RAW_BENCHMARK.exists() and any(config.RAW_BENCHMARK.iterdir())
     rows.append(dict(source="benchmark_tri", amc="NSE Indices", amc_slug="nse", month=
                      f"{config.NAV_START:%Y-%m}..{months()[-1]}", schemes="Nifty 100 TRI (daily)",
