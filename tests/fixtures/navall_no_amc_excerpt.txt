@@ -1,0 +1,5 @@
+Scheme Code;ISIN Div Payout/ ISIN Growth;ISIN Div Reinvestment;Scheme Name;Plan;Option;Net Asset Value;Date
+ 
+Open Ended Schemes(Debt Scheme - Medium Duration Fund)
+118554;INF090I01JI9;-;Franklin India Income Opportunities Fund (no. of segregated portfolios- 2);;;26.5759;12-Dec-2021
+118555;INF090I01JG3;INF090I01JH1;Franklin India Income Opportunities Fund (no. of segregated portfolios- 2);;;12.4807;12-Dec-2021

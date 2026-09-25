@@ -1,0 +1,54 @@
+{
+ "meta": {
+  "fund_house": "Mirae Asset Mutual Fund",
+  "scheme_type": "Open Ended Schemes",
+  "scheme_category": "Equity Schemes - Large Cap Fund",
+  "scheme_code": 118825,
+  "scheme_name": "Mirae Asset Large Cap Fund - Direct Plan - Growth",
+  "isin_growth": "INF769K01AX2",
+  "isin_div_reinvestment": null
+ },
+ "data": [
+  {
+   "date": "24-09-2026",
+   "nav": "123.10900"
+  },
+  {
+   "date": "23-09-2026",
+   "nav": "125.24800"
+  },
+  {
+   "date": "22-09-2026",
+   "nav": "124.63500"
+  },
+  {
+   "date": "21-09-2026",
+   "nav": "124.96400"
+  },
+  {
+   "date": "18-09-2026",
+   "nav": "124.85100"
+  },
+  {
+   "date": "08-01-2013",
+   "nav": "18.95400"
+  },
+  {
+   "date": "07-01-2013",
+   "nav": "18.95000"
+  },
+  {
+   "date": "04-01-2013",
+   "nav": "19.00800"
+  },
+  {
+   "date": "03-01-2013",
+   "nav": "19.01100"
+  },
+  {
+   "date": "02-01-2013",
+   "nav": "18.97200"
+  }
+ ],
+ "status": "SUCCESS"
+}

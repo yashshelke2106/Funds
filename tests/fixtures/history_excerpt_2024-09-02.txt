@@ -1,0 +1,29 @@
+Scheme Code;NAV Name;Plan;Option;ISIN Div Payout/ISIN Growth;ISIN Div Reinvestment;Net Asset Value;Date
+
+Open Ended Schemes ( Money Market )
+
+
+Taurus Mutual Fund
+139619;Taurus Investor Education Pool - Unclaimed Dividend - Growth;;;;;10.0000;02-Sep-2024
+139618;Taurus Investor Education Pool - Unclaimed Redemption - Growth;;Growth;;;10.0000;02-Sep-2024
+139616;Taurus Unclaimed Dividend - Growth;;;;;16.2118;02-Sep-2024
+139617;Taurus Unclaimed Redemption - Growth;;Growth;;;16.2124;02-Sep-2024
+
+
+Open Ended Schemes ( Equity Scheme - Large Cap Fund )
+
+
+Aditya Birla Sun Life Mutual Fund
+119528;Aditya Birla Sun Life Large Cap Fund - Growth - Direct Plan;Direct Plan;GROWTH;INF209K01YY7;;583.33;02-Sep-2024
+119527;Aditya Birla Sun Life Large Cap Fund-DIRECT - IDCW;;;INF209K01YX9;INF209K01YW1;107.39;02-Sep-2024
+103174;Aditya Birla Sun Life Large Cap Fund-Growth;Regular Plan;GROWTH;INF209K01BR9;;530.91;02-Sep-2024
+103173;Aditya Birla Sun Life Large Cap Fund-Regular - IDCW;Regular Plan;IDCW;INF209K01BO6;INF209K01EC5;45.23;02-Sep-2024
+
+Open Ended Schemes ( Equity Schemes - Large Cap Fund )
+
+
+Axis Mutual Fund
+120465;Axis Large Cap Fund - Direct Plan - Growth;Direct Plan;Growth Option;INF846K01DP8;;70.07;02-Sep-2024
+120466;Axis Large Cap Fund - Direct Plan - IDCW;Direct Plan;IDCW Option;INF846K01DN3;INF846K01DO1;28.85;02-Sep-2024
+112277;Axis Large Cap Fund - Regular Plan - Growth;Regular Plan;Growth Option;INF846K01164;;61.39;02-Sep-2024
+112278;Axis Large Cap Fund - Regular Plan - IDCW;Regular Plan;IDCW Option;INF846K01172;INF846K01180;20.43;02-Sep-2024

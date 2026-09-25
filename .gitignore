@@ -1,0 +1,10 @@
+data/raw/
+data/interim/
+data/quality/
+*.duckdb
+*.duckdb.wal
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+.DS_Store

@@ -1,0 +1,50 @@
+Scheme Code;ISIN Div Payout/ ISIN Growth;ISIN Div Reinvestment;Scheme Name;Plan;Option;Net Asset Value;Date
+
+Open Ended Schemes(Equity Scheme - Large Cap Fund)
+
+Aditya Birla Sun Life Mutual Fund
+
+119528;INF209K01YY7;-;Aditya Birla Sun Life Large Cap Fund;Direct Plan;GROWTH;558.33;24-Sep-2026
+119527;INF209K01YX9;INF209K01YW1;Aditya Birla Sun Life Large Cap Fund;;;89.80;24-Sep-2026
+103174;INF209K01BR9;-;Aditya Birla Sun Life Large Cap Fund;Regular Plan;GROWTH;501.34;24-Sep-2026
+103173;INF209K01BO6;INF209K01EC5;Aditya Birla Sun Life Large Cap Fund;Regular Plan;IDCW;37.31;24-Sep-2026
+Samco Mutual Fund
+
+153239;INF0K1H01255;-;Samco Large Cap Fund;Direct Plan;Growth;8.88;24-Sep-2026
+153238;INF0K1H01263;-;Samco Large Cap Fund;Regular Plan;Growth;8.66;24-Sep-2026
+
+Open Ended Schemes(Equity Schemes - Large Cap Fund)
+
+Axis Mutual Fund
+
+120465;INF846K01DP8;-;Axis Large Cap Fund;Direct Plan;Growth Option;67.63;24-Sep-2026
+120466;INF846K01DN3;INF846K01DO1;Axis Large Cap Fund;Direct Plan;IDCW Option;24.50;24-Sep-2026
+112277;INF846K01164;-;Axis Large Cap Fund;Regular Plan;Growth Option;58.21;24-Sep-2026
+112278;INF846K01172;INF846K01180;Axis Large Cap Fund;Regular Plan;IDCW Option;17.04;24-Sep-2026
+
+Open Ended Schemes(Equity Schemes - Multi Cap Fund)
+
+Axis Mutual Fund
+
+149383;INF846K013E0;-;Axis Multicap Fund;Direct Plan;Growth Option;20.74;24-Sep-2026
+149384;INF846K014E8;INF846K015E5;Axis Multicap Fund;Direct Plan;IDCW Option;19.73;24-Sep-2026
+149382;INF846K016E3;-;Axis Multicap Fund;Regular Plan;Growth Option;19.54;24-Sep-2026
+149387;INF846K017E1;INF846K018E9;Axis Multicap Fund;Regular Plan;IDCW Option;18.60;24-Sep-2026
+
+Open Ended Schemes(Index Funds - Equity Funds)
+
+Axis Mutual Fund
+
+149373;INF846K013D2;-;Axis Nifty 50 Index Fund;Direct Plan;Growth Option;14.0364;24-Sep-2026
+149374;INF846K014D0;INF846K015D7;Axis Nifty 50 Index Fund;Direct Plan;IDCW Option;13.3133;24-Sep-2026
+149371;INF846K016D5;-;Axis Nifty 50 Index Fund;Regular Plan;Growth Option;13.8406;24-Sep-2026
+149372;INF846K017D3;INF846K018D1;Axis Nifty 50 Index Fund;Regular Plan;IDCW Option;13.1285;24-Sep-2026
+
+Open Ended Schemes(Other Scheme - Index Funds)
+
+Axis Mutual Fund
+
+147666;INF846K01S29;-;Axis Nifty 100 Index Fund;Direct Plan;Growth Option;21.7286;24-Sep-2026
+147668;INF846K01S37;INF846K01S45;Axis Nifty 100 Index Fund;Direct Plan;IDCW Option;20.6428;24-Sep-2026
+147665;INF846K01S52;-;Axis Nifty 100 Index Fund;Regular Plan;Growth Option;20.6091;24-Sep-2026
+147667;INF846K01S60;INF846K01S78;Axis Nifty 100 Index Fund;Regular Plan;IDCW Option;19.5475;24-Sep-2026
