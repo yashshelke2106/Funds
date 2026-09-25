@@ -37,6 +37,12 @@ def check_holdings(h: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, p
     bad_ck = h[h.isin_raw.notna() & ~h.isin_checksum_ok.astype(bool)]
     for _, r in bad_ck.iterrows():
         _issue(issues, r, "isin_checksum_failed", "flag", r.weight_nav, f"isin_raw={r.isin_raw}", None, r.instrument_name)
+    # Indian ISIN chars 8-9 = security type; '01' = equity shares. Others in an equity block
+    # (e.g. TVS Motor preference shares INE494B04019 inside Bandhan's equity section) are flagged.
+    ind = eq[eq["isin"].fillna("").str.match(r"^INE")]
+    for _, r in ind[ind["isin"].str[7:9] != "01"].iterrows():
+        _issue(issues, r, "non_ordinary_equity_isin", "flag", r.weight_nav,
+               f"security type {r['isin'][7:9]}", r["isin"], r.instrument_name)
     for _, r in eq[eq["isin"].notna() & ~eq["isin"].fillna("").str.startswith("IN")].iterrows():
         _issue(issues, r, "foreign_equity_isin", "flag", r.weight_nav, "non-Indian ISIN in equity section", r["isin"], r.instrument_name)
     w = h[h.weight_reported.notna()]

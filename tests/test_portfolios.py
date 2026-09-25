@@ -190,3 +190,8 @@ def test_isin_change_detected_for_corporate_action():
 def test_resolve_equity_total(totals, header, expected):
     from src.ingest.portfolio_common import resolve_equity_total
     assert resolve_equity_total(totals, header) == pytest.approx(expected)
+
+
+def test_name_key_strips_month_name_expiry():
+    assert name_key("Amber Enterprises India Limited October 2025 Future") == "amber enterprises india"
+    assert name_key("NIFTY April 2026 Future") == "nifty"

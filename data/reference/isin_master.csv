@@ -1,211 +1,225 @@
 isin,name_key,instrument_name,first_month,last_month,n_sources
-INE002A01018,reliance industries,Reliance Industries Limited,2025-09,2026-08,17
-INE003A01024,siemens,Siemens Limited,2026-08,2026-08,2
-INE009A01021,infosys,Infosys Limited,2025-09,2026-08,17
+INE002A01018,reliance industries,Reliance Industries Limited,2025-09,2026-08,39
+INE003A01024,siemens,Siemens Limited,2025-09,2026-08,13
+INE009A01021,infosys,Infosys Limited,2025-09,2026-08,39
 INE00GO01025,leap india private,Leap India Private Limited,2026-08,2026-08,1
 INE00H001014,swiggy,Swiggy Limited,2025-12,2026-08,3
 INE00IT01020,milky mist dairy food,Milky Mist Dairy Food Limited,2026-08,2026-08,1
-INE00LO01017,craftsman automation,Craftsman Automation Limited,2026-08,2026-08,1
+INE00LO01017,craftsman automation,Craftsman Automation Limited,2025-09,2026-08,12
 INE00Y201027,flair writing industries,Flair Writing Industries Limited,2025-09,2026-08,12
-INE010B01027,zydus lifesciences,Zydus Lifesciences Limited,2026-08,2026-08,2
+INE010B01027,zydus lifesciences,Zydus Lifesciences Limited,2025-09,2026-08,13
 INE016A01026,dabur india,Dabur India Ltd.,2026-08,2026-08,1
-INE018A01030,larsen and toubro,Larsen & Toubro Limited,2025-09,2026-08,17
-INE019A01038,jsw steel,JSW Steel Limited,2025-09,2026-08,15
-INE01EA01019,vishal mega mart,Vishal Mega Mart Limited,2026-08,2026-08,2
+INE018A01030,larsen and toubro,Larsen & Toubro Limited,2025-09,2026-08,39
+INE019A01038,jsw steel,JSW Steel Limited,2025-09,2026-08,37
+INE01EA01019,vishal mega mart,Vishal Mega Mart Limited,2026-03,2026-08,7
 INE01NH01023,dhoot transmission,Dhoot Transmission Ltd,2026-08,2026-08,2
-INE01TY01017,canara hsbc life insurance company,Canara HSBC Life Insurance company Ltd,2025-10,2026-08,4
-INE020B01018,rec,REC Limited,2025-09,2026-08,5
-INE021A01026,asian paints,Asian Paints Limited,2025-09,2026-08,16
-INE027H01010,max healthcare institute,Max Healthcare Institute Limited,2025-09,2026-08,15
-INE028A01039,bank of baroda,Bank of Baroda,2026-08,2026-08,2
-INE029A01011,bharat petroleum corporation,Bharat Petroleum Corporation Limited,2026-08,2026-08,2
+INE01TY01017,canara hsbc life insurance company,Canara HSBC Life Insurance company Ltd,2025-10,2026-08,14
+INE020B01018,rec,REC Limited,2025-09,2026-08,16
+INE021A01026,asian paints,Asian Paints Limited,2025-09,2026-08,38
+INE027H01010,max healthcare institute,Max Healthcare Institute Limited,2025-09,2026-08,27
+INE028A01039,bank of baroda,Bank of Baroda,2025-09,2026-08,13
+INE029A01011,bharat petroleum corporation,Bharat Petroleum Corporation Limited,2025-09,2026-08,13
 INE02RE01045,brainbees solutions,Brainbees Solutions Ltd.,2026-08,2026-08,1
-INE030A01027,hindustan unilever,Hindustan Unilever Limited,2025-09,2026-08,16
-INE038A01020,hindalco industries,Hindalco Industries Limited,2025-09,2026-08,15
+INE030A01027,hindustan unilever,Hindustan Unilever Limited,2025-09,2026-08,38
+INE038A01020,hindalco industries,Hindalco Industries Limited,2025-09,2026-08,26
 INE03NU01014,brigade hotel ventures,Brigade Hotel Ventures Limited,2025-09,2026-08,12
-INE040A01034,hdfc bank,HDFC Bank Limited,2025-09,2026-08,17
-INE044A01036,sun pharmaceutical industries,Sun Pharmaceutical Industries Limited,2025-09,2026-08,16
-INE047A01021,grasim industries,Grasim Industries Limited,2025-09,2026-08,15
+INE040A01034,hdfc bank,HDFC Bank Limited,2025-09,2026-08,39
+INE044A01036,sun pharmaceutical industries,Sun Pharmaceutical Industries Limited,2025-09,2026-08,38
+INE047A01021,grasim industries,Grasim Industries Limited,2025-09,2026-08,37
 INE048G01026,navin fluorine international,Navin Fluorine International Limited,2025-09,2025-09,1
-INE04TZ01018,ethos,ETHOS LTD.,2026-08,2026-08,1
-INE053A01029,indian hotels company,The Indian Hotels Company Limited,2026-08,2026-08,3
-INE053F01010,indian railway finance corporation,Indian Railway Finance Corporation Limited,2026-08,2026-08,1
-INE059A01026,cipla,Cipla Limited,2025-09,2026-08,15
+INE04TZ01018,ethos,ETHOS LTD.,2025-09,2026-08,12
+INE053A01029,indian hotels company,The Indian Hotels Company Limited,2025-09,2026-08,23
+INE053F01010,indian railway finance corporation,Indian Railway Finance Corporation Limited,2025-09,2026-08,12
+INE059A01026,cipla,Cipla Limited,2025-09,2026-08,26
 INE05C901015,juniper green energy,Juniper Green Energy Limited,2026-07,2026-08,2
-INE061F01013,fortis healthcare,Fortis Healthcare Limited,2026-08,2026-08,1
-INE062A01020,state bank of india,State Bank of India,2025-09,2026-08,17
-INE066A01021,eicher motors,Eicher Motors Limited,2025-09,2026-08,16
-INE066F01020,hindustan aeronautics,Hindustan Aeronautics Limited,2026-08,2026-08,2
-INE067A01029,cg power and industrial solutions,CG Power and Industrial Solutions Limited,2025-09,2026-08,14
+INE061F01013,fortis healthcare,Fortis Healthcare Limited,2025-09,2026-08,11
+INE062A01020,state bank of india,State Bank of India,2025-09,2026-08,39
+INE066A01021,eicher motors,Eicher Motors Limited,2025-09,2026-08,38
+INE066F01020,hindustan aeronautics,Hindustan Aeronautics Limited,2025-09,2026-08,13
+INE067A01029,cg power and industrial solutions,CG Power and Industrial Solutions Limited,2025-09,2026-08,28
 INE06ST01018,indiqube spaces,Indiqube Spaces Limited,2025-09,2026-08,12
-INE070A01015,shree cement,Shree Cement Limited,2026-08,2026-08,3
-INE073K01018,sona blw precision forgings,Sona BLW Precision Forgings Limited,2026-08,2026-08,2
-INE075A01022,wipro,Wipro Limited,2025-09,2026-08,14
-INE079A01024,ambuja cements,Ambuja Cements Limited,2026-08,2026-08,2
+INE070A01015,shree cement,Shree Cement Limited,2025-09,2026-08,14
+INE073K01018,sona blw precision forgings,Sona BLW Precision Forgings Limited,2025-09,2026-08,13
+INE075A01022,wipro,Wipro Limited,2025-09,2026-08,25
+INE079A01024,ambuja cements,Ambuja Cements Limited,2025-09,2026-08,19
 INE07T201019,restaurant brands asia,Restaurant Brands Asia Limited,2025-09,2026-06,10
-INE081A01020,tata steel,Tata Steel Limited,2025-09,2026-08,15
-INE089A01031,dr reddy s laboratories,Dr. Reddy's Laboratories Limited,2025-09,2026-08,14
-INE090A01021,icici bank,ICICI Bank Limited,2025-09,2026-08,17
-INE093A01041,hexaware technologies,Hexaware Technologies Ltd.,2025-09,2026-08,2
+INE081A01020,tata steel,Tata Steel Limited,2025-09,2026-08,26
+INE089A01031,dr reddy s laboratories,Dr. Reddy's Laboratories Limited,2025-09,2026-08,25
+INE090A01021,icici bank,ICICI Bank Limited,2025-09,2026-08,39
+INE093A01041,hexaware technologies,Hexaware Technologies Limited,2025-09,2026-08,3
 INE095A01012,indusind bank,Indusind Bank Ltd.,2026-08,2026-08,1
-INE0BY001018,jubilant ingrevia,Jubilant Ingrevia Limited,2026-08,2026-08,1
+INE0BY001018,jubilant ingrevia,Jubilant Ingrevia Limited,2025-09,2026-08,12
 INE0FOO01011,shiprocket,Shiprocket Limited,2026-08,2026-08,1
 INE0FS801015,motherson sumi wiring india,Motherson Sumi Wiring India Ltd.,2026-08,2026-08,1
-INE0HOQ01053,billionbrains garage ventures,Billionbrains Garage Ventures Ltd,2026-08,2026-08,2
-INE0J1Y01017,life insurance corporation of india,Life Insurance Corporation of India,2026-08,2026-08,3
-INE0J5401028,honasa consumer,Honasa Consumer Limited,2026-08,2026-08,1
+INE0HOQ01053,billionbrains garage ventures,Billionbrains Garage Ventures Ltd,2026-05,2026-08,5
+INE0J1Y01017,life insurance corporation of india,Life Insurance Corporation Of India,2025-09,2026-08,9
+INE0J5401028,honasa consumer,Honasa Consumer Limited,2026-04,2026-08,5
+INE0LEZ01016,ather energy,Ather Energy Limited,2025-09,2026-05,9
 INE0QPI01025,sudeep pharma,Sudeep Pharma Limited,2025-11,2026-01,3
 INE0S4R01014,crizac,Crizac Limited,2025-09,2025-09,1
 INE0TY101024,solarworld energy solutions,Solarworld Energy Solutions Limited,2025-09,2026-08,12
-INE0V6F01027,hyundai motor india,Hyundai Motor India Ltd,2026-08,2026-08,3
-INE0VDM01015,meesho,Meesho Ltd,2026-08,2026-08,1
+INE0UIZ01018,black buck,Black Buck Ltd,2025-09,2025-09,1
+INE0V6F01027,hyundai motor india,Hyundai Motor India Ltd,2025-09,2026-08,16
+INE0VDM01015,meesho,Meesho Ltd,2026-06,2026-08,3
 INE0W2G01015,sagility,Sagility Limited,2025-11,2026-07,9
 INE0YD401026,jain resource recycling,Jain Resource Recycling Limited,2025-09,2025-09,1
-INE101A01026,mahindra and mahindra,Mahindra & Mahindra Limited,2025-09,2026-08,16
-INE102D01028,godrej consumer products,Godrej Consumer Products Limited,2026-08,2026-08,3
+INE101A01026,mahindra and mahindra,Mahindra & Mahindra Limited,2025-09,2026-08,38
+INE102D01028,godrej consumer products,Godrej Consumer Products Limited,2025-09,2026-08,14
 INE111A01025,container corporation of india,Container Corporation Of India Ltd.,2026-08,2026-08,1
-INE117A01022,abb india,ABB India Limited,2026-08,2026-08,2
-INE118A01012,bajaj holdings and investment,Bajaj Holdings & Investment Limited,2025-09,2026-08,13
+INE117A01022,abb india,ABB India Limited,2025-09,2026-08,13
+INE118A01012,bajaj holdings and investment,Bajaj Holdings & Investment Limited,2025-09,2026-08,24
 INE118H01025,bse,BSE Ltd.,2026-08,2026-08,1
-INE121A01024,cholamandalam investment and finance company,Cholamandalam Investment and Finance Company Ltd,2026-08,2026-08,4
+INE121A01024,cholamandalam investment and finance company,Cholamandalam Investment and Finance Company Ltd,2025-09,2026-08,26
+INE121E01018,jsw energy,JSW Energy Limited,2025-09,2026-02,6
 INE121J01017,indus towers,Indus Towers Limited,2025-09,2026-08,13
-INE123W01016,sbi life insurance company,SBI Life Insurance Company Limited,2025-09,2026-08,16
-INE127D01025,hdfc asset management company,HDFC Asset Management Company Limited,2026-08,2026-08,2
-INE129A01019,gail india,GAIL (India) Limited,2026-08,2026-08,1
+INE123W01016,sbi life insurance company,SBI Life Insurance Company Limited,2025-09,2026-08,38
+INE127D01025,hdfc asset management company,HDFC Asset Management Company Limited,2025-09,2026-08,8
+INE129A01019,gail india,GAIL (India) Limited,2025-09,2026-08,12
 INE12NJ01018,sambhv steel tubes,Sambhv Steel Tubes Ltd,2025-09,2026-08,12
 INE12UN01015,shadowfax technologies,Shadowfax Technologies Limited,2026-01,2026-06,6
-INE134E01011,power finance corporation,Power Finance Corporation Limited,2026-01,2026-08,8
-INE138Y01010,kfin technologies,KFin Technologies Limited,2026-08,2026-08,2
+INE133A01011,akzo nobel india,Akzo Nobel India Limited,2025-09,2026-05,9
+INE134E01011,power finance corporation,Power Finance Corporation Limited,2025-09,2026-08,19
+INE138Y01010,kfin technologies,KFin Technologies Limited,2025-09,2026-08,13
 INE139A01034,national aluminium company,National Aluminium Company Ltd.,2026-08,2026-08,1
+INE148O01028,delhivery,Delhivery Limited,2025-09,2025-10,2
 INE149A01033,cholamandalam financial holdings,Cholamandalam Financial Holdings Limited,2025-09,2026-08,12
 INE152A01029,thermax,Thermax Ltd.,2026-08,2026-08,1
-INE154A01025,itc,ITC Limited,2025-09,2026-08,15
-INE155A01022,tata motors passenger vehicles,Tata Motors Passenger Vehicles Limited,2025-09,2026-08,16
+INE154A01025,itc,ITC Limited,2025-09,2026-08,37
+INE155A01022,tata motors passenger vehicles,Tata Motors Passenger Vehicles Limited,2025-09,2026-08,34
 INE158A01026,hero motocorp,Hero Motocorp Ltd.,2026-08,2026-08,1
-INE160A01022,punjab national bank,Punjab National Bank,2026-08,2026-08,1
-INE176B01034,havells india,Havells India Ltd.,2026-08,2026-08,2
+INE160A01022,punjab national bank,Punjab National Bank,2025-09,2026-08,12
+INE176B01034,havells india,Havells India Limited,2025-09,2026-08,8
+INE177H01039,godawari power and ispat,Godawari Power And Ispat limited,2025-09,2025-11,3
 INE179A01014,procter and gamble hygiene and health care,Procter & Gamble Hygiene and Health Care Ltd.,2026-08,2026-08,1
 INE17IR01028,laser power and infra,Laser Power and Infra Limited,2026-07,2026-08,2
+INE180A01020,max financial services,Max Financial Services Limited,2025-09,2025-09,1
 INE185Q01025,lumino industries,Lumino Industries Limited,2026-08,2026-08,1
 INE18JU01028,gng electronics,GNG Electronics Ltd,2025-09,2026-06,10
-INE192A01025,tata consumer products,Tata Consumer Products Limited,2025-09,2026-08,14
-INE192R01011,avenue supermarts,Avenue Supermarts Limited,2026-08,2026-08,3
+INE192A01025,tata consumer products,Tata Consumer Products Limited,2025-09,2026-08,25
+INE192R01011,avenue supermarts,Avenue Supermarts Limited,2025-09,2026-08,19
 INE195A01028,supreme industries,Supreme Industries Ltd.,2026-08,2026-08,1
 INE198501012,euro pratik sales,Euro Pratik Sales Ltd.,2025-09,2026-08,12
 INE19RI01016,tenneco clean air india,Tenneco Clean Air India Limited,2025-11,2026-01,3
 INE1AG301022,gk energy,Gk Energy Limited,2025-09,2025-11,3
-INE1CDF01017,vedanta aluminium metal,Vedanta Aluminium Metal Limited,2026-06,2026-08,4
-INE1CLE01013,vedanta iron and steel,Vedanta Iron and Steel Ltd.,2026-08,2026-08,1
-INE1NPP01017,siemens energy india,Siemens Energy India Limited,2026-08,2026-08,1
-INE1TAE01010,tata motors,Tata Motors Ltd,2025-10,2026-08,5
-INE200A01026,ge vernova t and d india,GE Vernova T&D India Limited,2026-08,2026-08,2
-INE200M01039,varun beverages,Varun Beverages Limited,2025-09,2026-08,15
-INE203A01020,astrazeneca pharma india,AstraZeneca Pharma India Limited,2026-08,2026-08,1
-INE205A01025,vedanta,Vedanta Limited,2026-08,2026-08,2
+INE1CDF01017,vedanta aluminium metal,^^Vedanta Aluminium Metal Limited,2026-04,2026-08,10
+INE1CLE01013,vedanta iron and steel,^^Vedanta Iron And Steel Limited,2026-04,2026-08,5
+INE1NPP01017,siemens energy india,Siemens Energy India Limited,2025-09,2026-08,12
+INE1TAE01010,tata motors,Tata Motors Ltd,2025-10,2026-08,11
+INE200A01026,ge vernova t and d india,GE Vernova T&D India Limited,2025-09,2026-08,13
+INE200M01039,varun beverages,Varun Beverages Limited,2025-09,2026-08,37
+INE203A01020,astrazeneca pharma india,AstraZeneca Pharma India Limited,2025-09,2026-08,12
+INE205A01025,vedanta,Vedanta Limited,2025-09,2026-08,22
 INE212S01015,fractal analytics,Fractal Analytics Ltd,2026-02,2026-04,3
-INE213A01029,oil and natural gas corporation,Oil & Natural Gas Corporation Limited,2025-09,2026-08,14
-INE214T01019,ltm,LTM Limited,2025-09,2026-08,13
-INE216A01030,britannia industries,Britannia Industries Limited,2026-08,2026-08,3
+INE213A01029,oil and natural gas corporation,Oil & Natural Gas Corporation Limited,2025-09,2026-08,27
+INE214T01019,ltimindtree,LTIMindtree Limited,2025-09,2026-08,24
+INE216A01030,britannia industries,Britannia Industries Limited,2025-09,2026-08,14
 INE218I01013,canara robeco asset management company,Canara Robeco Asset Management Company Ltd,2025-10,2025-12,3
-INE237A01028,kotak mahindra bank,Kotak Mahindra Bank Limited,2025-09,2025-12,4
-INE237A01036,kotak mahindra bank,Kotak Mahindra Bank Limited,2026-01,2026-08,13
-INE238A01034,axis bank,Axis Bank Limited,2025-09,2026-08,17
-INE239A01024,nestle india,Nestle India Limited,2025-09,2026-08,13
-INE242A01010,indian oil corporation,Indian Oil Corporation Limited,2026-08,2026-08,1
-INE245A01021,tata power company,Tata Power Company Limited,2026-08,2026-08,2
-INE249Z01020,mazagon dock shipbuilders,Mazagon Dock Shipbuilders Limited,2026-08,2026-08,1
-INE263A01024,bharat electronics,Bharat Electronics Limited,2025-09,2026-08,16
-INE267A01025,hindustan zinc,Hindustan Zinc Limited,2026-08,2026-08,1
-INE271C01023,dlf,DLF Limited,2025-09,2026-08,15
+INE237A01028,kotak mahindra bank,Kotak Mahindra Bank Limited,2025-09,2025-12,12
+INE237A01036,kotak mahindra bank,Kotak Mahindra Bank Limited,2026-01,2026-08,27
+INE238A01034,axis bank,Axis Bank Limited,2025-09,2026-08,39
+INE239A01024,nestle india,Nestle India Limited,2025-09,2026-08,24
+INE242A01010,indian oil corporation,Indian Oil Corporation Limited,2025-09,2026-08,18
+INE245A01021,tata power company,Tata Power Company Limited,2025-09,2026-08,22
+INE249Z01020,mazagon dock shipbuilders,Mazagon Dock Shipbuilders Limited,2025-09,2026-08,12
+INE263A01024,bharat electronics,Bharat Electronics Limited,2025-09,2026-08,38
+INE267A01025,hindustan zinc,Hindustan Zinc Limited,2025-09,2026-08,12
+INE271C01023,dlf,DLF Limited,2025-09,2026-08,26
 INE274J01014,oil india,Oil India Ltd.,2026-08,2026-08,1
-INE280A01028,titan company,Titan Company Limited,2025-09,2026-08,16
-INE296A01032,bajaj finance,Bajaj Finance Limited,2025-09,2026-08,13
-INE298A01020,cummins india,Cummins India Limited,2026-08,2026-08,4
+INE280A01028,titan company,Titan Company Limited,2025-09,2026-08,38
+INE296A01032,bajaj finance,Bajaj Finance Limited,2025-09,2026-08,24
+INE298A01020,cummins india,Cummins India Limited,2025-10,2026-08,19
 INE2J8701016,skf india industrial,SKF India (Industrial) Ltd.,2026-08,2026-08,1
-INE2KCE01013,kwality walls india,Kwality Walls (India) Limited,2025-12,2026-01,2
+INE2KCE01013,kwality walls india,^^Kwality Walls (India) Limited **,2025-12,2026-01,6
 INE301O01023,national securities depository,National Securities Depository Limited,2025-09,2025-10,2
 INE304W01038,bluestone jewellery and lifestyle,Bluestone Jewellery and Lifestyle Limited,2025-09,2025-10,2
-INE318A01026,pidilite industries,Pidilite Industries Limited,2026-08,2026-08,2
-INE323A01026,bosch,Bosch Limited,2026-08,2026-08,1
+INE318A01026,pidilite industries,Pidilite Industries Limited,2025-09,2026-08,20
+INE323A01026,bosch,Bosch Limited,2025-09,2026-08,12
+INE324D01010,lg electronics india,LG Electronics India Ltd,2025-10,2025-12,3
 INE326A01037,lupin,Lupin Ltd.,2026-08,2026-08,2
-INE343H01029,solar industries india,Solar Industries India Limited,2026-08,2026-08,1
+INE343H01029,solar industries india,Solar Industries India Limited,2025-09,2026-08,12
 INE346A01027,icici prudential asset management company,ICICI PRUDENTIAL ASSET MANAGEMENT COMPANY LIMITED,2025-12,2026-08,11
-INE361B01024,divi s laboratories,Divi's Laboratories Limited,2026-08,2026-08,3
-INE364U01010,adani green energy,Adani Green Energy Limited,2026-08,2026-08,1
-INE371P01015,amber enterprises india,Amber Enterprises India Limited,2026-08,2026-08,1
+INE356A01018,mphasis,Mphasis Limited,2025-11,2026-03,5
+INE361B01024,divi s laboratories,Divi's Laboratories Limited,2025-09,2026-08,25
+INE364U01010,adani green energy,Adani Green Energy Limited,2025-09,2026-08,12
+INE371P01015,amber enterprises india,Amber Enterprises India Limited,2025-09,2026-08,12
 INE376G01013,biocon,Biocon Ltd.,2026-08,2026-08,1
-INE377Y01014,bajaj housing finance,Bajaj Housing Finance Limited,2025-12,2026-01,2
+INE377Y01014,bajaj housing finance,Bajaj Housing Finance Limited,2025-09,2026-02,8
 INE379A01028,itc hotels,ITC Hotels Ltd,2026-08,2026-08,1
-INE397D01024,bharti airtel,Bharti Airtel Limited,2025-09,2026-08,17
-INE414G01012,muthoot finance,Muthoot Finance Limited,2026-08,2026-08,1
-INE423A01024,adani enterprises,Adani Enterprises Limited,2025-09,2026-08,15
+INE397D01024,bharti airtel,Bharti Airtel Limited,2025-09,2026-08,39
+INE414G01012,muthoot finance,Muthoot Finance Limited,2026-03,2026-08,6
+INE423A01024,adani enterprises,Adani Enterprises Limited,2025-09,2026-08,26
 INE429E01023,safari industries india,Safari Industries (India) Limited,2026-08,2026-08,1
-INE437A01024,apollo hospitals enterprise,Apollo Hospitals Enterprise Limited,2025-09,2026-08,14
-INE467B01029,tata consultancy services,Tata Consultancy Services Limited,2025-09,2026-08,14
-INE476A01022,canara bank,Canara Bank,2026-08,2026-08,1
-INE481G01011,ultratech cement,UltraTech Cement Limited,2025-09,2026-08,16
+INE437A01024,apollo hospitals enterprise,Apollo Hospitals Enterprise Limited,2025-09,2026-08,25
+INE457L01029,pg electroplast,PG Electroplast Limited,2026-03,2026-07,5
+INE467B01029,tata consultancy services,Tata Consultancy Services Limited,2025-09,2026-08,36
+INE476A01022,canara bank,Canara Bank,2025-09,2026-08,12
+INE481G01011,ultratech cement,UltraTech Cement Limited,2025-09,2026-08,33
 INE481N01025,home first finance company india,Home First Finance Company India Limited,2025-09,2025-09,1
-INE484J01027,godrej properties,Godrej Properties Limited,2026-08,2026-08,1
-INE494B01023,tvs motor company,TVS Motor Company Limited,2026-08,2026-08,3
-INE511C01022,poonawalla fincorp,Poonawalla Fincorp Limited,2026-04,2026-08,3
+INE484J01027,godrej properties,Godrej Properties Limited,2025-09,2026-08,12
+INE494B01023,tvs motor company,TVS Motor Company Limited,2025-09,2026-08,17
+INE494B04019,tvs motor company preference shares,^^TVS Motor Company Limited ** (Preference shares),2025-09,2025-11,3
+INE511C01022,poonawalla fincorp,Poonawalla Fincorp Limited,2025-09,2026-08,14
 INE513A01022,schaeffler india,Schaeffler India Ltd.,2026-08,2026-08,1
 INE519A01011,foseco india,Foseco India Limited,2026-08,2026-08,1
-INE522F01014,coal india,Coal India Limited,2025-09,2026-08,13
+INE522F01014,coal india,Coal India Limited,2025-09,2026-08,24
 INE526E01018,spr auto technologies,SPR Auto Technologies Ltd,2026-08,2026-08,1
+INE540L01014,alkem laboratories,Alkem Laboratories Limited,2025-09,2025-10,2
 INE572A01036,jb chemicals and pharmaceuticals,JB Chemicals & Pharmaceuticals Limited,2025-11,2026-06,8
-INE585B01010,maruti suzuki india,Maruti Suzuki India Limited,2025-09,2026-08,15
-INE591G01025,coforge,Coforge Limited,2026-08,2026-08,1
+INE585B01010,maruti suzuki india,Maruti Suzuki India Limited,2025-09,2026-08,26
+INE591G01025,coforge,Coforge Limited,2025-09,2026-08,12
 INE603J01030,pi industries,PI Industries Ltd.,2026-08,2026-08,1
 INE634S01028,mankind pharma,MANKIND PHARMA LIMITED,2026-08,2026-08,2
 INE639B01023,tanfac industries,TANFAC Industries Ltd,2026-06,2026-06,1
 INE640A01023,skf india,SKF India Ltd.,2026-08,2026-08,1
 INE640G01020,sbi funds management,SBI Funds Management Limited,2026-07,2026-08,3
-INE646L01027,interglobe aviation,InterGlobe Aviation Limited,2025-09,2026-08,16
+INE646L01027,interglobe aviation,InterGlobe Aviation Limited,2025-09,2026-08,31
 INE647A01010,srf,SRF Ltd.,2026-08,2026-08,1
-INE663F01032,info edge india,Info Edge (India) Ltd.,2026-08,2026-08,1
-INE669C01036,tech mahindra,Tech Mahindra Limited,2025-09,2026-08,16
-INE670K01029,lodha developers,Lodha Developers Limited,2026-08,2026-08,2
-INE685A01028,torrent pharmaceuticals,Torrent Pharmaceuticals Limited,2026-07,2026-08,5
+INE663F01032,info edge india,Info Edge (India) Limited,2025-09,2026-08,7
+INE669C01036,tech mahindra,Tech Mahindra Limited,2025-09,2026-08,38
+INE670K01029,lodha developers,Lodha Developers Limited,2025-09,2026-08,24
+INE685A01028,torrent pharmaceuticals,Torrent Pharmaceuticals Limited,2025-09,2026-08,27
 INE686F01025,united breweries,United Breweries Ltd.,2026-08,2026-08,1
-INE692A01016,union bank of india,Union Bank of India,2026-08,2026-08,1
-INE694L01019,vedanta power,Vedanta Power Ltd,2026-08,2026-08,2
-INE704J01044,vedanta oil and gas,Vedanta Oil and Gas Ltd.,2026-08,2026-08,1
+INE692A01016,union bank of india,Union Bank of India,2026-03,2026-08,6
+INE694L01019,talwandi sabo power,^^Talwandi Sabo Power Limited,2026-04,2026-08,8
+INE704J01044,malco energy,^^Malco Energy Limited,2026-04,2026-08,6
 INE716A01013,whirlpool of india,Whirlpool of India Limited,2025-11,2026-08,10
 INE718I01012,jsw cement,JSW Cement Limited,2025-09,2026-03,7
-INE721A01047,shriram finance,Shriram Finance Limited,2025-09,2026-08,14
+INE721A01047,shriram finance,Shriram Finance Limited,2025-09,2026-08,33
 INE726G01019,icici prudential life insurance company,ICICI Prudential Life Insurance Company Ltd.,2026-08,2026-08,2
-INE733E01010,ntpc,NTPC Limited,2025-09,2026-08,16
-INE742F01042,adani ports and special economic zone,Adani Ports and Special Economic Zone Limited,2025-09,2026-08,17
-INE749A01030,jindal steel,Jindal Steel Limited,2026-08,2026-08,2
-INE752E01010,power grid corporation of india,Power Grid Corporation of India Limited,2025-09,2026-08,14
-INE758E01017,jio financial services,Jio Financial Services Limited,2025-09,2026-08,13
-INE758T01015,eternal,Eternal Limited,2025-09,2026-08,17
+INE733E01010,ntpc,NTPC Limited,2025-09,2026-08,38
+INE742F01042,adani ports and special economic zone,Adani Ports and Special Economic Zone Limited,2025-09,2026-08,33
+INE749A01030,jindal steel,Jindal Steel Limited,2025-09,2026-08,13
+INE752E01010,power grid corporation of india,Power Grid Corporation of India Limited,2025-09,2026-08,25
+INE758E01017,jio financial services,Jio Financial Services Limited,2025-09,2026-08,24
+INE758T01015,eternal,Eternal Limited,2025-09,2026-08,39
 INE761H01022,page industries,Page Industries Ltd.,2026-08,2026-08,2
-INE765G01017,icici lombard general insurance company,ICICI Lombard General Insurance Company Ltd.,2026-08,2026-08,2
-INE775A01035,samvardhana motherson international,Samvardhana Motherson International Limited,2025-09,2026-08,14
+INE765G01017,icici lombard general insurance company,ICICI Lombard General Insurance Company Limited,2025-09,2026-08,8
+INE775A01035,samvardhana motherson international,Samvardhana Motherson International Limited,2025-09,2026-08,25
 INE776C01039,gmr airports,Gmr Airports Ltd.,2026-08,2026-08,1
-INE795G01014,hdfc life insurance company,HDFC Life Insurance Company Limited,2025-09,2026-08,15
-INE811K01011,prestige estates projects,Prestige Estates Projects Limited,2026-08,2026-08,1
+INE795G01014,hdfc life insurance company,HDFC Life Insurance Company Limited,2025-09,2026-08,26
+INE811K01011,prestige estates projects,Prestige Estates Projects Limited,2025-09,2026-08,12
 INE813H01021,torrent power,Torrent Power Ltd.,2026-08,2026-08,1
-INE814H01029,adani power,Adani Power Limited,2026-08,2026-08,1
+INE814H01029,adani power,Adani Power Limited,2025-09,2026-08,12
 INE819V01029,aditya infotech,Aditya Infotech Limited,2025-09,2025-09,1
+INE825V01034,vedant fashions,Vedant Fashions Limited,2025-09,2025-09,1
 INE848E01016,nhpc,NHPC Ltd.,2026-08,2026-08,1
-INE849A01020,trent,Trent Limited,2025-09,2026-08,15
+INE849A01020,trent,Trent Limited,2025-09,2026-08,37
 INE852O01025,aptus value housing finance india,Aptus Value Housing Finance India Limited,2025-09,2026-08,12
-INE854D01024,united spirits,United Spirits Limited,2026-08,2026-08,3
-INE860A01027,hcl technologies,HCL Technologies Limited,2025-09,2026-08,14
-INE864I01014,mtar technologies,MTAR Technologies Limited,2026-08,2026-08,1
+INE854D01024,united spirits,United Spirits Limited,2025-09,2026-08,14
+INE860A01027,hcl technologies,HCL Technologies Limited,2025-09,2026-08,25
+INE864I01014,mtar technologies,MTAR Technologies Limited,2026-04,2026-08,5
 INE869T01028,molbio diagnostics,Molbio Diagnostics Limited,2026-08,2026-08,1
 INE880J01026,jsw infrastructure,JSW Infrastructure Ltd,2026-06,2026-06,1
 INE894V01022,belrise industries,Belrise Industries Ltd.,2026-07,2026-07,1
-INE917I01010,bajaj auto,Bajaj Auto Limited,2025-09,2026-08,15
-INE918I01026,bajaj finserv,Bajaj Finserv Limited,2025-09,2026-08,16
-INE931S01010,adani energy solutions,Adani Energy Solutions Limited,2026-08,2026-08,2
-INE935A01035,glenmark pharmaceuticals,Glenmark Pharmaceuticals Limited,2026-08,2026-08,1
-INE943P01029,dr agarwals health care,Dr Agarwals Health Care Limited,2026-08,2026-08,1
+INE914M01019,aster dm healthcare,Aster DM Healthcare Limited,2025-09,2025-11,3
+INE917I01010,bajaj auto,Bajaj Auto Limited,2025-09,2026-08,37
+INE918I01026,bajaj finserv,Bajaj Finserv Limited,2025-09,2026-08,38
+INE931S01010,adani energy solutions,Adani Energy Solutions Limited,2025-09,2026-08,13
+INE935A01035,glenmark pharmaceuticals,Glenmark Pharmaceuticals Limited,2025-11,2026-08,10
+INE943P01029,dr agarwals health care,Dr Agarwals Health Care Limited,2025-10,2026-08,11
 INE959A01019,privi speciality chemicals,Privi Speciality Chemicals Limited,2025-12,2026-03,4
 INE967H01025,krishna institute of medical sciences,Krishna Institute Of Medical Sciences Limited,2026-06,2026-07,2
-INE974X01010,tube investments of india,Tube Investments of India Limited,2026-08,2026-08,1
-INE976G01028,rbl bank,RBL Bank Limited,2026-08,2026-08,1
-INE976I01016,tata capital,Tata Capital Limited,2025-10,2026-08,10
-INE982J01020,one 97 communications,One 97 Communications Limited,2026-08,2026-08,1
+INE974X01010,tube investments of india,Tube Investments of India Limited,2026-02,2026-08,7
+INE976G01028,rbl bank,RBL Bank Limited,2026-01,2026-08,8
+INE976I01016,tata capital,Tata Capital Limited,2025-10,2026-08,15
+INE982J01020,one 97 communications,One 97 Communications Limited,2025-09,2026-08,12

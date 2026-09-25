@@ -36,7 +36,9 @@ def norm_scheme(s: str) -> str:
 def name_key(s: str) -> str:
     """Company-name key used to map futures to the underlying equity ISIN."""
     s = str(s).lower()
-    s = re.sub(r"\d{1,2}[./-]\d{1,2}[./-]\d{2,4}", " ", s)      # expiry dates
+    s = re.sub(r"\d{1,2}[./-]\d{1,2}[./-]\d{2,4}", " ", s)      # expiry dates 29.09.2026
+    s = re.sub(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\s+\d{2,4}\b", " ", s)  # 'October 2025'
+    s = re.sub(r"\bfutures?\b", " ", s)
     s = s.replace("&", " and ")
     s = re.sub(r"[^a-z0-9 ]+", " ", s)
     s = re.sub(r"\b(limited|ltd|the)\b", " ", s)
