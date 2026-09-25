@@ -81,10 +81,30 @@ def check_holdings(h: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, p
     return pd.DataFrame(issues, columns=ISSUE_COLS), pd.DataFrame(summ)
 
 
+INDEX_FUTURE_REFERENCE = {"nifty": "ref_nifty50_motilal"}   # D-027; other indices unsupported -> flag
+
+
+def check_index_future_coverage(h: pd.DataFrame) -> list[dict]:
+    """Every index future must have same-month constituent weights to be allocated (D-027)."""
+    issues = []
+    fut = h[h.derivative_kind == "index_future"]
+    have = set(zip(h.fund_id, h.month))
+    for _, r in fut.iterrows():
+        n = r.instrument_name.lower()
+        key = "nifty" if ("nifty" in n and not any(x in n for x in ("bank", "fin", "midcp", "next"))) else None
+        ref = INDEX_FUTURE_REFERENCE.get(key)
+        if ref is None:
+            _issue(issues, r, "index_future_unsupported_index", "flag", r.weight_nav, "no reference weights for this index", None, r.instrument_name)
+        elif (ref, r.month) not in have:
+            _issue(issues, r, "index_future_reference_missing", "fail", r.weight_nav, f"{ref} not parsed for {r.month}", None, r.instrument_name)
+    return issues
+
+
 def run() -> int:
     h = pd.read_parquet(config.INTERIM / "holdings.parquet")
     meta = pd.read_parquet(config.INTERIM / "portfolio_meta.parquet")
     issues, summ = check_holdings(h, meta)
+    issues = pd.concat([issues, pd.DataFrame(check_index_future_coverage(h), columns=ISSUE_COLS)], ignore_index=True)
     issues.to_csv(config.QUALITY / "holdings_issues.csv", index=False)
     summ.to_csv(config.QUALITY / "holdings_summary.csv", index=False)
     counts = issues.groupby(["check", "severity"]).size().to_dict() if len(issues) else {}

@@ -160,7 +160,8 @@ def detect_isin_changes(h: pd.DataFrame) -> pd.DataFrame:
 
 def run() -> Path:
     sm = pd.read_csv(config.REFERENCE / "scheme_map.csv")
-    idx = scheme_index(sm)
+    ref = pd.read_csv(config.REFERENCE / "reference_portfolios.csv")
+    idx = scheme_index(pd.concat([sm[["fund_id", "scheme_name"]], ref[["fund_id", "scheme_name"]]]))
     frames, metas, log = [], [], []
     slugs = sorted(p for p in config.RAW_PORTFOLIOS.iterdir() if p.is_dir())
     for d in slugs:

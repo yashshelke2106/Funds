@@ -178,3 +178,15 @@ def test_isin_change_detected_for_corporate_action():
         "isin": ["INE237A01028", "INE237A01036"], "month": ["2025-12", "2026-01"]})
     c = detect_isin_changes(h).iloc[0]
     assert (c.old_isin, c.new_isin, bool(c.accepted)) == ("INE237A01028", "INE237A01036", True)
+
+
+@pytest.mark.parametrize("totals,header,expected", [
+    ([("subtotal", 217828.01), ("total", 217828.01)], None, 217828.01),          # Bandhan
+    ([("sub total", 3935747.92), ("total", 3935747.92)], None, 3935747.92),      # HDFC
+    ([("total", 5399422.11)], None, 5399422.11),                                 # SBI
+    ([("total", 6171.89), ("total", 28.62)], None, 6200.51),                     # Motilal Oct-2025 listed + unlisted
+    ([], 7641440.37, 7641440.37),                                                # ICICI header row
+])
+def test_resolve_equity_total(totals, header, expected):
+    from src.ingest.portfolio_common import resolve_equity_total
+    assert resolve_equity_total(totals, header) == pytest.approx(expected)

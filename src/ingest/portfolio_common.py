@@ -208,7 +208,8 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
     section = "pre"
     section_label = ""
     nav = gt_pct = None
-    reported_eq = None
+    reported_eq = None          # equity total printed on the header row (ICICI style)
+    eq_totals: list[tuple[str, float]] = []   # ('total'|'sub total'|'subtotal', value) inside equity
     benchmark = None
     rows: list[dict] = []
     for i, row in enumerate(grid, start=1):
@@ -251,7 +252,7 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
                 section, section_label = "non_equity", label
                 continue
             if section == "equity" and qty is None and label in TOTAL_LABELS and mv is not None:
-                reported_eq = mv   # last equity total wins (Subtotal then Total carry the same figure)
+                eq_totals.append((label, mv))
                 continue
         if section in ("post", "equity", "non_equity") and qty is None and starts(label, DERIVATIVE_LABELS):
             section, section_label = "derivative", label
@@ -285,9 +286,29 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
         ))
     if nav is None:
         raise PortfolioFormatError(f"{scheme_title}: no GRAND TOTAL / Total Net Assets row")
+    reported_eq = resolve_equity_total(eq_totals, reported_eq)
     if not any(r["section"] == "equity" for r in rows):
         raise PortfolioFormatError(f"{scheme_title}: no equity holdings found")
     return ParsedSheet(scheme_title, as_of, nav, gt_pct, reported_eq, benchmark, rows)
+
+
+def resolve_equity_total(eq_totals: list[tuple[str, float]], header_value: float | None) -> float | None:
+    """The file's own equity total, for reconciliation (D-017).
+
+    * Sub-totals present (Bandhan, HDFC, Motilal new layout): the 'Total' row is the overall
+      equity total -> take the last 'Total'; if there is none, sum the sub-totals.
+    * Only 'Total' rows (SBI; Motilal old layout, where listed and unlisted blocks each end
+      in 'Total' with no overall line): they are per-block -> SUM them. Motilal Oct-2025 needed
+      this: listed 6171.89 + unlisted/awaiting-listing TML Commercial Vehicles 28.62.
+    * No total rows: the value printed on the equity header row (ICICI).
+    """
+    if not eq_totals:
+        return header_value
+    subs = [v for lab, v in eq_totals if lab in ("sub total", "subtotal")]
+    tots = [v for lab, v in eq_totals if lab == "total"]
+    if subs:
+        return tots[-1] if tots else sum(subs)
+    return sum(tots)
 
 
 def check_units(ps: ParsedSheet, cfg: ParserConfig) -> float:

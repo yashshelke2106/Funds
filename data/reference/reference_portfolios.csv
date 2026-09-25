@@ -1,0 +1,2 @@
+fund_id,scheme_name,amc_slug,index_name,purpose
+ref_nifty50_motilal,Motilal Oswal Nifty 50 ETF,motilal_oswal,NIFTY 50,Nifty 50 constituent weights for allocating NIFTY index futures (D-027)

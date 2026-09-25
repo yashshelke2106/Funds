@@ -1,2 +1,3 @@
 name_key,old_isin,new_isin,old_last_month,new_first_month,same_issuer_code,months_overlap,accepted
 kotak mahindra bank,INE237A01028,INE237A01036,2025-12,2026-01,True,False,True
+tata motors,INE155A01022,INE1TAE01010,2025-09,2026-08,False,False,False
