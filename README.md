@@ -43,3 +43,5 @@ docs/              download_checklist.md, interview_defense.md (P7)
 - Benchmark weights come from a Nifty 100 index fund's disclosed portfolio (a proxy, not NSE constituent weights).
 - Portfolio disclosures are monthly snapshots: intra-month trading, and any month-end window dressing, can't be seen.
 - NAV gap checks count weekdays, not NSE trading days.
+- Every fund is measured against the Nifty 100 TRI, though some state the BSE 100 TRI as their benchmark (D-021).
+- Active share uses one month-end snapshot per month; the portfolio of month M is treated as known only from the 11th of M+1 (D-009).

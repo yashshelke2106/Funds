@@ -28,11 +28,15 @@ def build(universe: pd.DataFrame) -> pd.DataFrame:
     for amc in amcs:
         slug = slugify(amc)
         funds = "; ".join(sorted(elig.loc[elig.amc == amc, "scheme_name"]))
-        d = config.RAW_PORTFOLIOS / slug
+        parsed = set()
+        meta_path = config.INTERIM / "portfolio_meta.parquet"
+        if meta_path.exists():
+            pm = pd.read_parquet(meta_path)
+            parsed = set(pm.loc[pm.amc_slug == slug, "month"])
         for m in months():
-            present = d.exists() and any(d.glob(f"{m}__*"))
+            present = m in parsed   # month read from INSIDE the file (D-018)
             rows.append(dict(source="portfolio", amc=amc, amc_slug=slug, month=m, schemes=funds,
-                             expected_path=f"data/raw/portfolios/{slug}/{m}__<original filename>",
+                             expected_path=f"data/raw/portfolios/{slug}/<original filename>",
                              status="present" if present else "missing"))
     ter_present = config.RAW_TER.exists() and any(config.RAW_TER.iterdir())
     rows.append(dict(source="ter", amc="AMFI", amc_slug="amfi", month=f"{months()[0]}..{months()[-1]}",

@@ -13,7 +13,7 @@ import sys
 
 from src import config
 
-STEPS = ["universe", "nav", "benchmark", "quality", "checklist", "test"]
+STEPS = ["universe", "nav", "benchmark", "portfolios", "quality", "checklist", "test"]
 
 
 def step_universe(offline: bool) -> int:
@@ -42,9 +42,18 @@ def step_benchmark(offline: bool) -> int:
     return 0
 
 
+def step_portfolios(offline: bool) -> int:
+    from src.ingest import portfolios
+    portfolios.run()
+    return 0
+
+
 def step_quality(offline: bool) -> int:
-    from src.quality import nav_checks
-    return nav_checks.run()
+    from src.quality import holdings_checks, nav_checks
+    rc = nav_checks.run()
+    if (config.INTERIM / "holdings.parquet").exists():
+        rc = max(rc, holdings_checks.run())
+    return rc
 
 
 def step_checklist(offline: bool) -> int:

@@ -14,7 +14,8 @@ because AMCs publish portfolios on their own websites in their own formats.
 - **Months:** Sep-2025 … Aug-2026 (12 files per AMC; see DECISIONS D-011).
 - **Where:** the AMC's own "Statutory disclosures → Monthly portfolio" page. Download the
   **month-end** portfolio, not the fortnightly one.
-- **Save as:** `data/raw/portfolios/<amc_slug>/<YYYY-MM>__<original filename>`.
+- **Save as:** `data/raw/portfolios/<amc_slug>/<original filename>`. The month is read from inside the file
+  (D-018). Adding a `YYYY-MM__` prefix is optional; if you add one, it must match the file's "as on" date.
   The `amc_slug` is in the checklist CSV (for example `hdfc`, `icici_prudential`, `aditya_birla_sun_life`).
   **Keep the original filename after `__` and don't edit the file.**
 - If an AMC puts all schemes in one workbook, save that one workbook. If it publishes one file per
