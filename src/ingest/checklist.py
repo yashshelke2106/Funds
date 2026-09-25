@@ -41,7 +41,9 @@ def build(universe: pd.DataFrame) -> pd.DataFrame:
     ter_present = config.RAW_TER.exists() and any(config.RAW_TER.iterdir())
     rows.append(dict(source="ter", amc="AMFI", amc_slug="amfi", month=f"{months()[0]}..{months()[-1]}",
                      schemes="all eligible direct+regular plans + index funds",
-                     expected_path="data/raw/ter/", status="present" if ter_present else "missing"))
+                     expected_path="data/raw/ter/",
+                     # files on disk != coverage: AMFI exports can silently omit funds (D-023)
+                     status="files_present_coverage_unchecked" if ter_present else "missing"))
     bm_present = config.RAW_BENCHMARK.exists() and any(config.RAW_BENCHMARK.iterdir())
     rows.append(dict(source="benchmark_tri", amc="NSE Indices", amc_slug="nse", month=
                      f"{config.NAV_START:%Y-%m}..{months()[-1]}", schemes="Nifty 100 TRI (daily)",

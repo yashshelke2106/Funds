@@ -251,6 +251,18 @@ portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-05,Mirae Asset Large Cap Fund
 portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-06,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
 portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-07,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
 portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-08,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2025-09,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2025-10,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2025-11,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2025-12,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-01,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-02,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-03,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-04,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-05,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-06,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-07,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
+portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-08,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,missing
 portfolio,Nippon India Mutual Fund,nippon_india,2025-09,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
 portfolio,Nippon India Mutual Fund,nippon_india,2025-10,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
 portfolio,Nippon India Mutual Fund,nippon_india,2025-11,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
@@ -371,5 +383,5 @@ portfolio,quant Mutual Fund,quant,2026-05,quant Large Cap Fund,data/raw/portfoli
 portfolio,quant Mutual Fund,quant,2026-06,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
 portfolio,quant Mutual Fund,quant,2026-07,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
 portfolio,quant Mutual Fund,quant,2026-08,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-ter,AMFI,amfi,2025-09..2026-08,all eligible direct+regular plans + index funds,data/raw/ter/,missing
+ter,AMFI,amfi,2025-09..2026-08,all eligible direct+regular plans + index funds,data/raw/ter/,files_present_coverage_unchecked
 benchmark_tri,NSE Indices,nse,2023-09..2026-08,Nifty 100 TRI (daily),data/raw/benchmark/,present
