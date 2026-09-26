@@ -18,7 +18,7 @@ import pandas as pd
 
 from src import config
 from src.ingest.portfolio_common import (DerivativeExposureMismatch, PortfolioFormatError, check_units,
-                                         parse_sheet, read_grid)
+                                         isin_valid, parse_sheet, read_grid)
 
 HOLDING_COLS = ["fund_id", "amc_slug", "month", "as_of", "available_from", "section",
                 "section_label", "derivative_kind", "instrument_name", "name_key", "isin", "isin_raw",
@@ -59,10 +59,42 @@ def identify_scheme(grid: list[list], idx: dict[str, str], max_rows: int = 12) -
     for row in grid[:max_rows]:
         for v in row:
             if isinstance(v, str) and v.strip():
-                k = norm_scheme(v)
+                k = norm_scheme(re.sub(r"^\s*scheme\s*:\s*", "", v, flags=re.I))   # UTI 'SCHEME: ...'
+                if k not in idx:
+                    # Kotak: 'Portfolio of Kotak Large Cap Fund as on 31-Aug-2026' (D-040)
+                    m2 = re.match(r"^\s*portfolio of\s+(.+?)\s+as on\b", v, flags=re.I)
+                    k = norm_scheme(m2.group(1)) if m2 else k
                 if k in idx:
                     return idx[k], v.strip()
     return None, None
+
+
+def split_blocks(grids: dict[str, list[list]], block_start: str | None) -> dict[str, list[list]]:
+    """UTI puts every scheme in one sheet, each block opening with 'SCHEME CODE017STARTS' in
+    column 0 (D-039). Split so each block is parsed like its own sheet ('EXPOSURE#CODE017')."""
+    if not block_start:
+        return grids
+    rx, out = re.compile(block_start), {}
+    for sheet, rows in grids.items():
+        starts_at = [i for i, r in enumerate(rows) if r and isinstance(r[0], str) and rx.match(r[0].strip())]
+        if not starts_at:
+            out[sheet] = rows
+            continue
+        for a, b in zip(starts_at, starts_at[1:] + [len(rows)]):
+            out[f"{sheet}#{rows[a][0].strip()}"] = rows[a:b]
+    return out
+
+
+def placeholder_isins() -> dict[str, str]:
+    """{code printed in the file: real ISIN}, each with evidence in the reference file (D-039)."""
+    p = config.REFERENCE / "placeholder_isins.csv"
+    if not p.exists():
+        return {}
+    m = pd.read_csv(p, dtype=str)
+    bad = [i for i in m["isin"] if not isin_valid(i)]
+    if bad:
+        raise PortfolioFormatError(f"placeholder_isins.csv maps to invalid ISINs: {bad}")
+    return dict(zip(m["isin_raw"], m["isin"]))
 
 
 def exposure_exceptions() -> set[tuple[str, str]]:
@@ -79,7 +111,7 @@ def parse_file(path: Path, slug: str, idx: dict[str, str]) -> tuple[list[pd.Data
     mod = importlib.import_module(f"src.ingest.parsers.{slug}")
     cfg = mod.CONFIG
     frames, metas, log = [], [], []
-    for sheet, grid in read_grid(path).items():
+    for sheet, grid in split_blocks(read_grid(path), cfg.block_start).items():
         if sheet in cfg.skip_sheets:
             log.append(f"{slug}/{path.name}[{sheet}]: skipped by parser config")
             continue
@@ -104,6 +136,15 @@ def parse_file(path: Path, slug: str, idx: dict[str, str]) -> tuple[list[pd.Data
         if m and m.group(1) != month:
             raise PortfolioFormatError(f"{path.name}: file-name month {m.group(1)} != content month {month}")
         df = pd.DataFrame(ps.rows)
+        ph = placeholder_isins()
+        hit = df["isin_raw"].isin(list(ph))
+        if hit.any():
+            # D-039: placeholder codes for not-yet-listed demerger shares (UTI 'DU1205A01025'...) ->
+            # the real ISIN other AMCs and the benchmark proxy use; isin_raw keeps the file's code.
+            for code in sorted(set(df.loc[hit, "isin_raw"])):
+                log.append(f"{slug}/{path.name}: placeholder {code} -> {ph[code]} (data/reference/placeholder_isins.csv)")
+            df.loc[hit, "isin"] = df.loc[hit, "isin_raw"].map(ph)
+            df.loc[hit, "isin_checksum_ok"] = df.loc[hit, "isin"].map(isin_valid)
         df["fund_id"], df["amc_slug"], df["month"], df["as_of"] = fund_id, slug, month, ps.as_of
         df["available_from"] = (pd.Timestamp(ps.as_of) + pd.offsets.MonthBegin(1) + pd.Timedelta(days=10)).date()
         df["weight_nav"] = df["market_value_lakh"] / ps.nav_lakh
@@ -143,11 +184,15 @@ def map_derivative_underlyings(h: pd.DataFrame, overrides: pd.DataFrame | None =
     by_key = eq.groupby("name_key")["isin"].unique()
     ov = dict(zip(overrides["name_key"], overrides["isin"])) if overrides is not None and len(overrides) else {}
     d = (h.section == "derivative") & (h.derivative_kind == "stock_future")
+    eq_isins = set(eq["isin"])
     out = []
     for i in h.index[d]:
         k, m = h.at[i, "name_key"], h.at[i, "month"]
         isin = None
-        if (m, k) in by_month.index and len(by_month[(m, k)]) == 1:
+        own = h.at[i, "isin"]
+        if isinstance(own, str) and own in eq_isins:
+            isin = own        # the file gives the underlying's equity ISIN on the futures row (UTI, D-039)
+        elif (m, k) in by_month.index and len(by_month[(m, k)]) == 1:
             isin = by_month[(m, k)][0]
         elif (m, k) in by_month.index:
             raise PortfolioFormatError(f"{m}: several ISINs for '{k}' in the same month: {list(by_month[(m, k)])}")

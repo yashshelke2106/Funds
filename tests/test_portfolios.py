@@ -334,6 +334,64 @@ def test_canara_robeco_percent_units_and_debt_block_not_equity():
     assert h.loc[h["isin"] == "INE494B04019", "section"].iloc[0] == "non_equity"        # under 'Debt Instruments'
 
 
+# ---------------------------------------------------------------- D-039: UTI, all schemes stacked in one sheet
+def test_uti_block_split_scheme_total_nav_and_futures_with_isin():
+    f = next((FX / "uti").glob("2025-10__*.xlsx"))
+    fr, me, log = parse_file(f, "uti", IDX)
+    assert len(me) == 1 and me[0]["source_sheet"].endswith("#SCHEME CODE017STARTS")
+    assert sum("no study scheme" in x for x in log) == 84                 # the other UTI schemes, ignored
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert list(m.index) == ["2025-10"] and m.loc["2025-10", "as_of"] == date(2025, 10, 31)   # 'AS OF 31/10/2025'
+    assert m.loc["2025-10", "nav_lakh"] == pytest.approx(1324132.74)      # 'TOTAL : UTI - Large Cap Fund' = note (c) NAV at end
+    assert abs(m.loc["2025-10", "equity_mv_sum_lakh"] - 1273402.07) < 0.01   # 'TOTAL:  EQUITY AND EQUITY RELATED'
+    assert h.loc[h["isin"] == "IN0020240183", "section"].iloc[0] == "non_equity"   # GoI bond under money market
+    h, _ = map_derivative_underlyings(h)
+    d = h[h.section == "derivative"].set_index("instrument_name")
+    assert list(d.index) == ["RELIANCE INDUSTRIES LTD.-25-Nov-2025", "AVENUE SUPERMARTS LTD.-25-Nov-2025"]
+    assert d.loc["RELIANCE INDUSTRIES LTD.-25-Nov-2025", "market_value_lakh"] == pytest.approx(7435.12)
+    assert d.loc["RELIANCE INDUSTRIES LTD.-25-Nov-2025", "underlying_isin"] == "INE002A01018"   # from the row's own ISIN
+    r = h[h["isin"] == "INE090A01021"].iloc[0]
+    assert not r.instrument_name.startswith("EQ - ")
+
+
+def test_uti_demerger_placeholder_codes_mapped_to_real_isins():
+    f = next((FX / "uti").glob("2026-04__*.xlsx"))
+    fr, me, log = parse_file(f, "uti", IDX)
+    h = pd.concat(fr, ignore_index=True)
+    ph = h[h["isin_raw"].fillna("").str.startswith("DU")].set_index("isin_raw")["isin"].to_dict()
+    assert ph == {"DU1205A01025": "INE1CDF01017", "DU2205A01025": "INE694L01019",
+                  "DU3205A01025": "INE704J01044", "DU4205A01025": "INE1CLE01013"}
+    assert sum("placeholder" in x for x in log) == 4
+
+
+def test_units_checked_on_holdings_when_nav_row_has_no_percent():
+    from src.ingest.portfolio_common import ParsedSheet, ParserConfig, check_units
+    rows = [dict(pct_reported_raw=p, market_value_lakh=mv) for p, mv in
+            [(9.27, 113002.93), (8.64, 105295.5), (5.02, 61233.34), (4.83, 58850.4), (3.96, 48225.19)]]
+    ps = ParsedSheet("t", date(2026, 8, 31), 1218910.37, None, None, None, rows)
+    assert check_units(ps, ParserConfig(amc_slug="t", pct_unit="percent")) == 100.0
+    with pytest.raises(PortfolioFormatError, match="holdings imply"):
+        check_units(ps, ParserConfig(amc_slug="t", pct_unit="fraction"))
+
+
+# ---------------------------------------------------------------- D-040: Kotak
+def test_kotak_names_from_column_c_futures_in_main_table_and_cnx_indices():
+    fr, me, _ = parse_file(FX / "kotak_mahindra" / "K30 (11).xlsx", "kotak_mahindra", IDX)
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert list(m.index) == ["2026-08"] and m.loc["2026-08", "nav_lakh"] == pytest.approx(1093711.04)
+    assert abs(m.loc["2026-08", "equity_mv_sum_lakh"] - (1046553.66 + 709.55)) < 0.01   # two equity 'Total' blocks
+    assert (h.instrument_name.str.strip() != "").all()
+    r = h[h["isin"] == "INE090A01021"].iloc[0]
+    assert r.instrument_name == "ICICI BANK LTD." and r.weight_reported == pytest.approx(0.0822)
+    h, _ = map_derivative_underlyings(h)
+    d = h[h.section == "derivative"].set_index("instrument_name")
+    assert d.loc["CNX BANK INDEX-SEP2026", "derivative_kind"] == "index_future"
+    assert d.loc["CNX NIFTY-SEP2026", "derivative_kind"] == "index_future"
+    assert d.loc["CNX BANK INDEX-SEP2026", "market_value_lakh"] == pytest.approx(12503.6352)
+    assert d.loc["Tech Mahindra Ltd.-SEP2026", "underlying_isin"] == "INE669C01036"
+    assert h.loc[h["isin"] == "INF174K01NE8", "section"].iloc[0] == "non_equity"       # Kotak Liquid fund units
+
+
 def test_isin_change_detected_for_corporate_action():
     from src.ingest.portfolios import detect_isin_changes
     h = pd.DataFrame({

@@ -53,7 +53,7 @@ NON_EQUITY_LABELS = ("debt instruments", "money market instruments", "others", "
                      "term deposits", "short term deposits", "mutual fund units")
 DERIVATIVE_LABELS = ("derivatives", "details of stock future", "stock / index futures", "stock futures",
                      "index / stock futures")
-INDEX_FUTURE_RE = re.compile(r"\b(nifty|banknifty|finnifty|midcpnifty|sensex|bankex)\b", re.I)
+INDEX_FUTURE_RE = re.compile(r"\b(nifty|banknifty|finnifty|midcpnifty|sensex|bankex)\b|\bcnx\s+bank\b|\bbank\s+index\b", re.I)   # Kotak 'CNX BANK INDEX' (D-040)
 GRAND_TOTAL_LABELS = ("grand total", "total net assets")
 TOTAL_LABELS = ("total", "sub total", "subtotal")
 DERIVATIVE_END = ("derivatives total", "notes", "note-", "note -")
@@ -78,6 +78,9 @@ class ParserConfig:
     skip_sheets: tuple[str, ...] = ()  # sheet names to ignore entirely
     name_junk: tuple[str, ...] = ()    # footnote markers to strip from names
     notes_futures_fallback: bool = False  # D-036: futures only in the notes table (Axis Aug-2026)
+    block_start: str | None = None        # D-039: regex on col 0 that starts a scheme block (UTI: all schemes in one sheet)
+    nav_row_is_scheme_total: bool = False  # D-039: NAV row is 'TOTAL : <scheme name>' with no % (UTI)
+    extra_derivative_labels: tuple[str, ...] = ()   # D-039: e.g. ('futures',) for UTI
 
 
 @dataclass
@@ -170,6 +173,7 @@ def isin_valid(s: str | None) -> bool:
 DATE_PATTERNS = (
     (re.compile(r"([A-Za-z]{3,9})\s+(\d{1,2})\s*,\s*(\d{4})"), "%B %d %Y", "mdY"),
     (re.compile(r"(\d{1,2})-([A-Za-z]{3})-(\d{4})"), "%d %b %Y", "dmY"),
+    (re.compile(r"as o[nf]\s+(\d{1,2})/(\d{1,2})/(\d{4})", re.I), None, "dmY_num"),   # UTI 'AS OF 31/10/2025'
 )
 
 
@@ -185,6 +189,8 @@ def find_as_of(grid: list[list], max_rows: int = 12) -> date:
                 m = rx.search(s)
                 if m:
                     a, b, c = m.groups()
+                    if order == "dmY_num":
+                        return date(int(c), int(b), int(a))
                     txt = f"{b} {a[:3]} {c}" if order == "mdY" else f"{a} {b} {c}"
                     return pd.to_datetime(txt, format="%d %b %Y").date()
     raise PortfolioFormatError("no 'as on' date found in the first rows")
@@ -234,6 +240,14 @@ def starts(label: str, options) -> bool:
 
 
 ENUM_PREFIX = re.compile(r"^\(?[a-z0-9]{1,3}\)\s*")
+TOTAL_COLON_RE = re.compile(r"^total\s*:\s*(.*)$")
+
+
+def scheme_key(s: str) -> str:
+    """'SCHEME: UTI - Large Cap Fund' / 'uti - large cap fund' -> 'uti large cap fund'."""
+    s = re.sub(r"^\s*scheme\s*:\s*", "", str(s), flags=re.I)
+    s = re.sub(r"\(.*?\)", " ", s)
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9]+", " ", s.lower())).strip()
 
 
 def section_core(label: str) -> str:
@@ -245,7 +259,10 @@ def section_core(label: str) -> str:
 def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> ParsedSheet:
     as_of = find_as_of(grid)
     cols: dict[str, int] | None = None
+    hdr_row = -10
     summary_block = False
+    deriv_labels = DERIVATIVE_LABELS + tuple(cfg.extra_derivative_labels)
+    title_key = scheme_key(scheme_title)
     section = "pre"
     section_label = ""
     nav = gt_pct = None
@@ -261,7 +278,7 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
             benchmark = re.sub(r"^.*benchmark name\s*[-:]?\s*", "", label).strip() or benchmark
         h = map_header(row)
         if h:
-            cols = h
+            cols, hdr_row = h, i
             continue
         if section == "derivative" and any(norm_text(v).startswith("total number of contract") for v in row):
             # 'contracts squared off / expired during the month' summary (counts, notional, P&L):
@@ -299,6 +316,15 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
                 nav, gt_pct = mv, to_number(g("pct"))
                 section = "post"
                 continue
+            tm = TOTAL_COLON_RE.match(label)
+            if cfg.nav_row_is_scheme_total and tm and qty is None and mv is not None and scheme_key(tm.group(1)) == title_key:
+                nav, gt_pct = mv, to_number(g("pct"))     # UTI 'TOTAL : UTI - Large Cap Fund' (no %)
+                section = "post"
+                continue
+            if section == "equity" and tm and qty is None and mv is not None:
+                # UTI: 'TOTAL:  EQUITY AND EQUITY RELATED' = equity total; 'TOTAL:(a) Listed...' = block total
+                eq_totals.append(("total" if starts(tm.group(1), EQUITY_LABELS) else "sub total", mv))
+                continue
             if starts(label, EQUITY_LABELS):
                 section, section_label = "equity", label
                 if mv is not None and qty is None:
@@ -310,10 +336,11 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
             if section == "equity" and qty is None and label in TOTAL_LABELS and mv is not None:
                 eq_totals.append((label, mv))
                 continue
-        if section in ("post", "equity", "non_equity") and qty is None and starts(label, DERIVATIVE_LABELS):
-            if section == "post":
+        if section in ("post", "equity", "non_equity") and qty is None and starts(label, deriv_labels):
+            if section == "post" and i - hdr_row > 2:
                 # D-036: a notes-area derivatives table (after GRAND TOTAL) never inherits the main
-                # table's column positions; it is read only under its own header row.
+                # table's column positions; it is read only under its own header row (which may sit
+                # directly above the label, as in UTI: header row, then 'FUTURES').
                 cols, summary_block = None, False
             section, section_label = "derivative", label
             continue
@@ -323,6 +350,11 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
             continue   # headers, subtotals, TREPS, cash lines: not holdings
 
         name = str(g("name") or "").strip()
+        if not name:
+            # D-040: header says 'Name of Instrument' in column A but the names sit further right
+            # (Kotak: column C). Take the first non-blank text cell left of the ISIN column.
+            stop = cols.get("isin", len(row))
+            name = next((str(v).strip() for v in row[:stop] if isinstance(v, str) and v.strip()), "")
         for junk in cfg.name_junk:
             name = name.replace(junk, "")
         name = name.strip()
@@ -452,7 +484,18 @@ def check_units(ps: ParsedSheet, cfg: ParserConfig) -> float:
             return 100.0
         raise PortfolioFormatError(f"{ps.scheme_title}: cannot infer % unit from grand total {ps.grand_total_pct}")
     expect = 1.0 if cfg.pct_unit == "fraction" else 100.0
-    if ps.grand_total_pct is None or abs(ps.grand_total_pct - expect) > 0.01 * expect:
+    if ps.grand_total_pct is None:
+        # D-039: no % on the NAV row (UTI). Check the unit on the holdings themselves:
+        # reported % / (market value / NAV) must be ~expect for the large positions.
+        r = [x["pct_reported_raw"] / (x["market_value_lakh"] / ps.nav_lakh) for x in ps.rows
+             if x["pct_reported_raw"] and x["market_value_lakh"] and x["market_value_lakh"] / ps.nav_lakh >= 0.01]
+        if len(r) < 5:
+            raise PortfolioFormatError(f"{ps.scheme_title}: no grand-total % and too few holdings to check the % unit")
+        med = sorted(r)[len(r) // 2]
+        if abs(med - expect) > 0.02 * expect:
+            raise PortfolioFormatError(f"{ps.scheme_title}: holdings imply % unit x{med:.3f}, config says '{cfg.pct_unit}'")
+        return expect
+    if abs(ps.grand_total_pct - expect) > 0.01 * expect:
         raise PortfolioFormatError(f"{ps.scheme_title}: grand-total % {ps.grand_total_pct} "
                                    f"inconsistent with unit '{cfg.pct_unit}'")
     return expect

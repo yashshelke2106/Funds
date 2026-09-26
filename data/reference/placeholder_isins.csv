@@ -1,0 +1,6 @@
+isin_raw,isin,company,source_amc,months,evidence
+DU1205A01025,INE1CDF01017,Vedanta Aluminium Metal,uti,2026-04;2026-05,"Vedanta demerger entitlement pending listing. Same company, same months, held under INE1CDF01017 by Nippon, ABSL, ICICI, Mirae, Bandhan LC and the Bandhan Nifty 100 benchmark proxy; SBI later"
+DU2205A01025,INE694L01019,Talwandi Sabo Power,uti,2026-04;2026-05,"Vedanta demerger entitlement. INE694L01019 in Nippon, ABSL, ICICI, Mirae, Bandhan LC and Bandhan Nifty 100, same months"
+DU3205A01025,INE704J01044,Malco Energy,uti,2026-04;2026-05,"Vedanta demerger entitlement. INE704J01044 in Nippon, ABSL, ICICI, Mirae, Bandhan LC and Bandhan Nifty 100, same months. The placeholder happens to pass the ISIN check digit but 'DU' is not a country code"
+DU4205A01025,INE1CLE01013,Vedanta Iron and Steel,uti,2026-04;2026-05,"Vedanta demerger entitlement. INE1CLE01013 in Nippon, ABSL, ICICI, Mirae, Bandhan LC and Bandhan Nifty 100, same months"
+DUM030A01027,INE2KCE01013,Kwality Wall's (India),kotak_mahindra,2025-12;2026-01,"Hindustan Unilever ice-cream demerger entitlement pending listing. INE2KCE01013 in ABSL, Axis, Bandhan LC, Canara Robeco, Mirae, Nippon, the Bandhan Nifty 100 benchmark proxy and the Motilal Nifty 50 reference, same months"
