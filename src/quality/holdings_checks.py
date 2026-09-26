@@ -43,6 +43,10 @@ def check_holdings(h: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, p
     for _, r in ind[ind["isin"].str[7:9] != "01"].iterrows():
         _issue(issues, r, "non_ordinary_equity_isin", "flag", r.weight_nav,
                f"security type {r['isin'][7:9]}", r["isin"], r.instrument_name)
+    # Government securities / T-bills / SDLs carry ISINs "IN0".."IN4" (IN9 = partly paid equity, e.g. Bharti Airtel IN9397D01014); one inside an
+    # equity section means a section label was missed (ABSL May-2026 G-sec, D-037) -> fail.
+    for _, r in eq[eq["isin"].fillna("").str.match(r"^IN[0-4]")].iterrows():
+        _issue(issues, r, "govt_security_in_equity", "fail", r.weight_nav, "G-sec/T-bill ISIN in equity section", r["isin"], r.instrument_name)
     for _, r in eq[eq["isin"].notna() & ~eq["isin"].fillna("").str.startswith("IN")].iterrows():
         _issue(issues, r, "foreign_equity_isin", "flag", r.weight_nav, "non-Indian ISIN in equity section", r["isin"], r.instrument_name)
     w = h[h.weight_reported.notna()]

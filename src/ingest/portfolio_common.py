@@ -47,7 +47,7 @@ HEADER_SYNONYMS = {
     "side": ("long / short",),
 }
 EQUITY_LABELS = ("equity & equity related", "equity and equity related")
-NON_EQUITY_LABELS = ("debt instruments", "money market instruments", "others", "treps",
+NON_EQUITY_LABELS = ("debt instruments", "money market instruments", "others", "treps", "government securities",
                      "cash & cash equivalents", "cash and cash equivalents",
                      "other current assets", "units of real estate", "units of an alternative",
                      "term deposits", "short term deposits", "mutual fund units")
@@ -233,6 +233,14 @@ def starts(label: str, options) -> bool:
     return any(label.startswith(o) for o in options)
 
 
+ENUM_PREFIX = re.compile(r"^\(?[a-z0-9]{1,3}\)\s*")
+
+
+def section_core(label: str) -> str:
+    """'(d) government securities' -> 'government securities' (ABSL May-2026, D-037)."""
+    return ENUM_PREFIX.sub("", label)
+
+
 # ---------------------------------------------------------------- the walker
 def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> ParsedSheet:
     as_of = find_as_of(grid)
@@ -280,7 +288,7 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
             nav, gt_pct = mv, to_number(g("pct"))
             section = "post"
             continue
-        if section == "derivative" and nav is None and qty is None and starts(label, NON_EQUITY_LABELS):
+        if section == "derivative" and nav is None and qty is None and starts(section_core(label), NON_EQUITY_LABELS):
             section, section_label = "non_equity", label
             continue
         if section == "derivative" and starts(label, DERIVATIVE_END):
@@ -296,7 +304,7 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
                 if mv is not None and qty is None:
                     reported_eq = mv          # ICICI puts the equity total on the header row
                 continue
-            if section != "pre" and qty is None and starts(label, NON_EQUITY_LABELS):
+            if section != "pre" and qty is None and starts(section_core(label), NON_EQUITY_LABELS):
                 section, section_label = "non_equity", label
                 continue
             if section == "equity" and qty is None and label in TOTAL_LABELS and mv is not None:

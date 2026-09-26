@@ -291,6 +291,38 @@ def test_futures_not_matching_stated_exposure_stop_the_parser():
         parse_sheet(grid, ParserConfig(amc_slug="t", pct_unit="fraction"), "t")
 
 
+# ---------------------------------------------------------------- D-037: '(d) Government Securities' after equity
+def test_enumerated_government_securities_block_ends_the_equity_section():
+    # ABSL May-2026 layout: equity Total, then '(d) Government Securities' with a GoI bond
+    from src.ingest.portfolio_common import ParserConfig, parse_sheet
+    grid = [["Portfolio Statement as on May 31, 2026"],
+            ["Name of the Instrument / Issuer", "ISIN", "Industry^ / Rating", "Quantity", "Market value (Rs. in Lakhs)", "% to AUM"],
+            ["Equity & Equity related"],
+            ["(a) Listed / awaiting listing on Stock Exchange"],
+            ["ICICI Bank Ltd.", "INE090A01021", "Banks", 100, 90.0, 0.9],
+            ["Sub Total", None, None, None, 90.0, 0.9],
+            ["Total", None, None, None, 90.0, 0.9],
+            ["(d) Government Securities"],
+            ["Government of India (20/06/2027)", "IN0020220037", "Sovereign", 3500000, 10.0, 0.1],
+            ["Sub Total", None, None, None, 10.0, 0.1],
+            ["Total", None, None, None, 10.0, 0.1],
+            ["GRAND TOTAL", None, None, None, 100.0, 1.0]]
+    ps = parse_sheet(grid, ParserConfig(amc_slug="t", pct_unit="fraction"), "t")
+    sec = {r["isin"]: r["section"] for r in ps.rows}
+    assert sec == {"INE090A01021": "equity", "IN0020220037": "non_equity"}
+    assert ps.reported_equity_total_lakh == pytest.approx(90.0)
+
+
+def test_govt_security_in_equity_fails_but_partly_paid_equity_does_not(parsed):
+    h, meta, _ = parsed
+    eq = h[(h.section == "equity") & h["isin"].notna()]
+    g = eq.iloc[[0]].copy(); g["isin"] = "IN0020220037"                 # GoI bond, mis-filed as equity
+    pp = eq.iloc[[1]].copy(); pp["isin"] = "IN9397D01014"               # Bharti Airtel partly paid: real equity
+    issues, _ = check_holdings(pd.concat([h, g, pp], ignore_index=True), meta.reset_index())
+    hit = issues[issues.check == "govt_security_in_equity"]
+    assert list(hit["isin"]) == ["IN0020220037"] and set(hit.severity) == {"fail"}
+
+
 def test_isin_change_detected_for_corporate_action():
     from src.ingest.portfolios import detect_isin_changes
     h = pd.DataFrame({
