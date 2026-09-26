@@ -84,12 +84,28 @@ class ParsedSheet:
 
 # ---------------------------------------------------------------- readers
 def read_grid(path: Path) -> dict[str, list[list]]:
-    """{sheet_name: rows}. xlsx via openpyxl (cached values); csv utf-8 then cp1252."""
-    if path.suffix.lower() in (".xlsx", ".xlsm"):
+    """{sheet_name: rows}. xlsx via openpyxl (cached values); csv utf-8 then cp1252.
+
+    Some AMCs (Nippon India) publish real .xlsx files with a '.xls' extension. The
+    extension is not trusted: a '.xls' file is opened by its actual bytes — a zip
+    (PK magic) is read as xlsx, anything else falls back to xlrd for legacy BIFF .xls.
+    """
+    suffix = path.suffix.lower()
+    if suffix in (".xlsx", ".xlsm") or (suffix == ".xls" and _is_zip(path)):
         import openpyxl
-        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-        return {ws.title: [list(r) for r in ws.iter_rows(values_only=True)] for ws in wb.worksheets}
-    if path.suffix.lower() == ".csv":
+        # openpyxl gates on the file EXTENSION before even looking at the bytes (rejects
+        # '.xls' outright, see openpyxl.reader.excel._validate_archive) unless given a
+        # file-like object, which skips that check. A mislabelled '.xlsx-as-.xls' file
+        # (Nippon India) needs the object form; passing 'path' directly would re-raise
+        # the same "does not support the old .xls file format" error we just ruled out.
+        with open(path, "rb") as fh:
+            wb = openpyxl.load_workbook(fh, read_only=True, data_only=True)
+            return {ws.title: [list(r) for r in ws.iter_rows(values_only=True)] for ws in wb.worksheets}
+    if suffix == ".xls":
+        import xlrd
+        wb = xlrd.open_workbook(str(path))
+        return {sh.name: [sh.row_values(r) for r in range(sh.nrows)] for sh in wb.sheets()}
+    if suffix == ".csv":
         raw = path.read_bytes()
         for enc in ("utf-8-sig", "cp1252"):
             try:
@@ -101,6 +117,11 @@ def read_grid(path: Path) -> dict[str, list[list]]:
             raise PortfolioFormatError(f"{path.name}: undecodable")
         return {path.stem: [list(r) for r in csv.reader(io.StringIO(text))]}
     raise PortfolioFormatError(f"{path.name}: unsupported file type {path.suffix}")
+
+
+def _is_zip(path: Path) -> bool:
+    with open(path, "rb") as fh:
+        return fh.read(4) == b"PK\x03\x04"
 
 
 # ---------------------------------------------------------------- cell helpers

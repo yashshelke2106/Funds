@@ -171,6 +171,34 @@ def test_motilal_new_layout_percent_units_and_isin_code_header():
     assert r.weight_reported == pytest.approx(0.0925)                      # file shows 9.25 (percent)
 
 
+# ---------------------------------------------------------------- Nippon India: mislabelled .xls extension
+def _nippon(name):
+    f = FX / "nippon_india" / name
+    fr, me, _ = parse_file(f, "nippon_india", IDX)
+    return pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+
+
+def test_nippon_xlsx_disguised_as_xls():
+    # real bytes are a zip (openpyxl path); the '.xls' extension alone would make
+    # openpyxl refuse the file outright (see read_grid's file-like-object workaround)
+    h, m = _nippon("NIMF-MONTHLY-PORTFOLIO-31-Aug-26.xls")
+    assert list(m.index) == ["2026-08"] and m.loc["2026-08", "as_of"] == date(2026, 8, 31)
+    assert m.loc["2026-08", "nav_lakh"] == pytest.approx(5413366.0189123)
+    r = h[h["isin"] == "INE040A01034"].iloc[0]
+    assert r.market_value_lakh == pytest.approx(468512.4) and r.weight_reported == pytest.approx(0.0865)
+    assert abs(m.loc["2026-08", "equity_mv_sum_lakh"] - 5396154.65) < 0.01
+    assert h[h.section == "derivative"].empty        # file states derivative exposure is Nil
+
+
+def test_nippon_real_legacy_biff_xls():
+    # genuine old-format .xls (2/12 months) -- exercises the xlrd branch of read_grid,
+    # not just the "extension lies" branch above
+    h, m = _nippon("NIMF-MONTHLY-PORTFOLIO-31-Mar-26.xls")
+    assert list(m.index) == ["2026-03"] and m.loc["2026-03", "as_of"] == date(2026, 3, 31)
+    assert m.loc["2026-03", "nav_lakh"] == pytest.approx(4652052.6, rel=1e-6)
+    assert abs(m.loc["2026-03", "equity_mv_sum_lakh"] - 4455077.61) < 0.01
+
+
 def test_isin_change_detected_for_corporate_action():
     from src.ingest.portfolios import detect_isin_changes
     h = pd.DataFrame({
