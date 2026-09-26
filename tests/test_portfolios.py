@@ -199,6 +199,40 @@ def test_nippon_real_legacy_biff_xls():
     assert abs(m.loc["2026-03", "equity_mv_sum_lakh"] - 4455077.61) < 0.01
 
 
+# ---------------------------------------------------------------- Mirae Asset: futures table headed 'Underlying'
+def test_mirae_future_read_from_its_own_columns_not_main_table_positions():
+    # D-035: the SEBI derivatives table heads its name column 'Underlying'. Before the fix the
+    # walker kept the main table's column positions and recorded price (1207.3) as quantity and
+    # margin (1191.25) as market value. Expected values are read from row 156 and note (6).
+    fr, me, _ = parse_file(FX / "mirae_asset" / "miiof_aug2026.xlsx", "mirae_asset", IDX)
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert list(m.index) == ["2026-08"] and m.loc["2026-08", "nav_lakh"] == pytest.approx(3816622.94)
+    assert abs(m.loc["2026-08", "equity_mv_sum_lakh"] - 3791024.42) < 0.01
+    d = h[h.section == "derivative"]
+    assert len(d) == 1
+    f = d.iloc[0]
+    assert f.instrument_name == "Lodha Developers Ltd." and f.derivative_kind == "stock_future"
+    assert f.quantity == 388125 and f.market_value_lakh == pytest.approx(4685.833125)   # note (6): Rs 4,685.83 lacs
+    r = h[h["isin"] == "INE090A01021"].iloc[0]
+    assert r.market_value_lakh == pytest.approx(342338.15) and r.weight_reported == pytest.approx(0.08969661277055)
+
+
+def test_unmapped_derivative_subtable_with_numbers_stops_the_parser():
+    # an options table ('Underlying','Call / put','Number of contracts',...) is not mapped;
+    # a numeric row there must stop the pipeline, never be read with another table's columns
+    from src.ingest.portfolio_common import ParserConfig, parse_sheet
+    grid = [["Portfolio Statement as on August 31, 2026"],
+            ["Name of the Instrument", "ISIN", "Quantity", "Market Value (Rs. in Lakhs)", "% to NAV"],
+            ["Equity & Equity related"],
+            ["ICICI Bank Ltd.", "INE090A01021", 100, 10.0, 0.5],
+            ["GRAND TOTAL", None, None, 20.0, 1.0],
+            ["Derivatives disclosure Table"],
+            ["Underlying", "Call / put", "Number of contracts", "Option Price when purchased", "Current Price"],
+            ["Nifty", "Put", 40, 12.5, 11.0]]
+    with pytest.raises(PortfolioFormatError, match="unmapped derivatives"):
+        parse_sheet(grid, ParserConfig(amc_slug="t", pct_unit="fraction"), "t")
+
+
 def test_isin_change_detected_for_corporate_action():
     from src.ingest.portfolios import detect_isin_changes
     h = pd.DataFrame({

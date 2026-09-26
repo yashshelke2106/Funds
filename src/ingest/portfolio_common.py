@@ -192,7 +192,8 @@ def row_label(row: list) -> str:
 
 HEADER_RULES = (
     # (key, predicate on the normalised header text). First matching cell, left to right, wins.
-    ("name", lambda t: t.startswith("name of") or t.startswith("company/issuer") or t == "instrument name"),
+    ("name", lambda t: t.startswith("name of") or t.startswith("company/issuer") or t == "instrument name"
+             or t == "underlying"),   # SEBI derivatives-disclosure futures table (Mirae, D-035)
     ("isin", lambda t: t.startswith("isin")),
     ("industry", lambda t: "industry" in t),
     ("quantity", lambda t: t.startswith("quantity")),
@@ -243,7 +244,16 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
         if h:
             cols = h
             continue
+        if section == "derivative" and any(norm_text(v) == "underlying" for v in row):
+            # a derivatives sub-table whose columns we do not map (options: 'Number of contracts',
+            # 'Option Price'...). Stop reading rather than keep the previous table's column
+            # positions, which is what misread Mirae's futures as price/margin (D-035).
+            cols = None
+            continue
         if cols is None:
+            if section == "derivative" and any(isinstance(v, (int, float)) and not isinstance(v, bool) for v in row):
+                raise PortfolioFormatError(f"{scheme_title}: numeric row {i} in an unmapped derivatives "
+                                           "sub-table (options/swaps?) - inspect the file before parsing")
             continue
         g = lambda k: row[cols[k]] if k in cols and cols[k] < len(row) else None  # noqa: E731
         qty, mv = to_number(g("quantity")), to_number(g("mv"))
