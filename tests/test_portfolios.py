@@ -233,6 +233,64 @@ def test_unmapped_derivative_subtable_with_numbers_stops_the_parser():
         parse_sheet(grid, ParserConfig(amc_slug="t", pct_unit="fraction"), "t")
 
 
+# ---------------------------------------------------------------- D-036: futures vs the file's stated exposure
+def test_axis_aug_2026_future_taken_from_notes_when_main_table_has_none():
+    # user decision D-036: main table has no derivatives block; note (5) states Rs 26592.87 lakh and
+    # disclosure table B lists one position (NIFTY September 2026 Future, Long, current price 24251.4)
+    fr, me, _ = parse_file(FX / "axis" / "Monthly_Portfolio_Axis_Large_Cap_Fund_31_August_2026_92e670845f.xlsx", "axis", IDX)
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert list(m.index) == ["2026-08"] and m.loc["2026-08", "nav_lakh"] == pytest.approx(3137566.09)
+    assert abs(m.loc["2026-08", "equity_mv_sum_lakh"] - 3010992.4798) < 0.01
+    d = h[h.section == "derivative"]
+    assert len(d) == 1
+    f = d.iloc[0]
+    assert f.instrument_name == "NIFTY September 2026 Future" and f.derivative_kind == "index_future"
+    assert f.market_value_lakh == pytest.approx(26592.87)
+    assert f.quantity / 65 == pytest.approx(1687, abs=1e-3)          # whole NIFTY lots of 65
+    assert f.section_label.startswith("derivatives (notes table")
+    assert m.loc["2026-08", "stated_derivative_exposure_lakh"] == pytest.approx(26592.87)
+
+
+@pytest.mark.parametrize("sentence,expected", [   # verbatim note (5)/(6) sentences from the files
+    ("(5) Total outstanding exposure in derivative instruments As on Aug 31, 2026 is Rs. 26592.87 Lakhs. For details please refer to Derivative disclosure table.", 26592.87),
+    ("(5) Total outstanding exposure in derivative instruments as on 30 April 2026 are Long position Rs. 24853.83 Lacs. For details on derivative positions", 24853.83),
+    ("(6)  Total outstanding exposure in derivative instruments as on August 31 2026.  is Rs 4,685.83 lacs and their percentage to net asset value is 0.12%.", 4685.83),
+    ("(5) Total outstanding exposure in derivative instruments As on Aug 31, 2026 is Nil. Disclosure for derivative transactions", None),
+])
+def test_stated_derivative_exposure_note_wordings(sentence, expected):
+    from src.ingest.portfolio_common import stated_derivative_exposure
+    got = stated_derivative_exposure([[None, sentence]])
+    assert got == (None if expected is None else pytest.approx(expected))
+
+
+def _grid_with_notes(note, extra):
+    return ([["Portfolio Statement as on August 31, 2026"],
+             ["Name of the Instrument", "ISIN", "Quantity", "Market Value (Rs. in Lakhs)", "% to NAV"],
+             ["Equity & Equity related"],
+             ["ICICI Bank Ltd.", "INE090A01021", 100, 10.0, 0.5],
+             ["GRAND TOTAL", None, None, 20.0, 1.0],
+             [note],
+             ["Derivatives disclosure Table"]] + extra)
+
+
+def test_squared_off_contract_summary_is_not_read_as_a_position():
+    # Nippon Apr-2026 layout: counts / notional / P&L of contracts closed during the month
+    from src.ingest.portfolio_common import ParserConfig, parse_sheet
+    grid = _grid_with_notes("(5) Total outstanding exposure in derivative instruments is Nil.", [
+        ["Total Number of contract where future were bought", "Total Number of contract where future were sold",
+         "Gross Notional Value of contracts where futures were bought ( In Rs.)", "Net Profit/Loss value"],
+        [1430, 0, 598598000, 12073761.7]])
+    ps = parse_sheet(grid, ParserConfig(amc_slug="t", pct_unit="fraction"), "t")
+    assert not any(r["section"] == "derivative" for r in ps.rows)
+
+
+def test_futures_not_matching_stated_exposure_stop_the_parser():
+    from src.ingest.portfolio_common import DerivativeExposureMismatch, ParserConfig, parse_sheet
+    grid = _grid_with_notes("(5) Total outstanding exposure in derivative instruments is Rs. 500.00 Lakhs.", [])
+    with pytest.raises(DerivativeExposureMismatch, match="stated derivative exposure"):
+        parse_sheet(grid, ParserConfig(amc_slug="t", pct_unit="fraction"), "t")
+
+
 def test_isin_change_detected_for_corporate_action():
     from src.ingest.portfolios import detect_isin_changes
     h = pd.DataFrame({

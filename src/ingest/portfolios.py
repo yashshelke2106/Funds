@@ -17,8 +17,8 @@ from pathlib import Path
 import pandas as pd
 
 from src import config
-from src.ingest.portfolio_common import (PortfolioFormatError, check_units, parse_sheet,
-                                         read_grid)
+from src.ingest.portfolio_common import (DerivativeExposureMismatch, PortfolioFormatError, check_units,
+                                         parse_sheet, read_grid)
 
 HOLDING_COLS = ["fund_id", "amc_slug", "month", "as_of", "available_from", "section",
                 "section_label", "derivative_kind", "instrument_name", "name_key", "isin", "isin_raw",
@@ -65,6 +65,16 @@ def identify_scheme(grid: list[list], idx: dict[str, str], max_rows: int = 12) -
     return None, None
 
 
+def exposure_exceptions() -> set[tuple[str, str]]:
+    """(fund_id, month) pairs whose parsed futures may differ from the file's stated derivative
+    exposure, each with a written reason (D-036). Anything else that differs stops the pipeline."""
+    p = config.REFERENCE / "derivative_exposure_exceptions.csv"
+    if not p.exists():
+        return set()
+    ex = pd.read_csv(p, dtype=str)
+    return set(zip(ex.fund_id, ex.month))
+
+
 def parse_file(path: Path, slug: str, idx: dict[str, str]) -> tuple[list[pd.DataFrame], list[dict], list[str]]:
     mod = importlib.import_module(f"src.ingest.parsers.{slug}")
     cfg = mod.CONFIG
@@ -77,7 +87,17 @@ def parse_file(path: Path, slug: str, idx: dict[str, str]) -> tuple[list[pd.Data
         if fund_id is None:
             log.append(f"{slug}/{path.name}[{sheet}]: no study scheme in title rows — ignored")
             continue
-        ps = parse_sheet(grid, cfg, title)
+        exposure_gap = 0.0
+        try:
+            ps = parse_sheet(grid, cfg, title)
+        except DerivativeExposureMismatch as e:
+            ps = e.parsed_sheet
+            key = (fund_id, ps.as_of.strftime("%Y-%m"))
+            if key not in exposure_exceptions():
+                raise
+            exposure_gap = e.stated - e.parsed
+            log.append(f"{slug}/{path.name}: stated derivative exposure Rs {e.stated:.2f} lakh, parsed Rs {e.parsed:.2f} lakh "
+                       f"- documented exception {key} in data/reference/derivative_exposure_exceptions.csv")
         unit = check_units(ps, cfg)
         month = ps.as_of.strftime("%Y-%m")
         m = re.match(r"^(\d{4}-\d{2})__", path.name)
@@ -101,7 +121,9 @@ def parse_file(path: Path, slug: str, idx: dict[str, str]) -> tuple[list[pd.Data
             n_equity_rows=len(eq), n_derivative_rows=int((df.section == "derivative").sum()),
             derivative_net_weight=df.loc[df.section == "derivative", "weight_nav"].sum(),
             index_future_weight=df.loc[df.derivative_kind == "index_future", "weight_nav"].sum(),
-            stated_benchmark=ps.stated_benchmark, source_file=f"{slug}/{path.name}", source_sheet=sheet,
+            stated_benchmark=ps.stated_benchmark, stated_derivative_exposure_lakh=ps.stated_derivative_exposure_lakh,
+            derivative_exposure_gap_lakh=exposure_gap,
+            source_file=f"{slug}/{path.name}", source_sheet=sheet,
         ))
     return frames, metas, log
 

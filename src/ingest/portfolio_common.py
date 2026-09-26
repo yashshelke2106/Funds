@@ -63,12 +63,21 @@ class PortfolioFormatError(RuntimeError):
     """The file does not match the layout the parser was written against."""
 
 
+class DerivativeExposureMismatch(PortfolioFormatError):
+    """Parsed futures do not add up to the file's own stated derivative exposure (D-036)."""
+    def __init__(self, stated: float, parsed: float, msg: str):
+        super().__init__(msg)
+        self.stated, self.parsed = stated, parsed
+        self.parsed_sheet = None
+
+
 @dataclass
 class ParserConfig:
     amc_slug: str
     pct_unit: str                      # 'fraction' | 'percent' | 'auto' (decided per file from GRAND TOTAL %) | 'auto' (read from GRAND TOTAL row)
     skip_sheets: tuple[str, ...] = ()  # sheet names to ignore entirely
     name_junk: tuple[str, ...] = ()    # footnote markers to strip from names
+    notes_futures_fallback: bool = False  # D-036: futures only in the notes table (Axis Aug-2026)
 
 
 @dataclass
@@ -80,6 +89,7 @@ class ParsedSheet:
     reported_equity_total_lakh: float | None
     stated_benchmark: str | None
     rows: list[dict] = field(default_factory=list)
+    stated_derivative_exposure_lakh: float | None = None
 
 
 # ---------------------------------------------------------------- readers
@@ -227,6 +237,7 @@ def starts(label: str, options) -> bool:
 def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> ParsedSheet:
     as_of = find_as_of(grid)
     cols: dict[str, int] | None = None
+    summary_block = False
     section = "pre"
     section_label = ""
     nav = gt_pct = None
@@ -244,14 +255,20 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
         if h:
             cols = h
             continue
+        if section == "derivative" and any(norm_text(v).startswith("total number of contract") for v in row):
+            # 'contracts squared off / expired during the month' summary (counts, notional, P&L):
+            # numbers here are not positions (Nippon Apr-2026 P&L was read as a holding before D-036)
+            cols, summary_block = None, True
+            continue
         if section == "derivative" and any(norm_text(v) == "underlying" for v in row):
+            summary_block = False
             # a derivatives sub-table whose columns we do not map (options: 'Number of contracts',
             # 'Option Price'...). Stop reading rather than keep the previous table's column
             # positions, which is what misread Mirae's futures as price/margin (D-035).
             cols = None
             continue
         if cols is None:
-            if section == "derivative" and any(isinstance(v, (int, float)) and not isinstance(v, bool) for v in row):
+            if section == "derivative" and not summary_block and any(isinstance(v, (int, float)) and not isinstance(v, bool) for v in row):
                 raise PortfolioFormatError(f"{scheme_title}: numeric row {i} in an unmapped derivatives "
                                            "sub-table (options/swaps?) - inspect the file before parsing")
             continue
@@ -286,6 +303,10 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
                 eq_totals.append((label, mv))
                 continue
         if section in ("post", "equity", "non_equity") and qty is None and starts(label, DERIVATIVE_LABELS):
+            if section == "post":
+                # D-036: a notes-area derivatives table (after GRAND TOTAL) never inherits the main
+                # table's column positions; it is read only under its own header row.
+                cols, summary_block = None, False
             section, section_label = "derivative", label
             continue
         if section in ("pre", "post", "done"):
@@ -320,7 +341,79 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
     reported_eq = resolve_equity_total(eq_totals, reported_eq)
     if not any(r["section"] == "equity" for r in rows):
         raise PortfolioFormatError(f"{scheme_title}: no equity holdings found")
-    return ParsedSheet(scheme_title, as_of, nav, gt_pct, reported_eq, benchmark, rows)
+    stated = stated_derivative_exposure(grid)
+    ps = ParsedSheet(scheme_title, as_of, nav, gt_pct, reported_eq, benchmark, rows, stated)
+    try:
+        reconcile_derivatives(grid, rows, stated, cfg, scheme_title)
+    except DerivativeExposureMismatch as e:
+        e.parsed_sheet = ps          # parse_file decides: documented exception, or stop
+        raise
+    return ps
+
+
+# ---------------------------------------------------------------- derivative exposure check (D-036)
+EXPOSURE_NOTE_RE = re.compile(r"outstanding exposure in derivative instruments", re.I)
+EXPOSURE_AMT_RE = re.compile(r"rs\.?\s*([\d,]+(?:\.\d+)?)\s*(?:lakhs|lacs)", re.I)
+
+
+def stated_derivative_exposure(grid: list[list]) -> float | None:
+    """The file's own SEBI note: 'Total outstanding exposure in derivative instruments ... is
+    Rs. X Lakhs'. None when the note is absent, says Nil, or is worded differently."""
+    for row in grid:
+        t = " ".join(str(v) for v in row if v not in (None, ""))
+        if EXPOSURE_NOTE_RE.search(t):
+            amts = [float(a.replace(",", "")) for a in EXPOSURE_AMT_RE.findall(t)]
+            return sum(amts) if amts else None     # long + short = gross, compared with sum |value|
+    return None
+
+
+def notes_table_futures(grid: list[list]) -> list[dict]:
+    """Futures rows from the SEBI 'Derivatives disclosure' tables (Underlying | Long/Short |
+    price when purchased | current price | margin). These tables carry NO quantity or value."""
+    out, cols = [], None
+    for i, row in enumerate(grid, start=1):
+        cells = {j: norm_text(v) for j, v in enumerate(row) if isinstance(v, str) and v.strip()}
+        if any(t == "underlying" for t in cells.values()):
+            name = next(j for j, t in cells.items() if t == "underlying")
+            side = next((j for j, t in cells.items() if t.startswith("long")), None)
+            px = next((j for j, t in cells.items() if t.startswith("current price")), None)
+            cols = (name, side, px) if side is not None and px is not None else None
+            continue
+        if cols is None:
+            continue
+        name, side, px = (row[j] if j < len(row) else None for j in cols)
+        if norm_text(side) in ("long", "short") and to_number(px):
+            out.append(dict(name=str(name).strip(), side=norm_text(side), current_price=to_number(px), source_row=i))
+    return out
+
+
+def reconcile_derivatives(grid, rows, stated, cfg, scheme_title) -> None:
+    """If the file states its derivative exposure, the parsed futures must add up to it.
+    One exception (cfg.notes_futures_fallback): the main table lists NO derivatives but the note
+    shows exposure -> take the position from the notes table, only if there is exactly one."""
+    if stated is None:
+        return
+    parsed = sum(abs(r["market_value_lakh"]) for r in rows if r["section"] == "derivative")
+    if abs(parsed - stated) <= 0.05:
+        return
+    if parsed == 0 and cfg.notes_futures_fallback:
+        nf = notes_table_futures(grid)
+        if len(nf) != 1:
+            raise PortfolioFormatError(f"{scheme_title}: note states derivative exposure Rs {stated} lakh, main table has "
+                                       f"none, and the notes table has {len(nf)} futures - the split is not derivable")
+        f = nf[0]
+        sign = -1.0 if f["side"] == "short" else 1.0
+        mv = sign * stated
+        rows.append(dict(
+            section="derivative",
+            section_label="derivatives (notes table: value = note total exposure; quantity = value / current price)",
+            instrument_name=f["name"], derivative_kind="index_future" if INDEX_FUTURE_RE.search(f["name"]) else "stock_future",
+            isin=None, isin_raw=None, isin_checksum_ok=False, industry=None,
+            quantity=round(mv * 1e5 / f["current_price"], 3), market_value_lakh=mv, pct_reported_raw=None,
+            source_row=f["source_row"]))
+        return
+    raise DerivativeExposureMismatch(stated, parsed, f"{scheme_title}: parsed futures total Rs {parsed:.2f} lakh != "
+                                     f"the file's stated derivative exposure Rs {stated:.2f} lakh")
 
 
 def resolve_equity_total(eq_totals: list[tuple[str, float]], header_value: float | None) -> float | None:
