@@ -323,6 +323,17 @@ def test_govt_security_in_equity_fails_but_partly_paid_equity_does_not(parsed):
     assert list(hit["isin"]) == ["IN0020220037"] and set(hit.severity) == {"fail"}
 
 
+def test_canara_robeco_percent_units_and_debt_block_not_equity():
+    f = next((FX / "canara_robeco").glob("*September-2025.xlsx"))
+    fr, me, _ = parse_file(f, "canara_robeco", IDX)
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert list(m.index) == ["2025-09"] and m.loc["2025-09", "nav_lakh"] == pytest.approx(1651466.63)
+    assert abs(m.loc["2025-09", "equity_mv_sum_lakh"] - 1602373.76) < 0.01
+    r = h[h["isin"] == "INE040A01034"].iloc[0]
+    assert r.market_value_lakh == pytest.approx(155987.89) and r.weight_reported == pytest.approx(0.0945)   # file: 9.45
+    assert h.loc[h["isin"] == "INE494B04019", "section"].iloc[0] == "non_equity"        # under 'Debt Instruments'
+
+
 def test_isin_change_detected_for_corporate_action():
     from src.ingest.portfolios import detect_isin_changes
     h = pd.DataFrame({
