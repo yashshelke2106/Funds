@@ -53,6 +53,7 @@ NON_EQUITY_LABELS = ("debt instruments", "money market instruments", "others", "
                      "term deposits", "short term deposits", "mutual fund units")
 DERIVATIVE_LABELS = ("derivatives", "details of stock future", "stock / index futures", "stock futures",
                      "index / stock futures")
+OPTION_RE = re.compile(r"\b(put|call)\b|\boptions?\b", re.I)
 INDEX_FUTURE_RE = re.compile(r"\b(nifty|banknifty|finnifty|midcpnifty|sensex|bankex)\b|\bcnx\s+bank\b|\bbank\s+index\b", re.I)   # Kotak 'CNX BANK INDEX' (D-040)
 GRAND_TOTAL_LABELS = ("grand total", "total net assets")
 TOTAL_LABELS = ("total", "sub total", "subtotal")
@@ -81,6 +82,7 @@ class ParserConfig:
     block_start: str | None = None        # D-039: regex on col 0 that starts a scheme block (UTI: all schemes in one sheet)
     nav_row_is_scheme_total: bool = False  # D-039: NAV row is 'TOTAL : <scheme name>' with no % (UTI)
     extra_derivative_labels: tuple[str, ...] = ()   # D-039: e.g. ('futures',) for UTI
+    extra_nav_labels: tuple[str, ...] = ()   # D-042: EXACT labels of the NAV row, e.g. ('net assets',) for Franklin
 
 
 @dataclass
@@ -174,6 +176,7 @@ DATE_PATTERNS = (
     (re.compile(r"([A-Za-z]{3,9})\s+(\d{1,2})\s*,\s*(\d{4})"), "%B %d %Y", "mdY"),
     (re.compile(r"(\d{1,2})-([A-Za-z]{3})-(\d{4})"), "%d %b %Y", "dmY"),
     (re.compile(r"as o[nf]\s+(\d{1,2})/(\d{1,2})/(\d{4})", re.I), None, "dmY_num"),   # UTI 'AS OF 31/10/2025'
+    (re.compile(r"(\d{1,2})\s+([A-Za-z]{3,9})\s*(\d{4})"), None, "dMonY"),           # Sundaram '31 December 2025'
 )
 
 
@@ -191,6 +194,8 @@ def find_as_of(grid: list[list], max_rows: int = 12) -> date:
                     a, b, c = m.groups()
                     if order == "dmY_num":
                         return date(int(c), int(b), int(a))
+                    if order == "dMonY":
+                        return pd.to_datetime(f"{a} {b[:3]} {c}", format="%d %b %Y").date()
                     txt = f"{b} {a[:3]} {c}" if order == "mdY" else f"{a} {b} {c}"
                     return pd.to_datetime(txt, format="%d %b %Y").date()
     raise PortfolioFormatError("no 'as on' date found in the first rows")
@@ -213,8 +218,8 @@ HEADER_RULES = (
     ("isin", lambda t: t.startswith("isin")),
     ("industry", lambda t: "industry" in t),
     ("quantity", lambda t: t.startswith("quantity")),
-    ("mv", lambda t: ("market" in t and "value" in t) or t.startswith("exposure/market value")),
-    ("pct", lambda t: t.startswith("% to")),
+    ("mv", lambda t: (("market" in t or t.startswith("mkt")) and "value" in t) or t.startswith("exposure/market value")),  # Sundaram: Mkt Value
+    ("pct", lambda t: t.startswith("% to") or t.startswith("% of net asset")),   # Sundaram: % of Net Asset
     ("side", lambda t: t == "long / short"),
 )
 
@@ -312,7 +317,7 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
             section = "done"
             continue
         if section in ("pre", "equity", "non_equity"):
-            if starts(label, GRAND_TOTAL_LABELS):
+            if starts(label, GRAND_TOTAL_LABELS) or label in cfg.extra_nav_labels:
                 nav, gt_pct = mv, to_number(g("pct"))
                 section = "post"
                 continue
@@ -325,7 +330,7 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
                 # UTI: 'TOTAL:  EQUITY AND EQUITY RELATED' = equity total; 'TOTAL:(a) Listed...' = block total
                 eq_totals.append(("total" if starts(tm.group(1), EQUITY_LABELS) else "sub total", mv))
                 continue
-            if starts(label, EQUITY_LABELS):
+            if starts(section_core(label), EQUITY_LABELS):     # Sundaram 'A) Equity & Equity Related' (D-042)
                 section, section_label = "equity", label
                 if mv is not None and qty is None:
                     reported_eq = mv          # ICICI puts the equity total on the header row
@@ -367,7 +372,11 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
             qty, mv = qty * sign, mv * sign
         kind = None
         if section == "derivative":
-            kind = "index_future" if INDEX_FUTURE_RE.search(name) else "stock_future"
+            itype = norm_text(g("industry"))
+            if "option" in itype or OPTION_RE.search(name):
+                kind = "option"          # D-041: DSP 'NIFTY 22000 Put Apr26' ('Index Options'); never allocated as a future
+            else:
+                kind = "index_future" if INDEX_FUTURE_RE.search(name) else "stock_future"
         rows.append(dict(
             section=section, section_label=section_label, instrument_name=name, derivative_kind=kind,
             isin=isin if isin and isin_valid(isin) else None,

@@ -392,6 +392,75 @@ def test_kotak_names_from_column_c_futures_in_main_table_and_cnx_indices():
     assert h.loc[h["isin"] == "INF174K01NE8", "section"].iloc[0] == "non_equity"       # Kotak Liquid fund units
 
 
+# ---------------------------------------------------------------- D-041: DSP, options are not futures
+def test_dsp_index_put_classified_as_option_not_index_future():
+    f = next((FX / "dsp").glob("2026-03__*.xlsx"))
+    fr, me, log = parse_file(f, "dsp", IDX)
+    assert len(me) == 1 and me[0]["source_sheet"] == "Large Cap"
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert m.loc["2026-03", "nav_lakh"] == pytest.approx(661960.21)
+    assert abs(m.loc["2026-03", "equity_mv_sum_lakh"] - 596639.62) < 0.01
+    d = h[h.section == "derivative"].iloc[0]
+    assert d.instrument_name == "NIFTY 22000 Put Apr26" and d.derivative_kind == "option"
+    assert d.market_value_lakh == pytest.approx(1084.2)
+    assert m.loc["2026-03", "index_future_weight"] == 0          # the put adds no index-future exposure
+
+
+@pytest.mark.parametrize("name,key", [("NTPC Limited Mar26", "ntpc"), ("Tech Mahindra Ltd.-SEP2026", "tech mahindra")])
+def test_name_key_strips_compact_month_expiries(name, key):
+    assert name_key(name) == key
+
+
+def test_franklin_net_assets_row_foreign_equity_and_business_day_month_end():
+    fr, me, _ = parse_file(FX / "franklin_templeton" / "Monthly-Portfolio-ISIN-27-Feb-2026.xlsx", "franklin_templeton", IDX)
+    assert len(me) == 1 and me[0]["source_sheet"] == "FILCF"
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert list(m.index) == ["2026-02"] and m.loc["2026-02", "as_of"] == date(2026, 2, 27)
+    assert m.loc["2026-02", "nav_lakh"] == pytest.approx(758018.5772128)          # 'Net Assets' row
+    assert abs(m.loc["2026-02", "equity_mv_sum_lakh"] - (726807.0930734003 + 13584.63108)) < 0.01
+    cog = h[h["isin"] == "US1924461023"].iloc[0]
+    assert cog.section == "equity" and cog.weight_reported == pytest.approx(0.0179212376693327)
+    assert h.loc[h["isin"] == "IN002025X414", "section"].iloc[0] == "non_equity"       # T-bill
+
+
+def test_sundaram_mkt_value_header_enumerated_sections_and_unspaced_date():
+    # header 'Mkt Value Rs. in Lacs' / '% of Net Asset'; 'A) Equity & Equity Related';
+    # date 'for the month ended 30 September2025' (no space before the year)
+    fr, me, _ = parse_file(FX / "sundaram" / "monthlyportfolio_101025105519.xlsx", "sundaram", IDX)
+    assert len(me) == 1 and me[0]["source_sheet"] == "SUNBCF"
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert list(m.index) == ["2025-09"] and m.loc["2025-09", "as_of"] == date(2025, 9, 30)
+    assert m.loc["2025-09", "nav_lakh"] == pytest.approx(327953.308815953)
+    assert abs(m.loc["2025-09", "equity_mv_sum_lakh"] - 301628.590549) < 0.01
+    r = h[h["isin"] == "INE040A01034"].iloc[0]
+    assert r.market_value_lakh == pytest.approx(30243.68298) and r.weight_reported == pytest.approx(0.09221948)
+
+
+def test_quant_futures_book_in_main_table_and_bank_nifty_short():
+    fr, me, _ = parse_file(FX / "quant" / "quant_Large_Cap_Fund_Feb_2026.xlsx", "quant", IDX)
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert list(m.index) == ["2026-02"] and m.loc["2026-02", "as_of"] == date(2026, 2, 27)
+    assert m.loc["2026-02", "nav_lakh"] == pytest.approx(302309.67)
+    assert abs(m.loc["2026-02", "equity_mv_sum_lakh"] - 232781.65) < 0.05       # file rounds its own total
+    d = h[h.section == "derivative"].set_index("instrument_name")
+    hdfc_life = d.loc["HDFC Life Insurance Co Ltd"]
+    assert hdfc_life.derivative_kind == "stock_future" and hdfc_life.market_value_lakh == pytest.approx(21756.96)
+    bn = d.loc["NSE BANK NIFTY"]
+    assert bn.derivative_kind == "index_future" and bn.market_value_lakh == pytest.approx(-45712.29)   # short
+    assert d.loc["Eternal Limited", "market_value_lakh"] < 0
+    issues, _ = check_holdings(h.assign(underlying_isin=None), pd.DataFrame(me))
+    assert not ((issues.check == "isin_checksum_failed") & issues.instrument_name.isin(d.index)).any()   # contract codes not flagged
+
+
+@pytest.mark.parametrize("name,key", [       # names as printed in the files (D-044)
+    ("NIFTY September 2026 Future", "nifty"), ("CNX NIFTY-SEP2026", "nifty"), ("NIFTY 30 Jun 2026", "nifty"),
+    ("NSE BANK NIFTY", "banknifty"), ("Bank Nifty Index July 2026 Future", "banknifty"),
+    ("CNX BANK INDEX-SEP2026", "banknifty"), ("FINNIFTY Jan 2026", None), ("NIFTY NEXT 50", None)])
+def test_index_future_key(name, key):
+    from src.quality.holdings_checks import index_future_key
+    assert index_future_key(name) == key
+
+
 def test_isin_change_detected_for_corporate_action():
     from src.ingest.portfolios import detect_isin_changes
     h = pd.DataFrame({

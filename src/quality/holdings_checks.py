@@ -34,7 +34,8 @@ def check_holdings(h: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, p
         _issue(issues, r, "duplicate_isin", "fail", r.weight_nav, "duplicate (fund, month, isin)", r["isin"], r.instrument_name)
     for _, r in eq[eq["isin"].isna()].iterrows():
         _issue(issues, r, "equity_without_isin", "flag", r.weight_nav, f"isin_raw={r.isin_raw}", None, r.instrument_name)
-    bad_ck = h[h.isin_raw.notna() & ~h.isin_checksum_ok.astype(bool)]
+    # derivative rows carry exchange contract codes ('TCS290926', 'BANKNIFTY300326'), not ISINs (D-043)
+    bad_ck = h[h.isin_raw.notna() & ~h.isin_checksum_ok.astype(bool) & (h.section != "derivative")]
     for _, r in bad_ck.iterrows():
         _issue(issues, r, "isin_checksum_failed", "flag", r.weight_nav, f"isin_raw={r.isin_raw}", None, r.instrument_name)
     # Indian ISIN chars 8-9 = security type; '01' = equity shares. Others in an equity block
@@ -54,6 +55,9 @@ def check_holdings(h: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, p
     for _, r in w[diff > WEIGHT_TOL].iterrows():
         _issue(issues, r, "weight_mv_vs_reported", "flag", r.weight_nav - r.weight_reported,
                f"mv/nav={r.weight_nav:.6f} reported={r.weight_reported:.6f}", r["isin"], r.instrument_name)
+    for _, r in h[(h.section == "derivative") & (h.derivative_kind == "option")].iterrows():
+        # D-041: options are parsed but not allocated like futures; P4 decides their treatment
+        _issue(issues, r, "option_position", "flag", r.weight_nav, "option held; excluded from futures allocation", None, r.instrument_name)
     der = h[(h.section == "derivative") & (h.derivative_kind == "stock_future") & h.underlying_isin.isna()]
     for _, r in der.iterrows():
         _issue(issues, r, "future_underlying_unmapped", "flag", r.weight_nav, f"name_key={r.name_key}", None, r.instrument_name)
@@ -91,7 +95,22 @@ def check_holdings(h: pd.DataFrame, meta: pd.DataFrame) -> tuple[pd.DataFrame, p
     return pd.DataFrame(issues, columns=ISSUE_COLS), pd.DataFrame(summ)
 
 
-INDEX_FUTURE_REFERENCE = {"nifty": "ref_nifty50_motilal"}   # D-027; other indices unsupported -> flag
+INDEX_FUTURE_REFERENCE = {"nifty": "ref_nifty50_motilal",       # D-027
+                          "banknifty": "ref_niftybank_nippon"}  # D-044; other indices unsupported -> flag
+
+
+def index_future_key(name: str) -> str | None:
+    """'NIFTY Sep 2026 Future' / 'CNX NIFTY-SEP2026' -> 'nifty';
+    'NSE BANK NIFTY', 'Bank Nifty Index July 2026 Future', 'CNX BANK INDEX-SEP2026' -> 'banknifty';
+    Fin Nifty, Midcap Nifty, Nifty Next 50, PSU/Private Bank indices etc. -> None (unsupported)."""
+    n = name.lower()
+    if any(x in n for x in ("fin", "midcp", "midcap", "next", "psu", "private", "pvt", "sensex", "bankex")):
+        return None
+    if "bank" in n and ("nifty" in n or "cnx" in n or "index" in n):
+        return "banknifty"
+    if "nifty" in n:
+        return "nifty"
+    return None
 
 
 def check_index_future_coverage(h: pd.DataFrame) -> list[dict]:
@@ -100,9 +119,7 @@ def check_index_future_coverage(h: pd.DataFrame) -> list[dict]:
     fut = h[h.derivative_kind == "index_future"]
     have = set(zip(h.fund_id, h.month))
     for _, r in fut.iterrows():
-        n = r.instrument_name.lower()
-        key = "nifty" if ("nifty" in n and not any(x in n for x in ("bank", "fin", "midcp", "next"))) else None
-        ref = INDEX_FUTURE_REFERENCE.get(key)
+        ref = INDEX_FUTURE_REFERENCE.get(index_future_key(r.instrument_name))
         if ref is None:
             _issue(issues, r, "index_future_unsupported_index", "flag", r.weight_nav, "no reference weights for this index", None, r.instrument_name)
         elif (ref, r.month) not in have:
