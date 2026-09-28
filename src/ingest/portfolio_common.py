@@ -53,6 +53,7 @@ NON_EQUITY_LABELS = ("debt instruments", "money market instruments", "others", "
                      "term deposits", "short term deposits", "mutual fund units")
 DERIVATIVE_LABELS = ("derivatives", "details of stock future", "stock / index futures", "stock futures",
                      "index / stock futures")
+NSE_CONTRACT_PREFIXES = ("OPTIDX", "OPTSTK", "FUTIDX", "FUTSTK")
 OPTION_RE = re.compile(r"\b(put|call)\b|\boptions?\b", re.I)
 INDEX_FUTURE_RE = re.compile(r"\b(nifty|banknifty|finnifty|midcpnifty|sensex|bankex)\b|\bcnx\s+bank\b|\bbank\s+index\b", re.I)   # Kotak 'CNX BANK INDEX' (D-040)
 GRAND_TOTAL_LABELS = ("grand total", "total net assets")
@@ -83,6 +84,7 @@ class ParserConfig:
     nav_row_is_scheme_total: bool = False  # D-039: NAV row is 'TOTAL : <scheme name>' with no % (UTI)
     extra_derivative_labels: tuple[str, ...] = ()   # D-039: e.g. ('futures',) for UTI
     extra_nav_labels: tuple[str, ...] = ()   # D-042: EXACT labels of the NAV row, e.g. ('net assets',) for Franklin
+    hedge_marker: str | None = None         # D-045: equity-block rows whose name ends with this are futures (Tata '^')
 
 
 @dataclass
@@ -175,13 +177,20 @@ def isin_valid(s: str | None) -> bool:
 DATE_PATTERNS = (
     (re.compile(r"([A-Za-z]{3,9})\s+(\d{1,2})\s*,\s*(\d{4})"), "%B %d %Y", "mdY"),
     (re.compile(r"(\d{1,2})-([A-Za-z]{3})-(\d{4})"), "%d %b %Y", "dmY"),
-    (re.compile(r"as o[nf]\s+(\d{1,2})/(\d{1,2})/(\d{4})", re.I), None, "dmY_num"),   # UTI 'AS OF 31/10/2025'
+    (re.compile(r"as o[nf]\s+(\d{1,2})[/-](\d{1,2})[/-](\d{4}|\d{2})\b", re.I), None, "dmY_num"),   # UTI '31/10/2025', Tata '31-08-26', '31/10/25' (D-045)   # UTI 'AS OF 31/10/2025'
     (re.compile(r"(\d{1,2})\s+([A-Za-z]{3,9})\s*(\d{4})"), None, "dMonY"),           # Sundaram '31 December 2025'
 )
 
 
 def find_as_of(grid: list[list], max_rows: int = 12) -> date:
+    from datetime import datetime as _dt
     for row in grid[:max_rows]:
+        # D-046: SBI xlsx puts the date in its own cell next to 'PORTFOLIO STATEMENT AS ON :'
+        if any(isinstance(v, str) and re.search(r"\bas on\b", v, re.I) for v in row):
+            cells = [v for v in row if isinstance(v, (_dt, date))]
+            if len(cells) == 1:
+                d = cells[0]
+                return d.date() if isinstance(d, _dt) else d
         for v in row:
             if v is None:
                 continue
@@ -193,7 +202,11 @@ def find_as_of(grid: list[list], max_rows: int = 12) -> date:
                 if m:
                     a, b, c = m.groups()
                     if order == "dmY_num":
-                        return date(int(c), int(b), int(a))
+                        # D-045: numeric dates are day-first; a month-end portfolio date has day >= 25, so a
+                        # smaller day means the format may be month-first -> stop instead of guessing
+                        if int(a) < 25:
+                            raise PortfolioFormatError(f"ambiguous numeric date '{m.group(0)}' (day {a} < 25)")
+                        return date(int(c) + (2000 if len(c) == 2 else 0), int(b), int(a))
                     if order == "dMonY":
                         return pd.to_datetime(f"{a} {b[:3]} {c}", format="%d %b %Y").date()
                     txt = f"{b} {a[:3]} {c}" if order == "mdY" else f"{a} {b} {c}"
@@ -218,7 +231,8 @@ HEADER_RULES = (
     ("isin", lambda t: t.startswith("isin")),
     ("industry", lambda t: "industry" in t),
     ("quantity", lambda t: t.startswith("quantity")),
-    ("mv", lambda t: (("market" in t or t.startswith("mkt")) and "value" in t) or t.startswith("exposure/market value")),  # Sundaram: Mkt Value
+    ("mv", lambda t: (("market" in t or t.startswith("mkt")) and "value" in t) or t.startswith("mkt val")
+                     or t.startswith("exposure/market value")),  # Sundaram 'Mkt Value', Tata 'MKT VAL(Rs. Lacs)' 
     ("pct", lambda t: t.startswith("% to") or t.startswith("% of net asset")),   # Sundaram: % of Net Asset
     ("side", lambda t: t == "long / short"),
 )
@@ -265,6 +279,7 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
     as_of = find_as_of(grid)
     cols: dict[str, int] | None = None
     hdr_row = -10
+    hedged_in_equity = 0.0
     summary_block = False
     deriv_labels = DERIVATIVE_LABELS + tuple(cfg.extra_derivative_labels)
     title_key = scheme_key(scheme_title)
@@ -326,6 +341,10 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
                 nav, gt_pct = mv, to_number(g("pct"))     # UTI 'TOTAL : UTI - Large Cap Fund' (no %)
                 section = "post"
                 continue
+            if section == "equity" and qty is None and mv is not None and label.endswith(" total") \
+                    and starts(section_core(label[:-6].strip()), EQUITY_LABELS):
+                eq_totals.append(("total", mv))       # Tata 'EQUITY & EQUITY RELATED TOTAL' (D-045)
+                continue
             if section == "equity" and tm and qty is None and mv is not None:
                 # UTI: 'TOTAL:  EQUITY AND EQUITY RELATED' = equity total; 'TOTAL:(a) Listed...' = block total
                 eq_totals.append(("total" if starts(tm.group(1), EQUITY_LABELS) else "sub total", mv))
@@ -355,6 +374,19 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
             continue   # headers, subtotals, TREPS, cash lines: not holdings
 
         name = str(g("name") or "").strip()
+        hedge = bool(cfg.hedge_marker and section == "equity" and name.endswith(cfg.hedge_marker))
+        if hedge:
+            # D-045: Tata lists hedging futures INSIDE the equity block, marked '^' ('^ Hedging positions
+            # through futures'). They are futures on the row's own ISIN, not a second equity line.
+            name = name[: -len(cfg.hedge_marker)].strip()
+            hedged_in_equity += mv
+        raw_code = str(g("isin") or "").strip().upper()
+        contract = section == "equity" and raw_code.startswith(NSE_CONTRACT_PREFIXES)
+        if contract:
+            # D-046: SBI Sep-2025 lists NIFTY call options inside the equity block; the 'ISIN' field is
+            # an NSE contract code (OPTIDX..., OPTSTK..., FUTIDX..., FUTSTK...), so the row is a derivative.
+            hedge = True
+            hedged_in_equity += mv
         if not name:
             # D-040: header says 'Name of Instrument' in column A but the names sit further right
             # (Kotak: column C). Take the first non-blank text cell left of the ISIN column.
@@ -371,14 +403,18 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
                 sign = 1.0  # already signed in the file (ICICI)
             qty, mv = qty * sign, mv * sign
         kind = None
-        if section == "derivative":
+        row_section = "derivative" if hedge else section
+        if row_section == "derivative":
             itype = norm_text(g("industry"))
-            if "option" in itype or OPTION_RE.search(name):
+            if "option" in itype or OPTION_RE.search(name) or raw_code.startswith(("OPTIDX", "OPTSTK")):
                 kind = "option"          # D-041: DSP 'NIFTY 22000 Put Apr26' ('Index Options'); never allocated as a future
             else:
                 kind = "index_future" if INDEX_FUTURE_RE.search(name) else "stock_future"
         rows.append(dict(
-            section=section, section_label=section_label, instrument_name=name, derivative_kind=kind,
+            section=row_section,
+            section_label=(("derivative in equity block (NSE contract code)" if contract else "hedging future in equity block (^)")
+                           if hedge else section_label),
+            instrument_name=name, derivative_kind=kind,
             isin=isin if isin and isin_valid(isin) else None,
             isin_raw=isin, isin_checksum_ok=bool(isin and isin_valid(isin)),
             industry=str(g("industry")).strip() if g("industry") not in (None, "") else None,
@@ -388,6 +424,8 @@ def parse_sheet(grid: list[list], cfg: ParserConfig, scheme_title: str) -> Parse
     if nav is None:
         raise PortfolioFormatError(f"{scheme_title}: no GRAND TOTAL / Total Net Assets row")
     reported_eq = resolve_equity_total(eq_totals, reported_eq)
+    if reported_eq is not None and hedged_in_equity:
+        reported_eq -= hedged_in_equity     # the file's equity total includes the '^' hedges moved to derivatives
     if not any(r["section"] == "equity" for r in rows):
         raise PortfolioFormatError(f"{scheme_title}: no equity holdings found")
     stated = stated_derivative_exposure(grid)

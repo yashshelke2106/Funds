@@ -38,6 +38,7 @@ def name_key(s: str) -> str:
     s = str(s).lower()
     s = re.sub(r"\d{1,2}[./-]\d{1,2}[./-]\d{2,4}", " ", s)      # expiry dates 29.09.2026
     s = re.sub(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\s+\d{2,4}\b", " ", s)  # 'October 2025'
+    s = re.sub(r"\b\d{1,2}[-/ ](jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*[-/ ]\d{2,4}\b", " ", s)   # SBI '28-OCT-25' (D-046)
     s = re.sub(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\d{2,4}\b", " ", s)   # DSP 'Mar26', Kotak 'SEP2026' (D-041)
     s = re.sub(r"\bfutures?\b", " ", s)
     s = s.replace("&", " and ")

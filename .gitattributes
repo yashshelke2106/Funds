@@ -1,0 +1,8 @@
+# Normalise line endings: Windows tooling writes CRLF, the repo stores LF (D-048).
+* text=auto eol=lf
+
+# Real source files whose bytes must not be touched.
+*.xlsx binary
+*.xls  binary
+*.parquet binary
+*.txt -text

@@ -149,6 +149,16 @@ def download_history_snapshot(d: date, dest_dir: Path = config.RAW_AMFI) -> Path
     return path
 
 
+def navall_snapshot(d: date = config.NAVALL_SNAPSHOT_DATE, dest_dir: Path = config.RAW_AMFI) -> Path:
+    """The pinned NAVAll file used by the build (D-046). Missing file = stop, never fall back."""
+    path = dest_dir / f"NAVAll_{d.isoformat()}.txt"
+    if not path.exists():
+        have = sorted(p.name for p in dest_dir.glob("NAVAll_*.txt"))
+        raise FileNotFoundError(f"{path} missing (have: {have}). NAVALL_SNAPSHOT_DATE in src/config.py "
+                                "must name a NAVAll file on disk that matches the cached mfapi data.")
+    return path
+
+
 def latest_navall(dest_dir: Path = config.RAW_AMFI) -> Path:
     files = sorted(dest_dir.glob("NAVAll_*.txt"))
     if not files:

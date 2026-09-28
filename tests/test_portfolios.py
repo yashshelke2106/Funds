@@ -461,6 +461,54 @@ def test_index_future_key(name, key):
     assert index_future_key(name) == key
 
 
+# ---------------------------------------------------------------- D-045: Tata
+def test_tata_hedge_marked_rows_are_futures_and_equity_still_reconciles():
+    f = next((FX / "tata").glob("*April-2026*.xlsx"))
+    fr, me, _ = parse_file(f, "tata", IDX)
+    assert len(me) == 1 and me[0]["source_sheet"] == "TTOFE"
+    h, m = pd.concat(fr, ignore_index=True), pd.DataFrame(me).set_index("month")
+    assert list(m.index) == ["2026-04"] and m.loc["2026-04", "as_of"] == date(2026, 4, 30)   # 'as on 30-04-2026'
+    assert m.loc["2026-04", "nav_lakh"] == pytest.approx(268758, abs=1)                      # 'NET ASSETS'
+    bf = h[h["isin"] == "INE296A01032"].set_index("section")
+    assert bf.loc["equity", "quantity"] == 850000 and bf.loc["equity", "weight_reported"] == pytest.approx(0.0296)
+    assert bf.loc["derivative", "quantity"] == -412500 and bf.loc["derivative", "market_value_lakh"] == pytest.approx(-3887.19)
+    assert bf.loc["derivative", "instrument_name"] == "BAJAJ FINANCE LTD"                     # '^' stripped
+    assert abs(m.loc["2026-04", "equity_mv_sum_lakh"] - m.loc["2026-04", "reported_equity_total_lakh"]) < 0.01
+    issues, _ = check_holdings(h.assign(underlying_isin=None), m.reset_index())
+    assert not (issues.check == "duplicate_isin").any()
+
+
+@pytest.mark.parametrize("text,expected", [
+    ("Portfolio as on 31-08-26", date(2026, 8, 31)), ("Portfolio as on 31/10/25", date(2025, 10, 31)),
+    ("Portfolio as on 30-04-2026", date(2026, 4, 30)),
+    ("PROVISIONAL AND UNAUDITED PORTFOLIO DISCLOSURE AS OF 31/08/2026 (Market value in Lacs)", date(2026, 8, 31))])
+def test_numeric_day_first_dates(text, expected):
+    from src.ingest.portfolio_common import find_as_of
+    assert find_as_of([[None, text]]) == expected
+
+
+def test_numeric_date_with_small_day_is_refused_not_guessed():
+    from src.ingest.portfolio_common import find_as_of
+    with pytest.raises(PortfolioFormatError, match="ambiguous numeric date"):
+        find_as_of([[None, "Portfolio as on 08-12-26"]])
+
+
+# ---------------------------------------------------------------- D-046: SBI All-Schemes xlsx layout
+def test_sbi_xlsx_date_cell_options_in_equity_block_and_dmy_expiries():
+    f = FX / "sbi_xlsx" / "All-Scheme-Monthly-Portfolio---as-on-30th-September-2025.xlsx"   # not in sbi/: 'parsed' expects Aug-2026 only
+    fr, me, _ = parse_file(f, "sbi", IDX)
+    me = [x for x in me if x["fund_id"] == "sbi_lc"]
+    assert len(me) == 1 and me[0]["source_sheet"] == "SBLUECHIP" and me[0]["as_of"] == date(2025, 9, 30)
+    h = pd.concat([x for x in fr if (x.fund_id == "sbi_lc").all()], ignore_index=True)
+    assert abs(me[0]["equity_mv_sum_lakh"] - me[0]["reported_equity_total_lakh"]) < 0.01
+    d = h[h.section == "derivative"].set_index("instrument_name")
+    assert d.loc["NIFTY28-Oct-2025CE24700", "derivative_kind"] == "option"
+    assert d.loc["NIFTY28-Oct-2025CE24700", "market_value_lakh"] == pytest.approx(1182.81)
+    assert d.loc["Vedanta Ltd. 28-OCT-25", "market_value_lakh"] < 0
+    assert name_key("Vedanta Ltd. 28-OCT-25") == "vedanta"
+    assert not h[h.section == "equity"]["isin"].isna().any()
+
+
 def test_isin_change_detected_for_corporate_action():
     from src.ingest.portfolios import detect_isin_changes
     h = pd.DataFrame({

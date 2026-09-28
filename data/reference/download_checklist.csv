@@ -1,28 +1,28 @@
 source,amc,amc_slug,month,schemes,expected_path,status
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2025-09,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2025-10,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2025-11,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2025-12,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-01,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-02,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-03,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-04,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-05,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-06,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-07,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-08,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2025-09,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2025-10,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2025-11,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2025-12,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2026-01,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2026-02,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2026-03,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2026-04,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2026-05,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2026-06,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2026-07,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
-portfolio,Axis Mutual Fund,axis,2026-08,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,missing
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2025-09,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2025-10,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2025-11,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2025-12,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-01,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-02,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-03,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-04,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-05,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-06,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-07,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Aditya Birla Sun Life Mutual Fund,aditya_birla_sun_life,2026-08,Aditya Birla Sun Life Large Cap Fund,data/raw/portfolios/aditya_birla_sun_life/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2025-09,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2025-10,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2025-11,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2025-12,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2026-01,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2026-02,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2026-03,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2026-04,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2026-05,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2026-06,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2026-07,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
+portfolio,Axis Mutual Fund,axis,2026-08,Axis Large Cap Fund; Axis Nifty 100 Index Fund,data/raw/portfolios/axis/<original filename>,present
 portfolio,Bajaj Finserv Mutual Fund,bajaj_finserv,2025-09,BAJAJ FINSERV LARGE CAP FUND,data/raw/portfolios/bajaj_finserv/<original filename>,missing
 portfolio,Bajaj Finserv Mutual Fund,bajaj_finserv,2025-10,BAJAJ FINSERV LARGE CAP FUND,data/raw/portfolios/bajaj_finserv/<original filename>,missing
 portfolio,Bajaj Finserv Mutual Fund,bajaj_finserv,2025-11,BAJAJ FINSERV LARGE CAP FUND,data/raw/portfolios/bajaj_finserv/<original filename>,missing
@@ -35,17 +35,17 @@ portfolio,Bajaj Finserv Mutual Fund,bajaj_finserv,2026-05,BAJAJ FINSERV LARGE CA
 portfolio,Bajaj Finserv Mutual Fund,bajaj_finserv,2026-06,BAJAJ FINSERV LARGE CAP FUND,data/raw/portfolios/bajaj_finserv/<original filename>,missing
 portfolio,Bajaj Finserv Mutual Fund,bajaj_finserv,2026-07,BAJAJ FINSERV LARGE CAP FUND,data/raw/portfolios/bajaj_finserv/<original filename>,missing
 portfolio,Bajaj Finserv Mutual Fund,bajaj_finserv,2026-08,BAJAJ FINSERV LARGE CAP FUND,data/raw/portfolios/bajaj_finserv/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2025-09,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2025-10,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2025-11,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2025-12,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2026-01,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2026-02,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2026-03,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2026-04,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2026-05,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2026-06,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
-portfolio,Bandhan Mutual Fund,bandhan,2026-07,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,missing
+portfolio,Bandhan Mutual Fund,bandhan,2025-09,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2025-10,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2025-11,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2025-12,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2026-01,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2026-02,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2026-03,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2026-04,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2026-05,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2026-06,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
+portfolio,Bandhan Mutual Fund,bandhan,2026-07,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
 portfolio,Bandhan Mutual Fund,bandhan,2026-08,BANDHAN LARGE CAP FUND; BANDHAN NIFTY 100 INDEX FUND,data/raw/portfolios/bandhan/<original filename>,present
 portfolio,Bank of India Mutual Fund,bank_of_india,2025-09,BANK OF INDIA LARGE CAP FUND,data/raw/portfolios/bank_of_india/<original filename>,missing
 portfolio,Bank of India Mutual Fund,bank_of_india,2025-10,BANK OF INDIA LARGE CAP FUND,data/raw/portfolios/bank_of_india/<original filename>,missing
@@ -71,30 +71,30 @@ portfolio,Baroda BNP Paribas Mutual Fund,baroda_bnp_paribas,2026-05,BARODA BNP P
 portfolio,Baroda BNP Paribas Mutual Fund,baroda_bnp_paribas,2026-06,BARODA BNP PARIBAS LARGE CAP FUND,data/raw/portfolios/baroda_bnp_paribas/<original filename>,missing
 portfolio,Baroda BNP Paribas Mutual Fund,baroda_bnp_paribas,2026-07,BARODA BNP PARIBAS LARGE CAP FUND,data/raw/portfolios/baroda_bnp_paribas/<original filename>,missing
 portfolio,Baroda BNP Paribas Mutual Fund,baroda_bnp_paribas,2026-08,BARODA BNP PARIBAS LARGE CAP FUND,data/raw/portfolios/baroda_bnp_paribas/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2025-09,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2025-10,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2025-11,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2025-12,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-01,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-02,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-03,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-04,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-05,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-06,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-07,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-08,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2025-09,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2025-10,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2025-11,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2025-12,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2026-01,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2026-02,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2026-03,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2026-04,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2026-05,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2026-06,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2026-07,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
-portfolio,DSP Mutual Fund,dsp,2026-08,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,missing
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2025-09,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2025-10,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2025-11,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2025-12,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-01,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-02,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-03,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-04,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-05,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-06,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-07,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,Canara Robeco Mutual Fund,canara_robeco,2026-08,Canara Robeco Large Cap Fund,data/raw/portfolios/canara_robeco/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2025-09,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2025-10,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2025-11,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2025-12,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2026-01,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2026-02,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2026-03,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2026-04,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2026-05,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2026-06,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2026-07,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
+portfolio,DSP Mutual Fund,dsp,2026-08,DSP Large Cap Fund,data/raw/portfolios/dsp/<original filename>,present
 portfolio,Edelweiss Mutual Fund,edelweiss,2025-09,Edelweiss Large Cap Fund,data/raw/portfolios/edelweiss/<original filename>,missing
 portfolio,Edelweiss Mutual Fund,edelweiss,2025-10,Edelweiss Large Cap Fund,data/raw/portfolios/edelweiss/<original filename>,missing
 portfolio,Edelweiss Mutual Fund,edelweiss,2025-11,Edelweiss Large Cap Fund,data/raw/portfolios/edelweiss/<original filename>,missing
@@ -107,18 +107,18 @@ portfolio,Edelweiss Mutual Fund,edelweiss,2026-05,Edelweiss Large Cap Fund,data/
 portfolio,Edelweiss Mutual Fund,edelweiss,2026-06,Edelweiss Large Cap Fund,data/raw/portfolios/edelweiss/<original filename>,missing
 portfolio,Edelweiss Mutual Fund,edelweiss,2026-07,Edelweiss Large Cap Fund,data/raw/portfolios/edelweiss/<original filename>,missing
 portfolio,Edelweiss Mutual Fund,edelweiss,2026-08,Edelweiss Large Cap Fund,data/raw/portfolios/edelweiss/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2025-09,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2025-10,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2025-11,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2025-12,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-01,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-02,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-03,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-04,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-05,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-06,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-07,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
-portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-08,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,missing
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2025-09,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2025-10,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2025-11,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2025-12,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-01,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-02,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-03,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-04,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-05,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-06,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-07,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
+portfolio,Franklin Templeton Mutual Fund,franklin_templeton,2026-08,Franklin India Large Cap Fund,data/raw/portfolios/franklin_templeton/<original filename>,present
 portfolio,Groww Mutual Fund,groww,2025-09,Groww Large Cap Fund,data/raw/portfolios/groww/<original filename>,missing
 portfolio,Groww Mutual Fund,groww,2025-10,Groww Large Cap Fund,data/raw/portfolios/groww/<original filename>,missing
 portfolio,Groww Mutual Fund,groww,2025-11,Groww Large Cap Fund,data/raw/portfolios/groww/<original filename>,missing
@@ -131,17 +131,17 @@ portfolio,Groww Mutual Fund,groww,2026-05,Groww Large Cap Fund,data/raw/portfoli
 portfolio,Groww Mutual Fund,groww,2026-06,Groww Large Cap Fund,data/raw/portfolios/groww/<original filename>,missing
 portfolio,Groww Mutual Fund,groww,2026-07,Groww Large Cap Fund,data/raw/portfolios/groww/<original filename>,missing
 portfolio,Groww Mutual Fund,groww,2026-08,Groww Large Cap Fund,data/raw/portfolios/groww/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2025-09,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2025-10,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2025-11,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2025-12,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2026-01,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2026-02,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2026-03,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2026-04,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2026-05,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2026-06,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
-portfolio,HDFC Mutual Fund,hdfc,2026-07,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,missing
+portfolio,HDFC Mutual Fund,hdfc,2025-09,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2025-10,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2025-11,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2025-12,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2026-01,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2026-02,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2026-03,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2026-04,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2026-05,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2026-06,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
+portfolio,HDFC Mutual Fund,hdfc,2026-07,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
 portfolio,HDFC Mutual Fund,hdfc,2026-08,HDFC Large Cap Fund; HDFC NIFTY 100 Index Fund,data/raw/portfolios/hdfc/<original filename>,present
 portfolio,HSBC Mutual Fund,hsbc,2025-09,HSBC Large Cap Fund,data/raw/portfolios/hsbc/<original filename>,missing
 portfolio,HSBC Mutual Fund,hsbc,2025-10,HSBC Large Cap Fund,data/raw/portfolios/hsbc/<original filename>,missing
@@ -155,17 +155,17 @@ portfolio,HSBC Mutual Fund,hsbc,2026-05,HSBC Large Cap Fund,data/raw/portfolios/
 portfolio,HSBC Mutual Fund,hsbc,2026-06,HSBC Large Cap Fund,data/raw/portfolios/hsbc/<original filename>,missing
 portfolio,HSBC Mutual Fund,hsbc,2026-07,HSBC Large Cap Fund,data/raw/portfolios/hsbc/<original filename>,missing
 portfolio,HSBC Mutual Fund,hsbc,2026-08,HSBC Large Cap Fund,data/raw/portfolios/hsbc/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2025-09,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2025-10,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2025-11,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2025-12,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-01,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-02,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-03,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-04,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-05,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-06,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
-portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-07,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,missing
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2025-09,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2025-10,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2025-11,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2025-12,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-01,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-02,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-03,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-04,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-05,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-06,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
+portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-07,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
 portfolio,ICICI Prudential Mutual Fund,icici_prudential,2026-08,ICICI Prudential Large Cap Fund (erstwhile Bluechip Fund),data/raw/portfolios/icici_prudential/<original filename>,present
 portfolio,ITI Mutual Fund,iti,2025-09,ITI Large Cap Fund,data/raw/portfolios/iti/<original filename>,missing
 portfolio,ITI Mutual Fund,iti,2025-10,ITI Large Cap Fund,data/raw/portfolios/iti/<original filename>,missing
@@ -203,18 +203,18 @@ portfolio,JM Financial Mutual Fund,jm_financial,2026-05,JM Large Cap Fund,data/r
 portfolio,JM Financial Mutual Fund,jm_financial,2026-06,JM Large Cap Fund,data/raw/portfolios/jm_financial/<original filename>,missing
 portfolio,JM Financial Mutual Fund,jm_financial,2026-07,JM Large Cap Fund,data/raw/portfolios/jm_financial/<original filename>,missing
 portfolio,JM Financial Mutual Fund,jm_financial,2026-08,JM Large Cap Fund,data/raw/portfolios/jm_financial/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2025-09,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2025-10,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2025-11,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2025-12,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-01,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-02,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-03,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-04,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-05,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-06,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-07,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
-portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-08,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,missing
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2025-09,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2025-10,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2025-11,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2025-12,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-01,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-02,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-03,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-04,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-05,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-06,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-07,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
+portfolio,Kotak Mahindra Mutual Fund,kotak_mahindra,2026-08,Kotak Large Cap Fund,data/raw/portfolios/kotak_mahindra/<original filename>,present
 portfolio,LIC Mutual Fund,lic,2025-09,LIC MF Large Cap Fund,data/raw/portfolios/lic/<original filename>,missing
 portfolio,LIC Mutual Fund,lic,2025-10,LIC MF Large Cap Fund,data/raw/portfolios/lic/<original filename>,missing
 portfolio,LIC Mutual Fund,lic,2025-11,LIC MF Large Cap Fund,data/raw/portfolios/lic/<original filename>,missing
@@ -239,18 +239,18 @@ portfolio,Mahindra Manulife Mutual Fund,mahindra_manulife,2026-05,Mahindra Manul
 portfolio,Mahindra Manulife Mutual Fund,mahindra_manulife,2026-06,Mahindra Manulife Large Cap Fund,data/raw/portfolios/mahindra_manulife/<original filename>,missing
 portfolio,Mahindra Manulife Mutual Fund,mahindra_manulife,2026-07,Mahindra Manulife Large Cap Fund,data/raw/portfolios/mahindra_manulife/<original filename>,missing
 portfolio,Mahindra Manulife Mutual Fund,mahindra_manulife,2026-08,Mahindra Manulife Large Cap Fund,data/raw/portfolios/mahindra_manulife/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2025-09,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2025-10,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2025-11,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2025-12,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-01,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-02,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-03,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-04,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-05,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-06,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-07,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
-portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-08,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,missing
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2025-09,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2025-10,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2025-11,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2025-12,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-01,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-02,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-03,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-04,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-05,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-06,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-07,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
+portfolio,Mirae Asset Mutual Fund,mirae_asset,2026-08,Mirae Asset Large Cap Fund,data/raw/portfolios/mirae_asset/<original filename>,present
 portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2025-09,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,present
 portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2025-10,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,present
 portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2025-11,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,present
@@ -263,18 +263,18 @@ portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-05,Motilal Oswal Large Ca
 portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-06,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,present
 portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-07,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,present
 portfolio,Motilal Oswal Mutual Fund,motilal_oswal,2026-08,Motilal Oswal Large Cap Fund,data/raw/portfolios/motilal_oswal/<original filename>,present
-portfolio,Nippon India Mutual Fund,nippon_india,2025-09,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2025-10,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2025-11,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2025-12,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2026-01,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2026-02,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2026-03,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2026-04,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2026-05,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2026-06,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2026-07,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
-portfolio,Nippon India Mutual Fund,nippon_india,2026-08,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,missing
+portfolio,Nippon India Mutual Fund,nippon_india,2025-09,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2025-10,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2025-11,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2025-12,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2026-01,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2026-02,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2026-03,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2026-04,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2026-05,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2026-06,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2026-07,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
+portfolio,Nippon India Mutual Fund,nippon_india,2026-08,Nippon India Large Cap Fund,data/raw/portfolios/nippon_india/<original filename>,present
 portfolio,PGIM India Mutual Fund,pgim_india,2025-09,PGIM India Large Cap Fund,data/raw/portfolios/pgim_india/<original filename>,missing
 portfolio,PGIM India Mutual Fund,pgim_india,2025-10,PGIM India Large Cap Fund,data/raw/portfolios/pgim_india/<original filename>,missing
 portfolio,PGIM India Mutual Fund,pgim_india,2025-11,PGIM India Large Cap Fund,data/raw/portfolios/pgim_india/<original filename>,missing
@@ -287,42 +287,42 @@ portfolio,PGIM India Mutual Fund,pgim_india,2026-05,PGIM India Large Cap Fund,da
 portfolio,PGIM India Mutual Fund,pgim_india,2026-06,PGIM India Large Cap Fund,data/raw/portfolios/pgim_india/<original filename>,missing
 portfolio,PGIM India Mutual Fund,pgim_india,2026-07,PGIM India Large Cap Fund,data/raw/portfolios/pgim_india/<original filename>,missing
 portfolio,PGIM India Mutual Fund,pgim_india,2026-08,PGIM India Large Cap Fund,data/raw/portfolios/pgim_india/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2025-09,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2025-10,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2025-11,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2025-12,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2026-01,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2026-02,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2026-03,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2026-04,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2026-05,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2026-06,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
-portfolio,SBI Mutual Fund,sbi,2026-07,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,missing
+portfolio,SBI Mutual Fund,sbi,2025-09,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2025-10,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2025-11,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2025-12,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2026-01,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2026-02,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2026-03,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2026-04,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2026-05,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2026-06,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
+portfolio,SBI Mutual Fund,sbi,2026-07,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
 portfolio,SBI Mutual Fund,sbi,2026-08,SBI Large Cap Fund,data/raw/portfolios/sbi/<original filename>,present
-portfolio,Sundaram Mutual Fund,sundaram,2025-09,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2025-10,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2025-11,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2025-12,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2026-01,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2026-02,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2026-03,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2026-04,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2026-05,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2026-06,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2026-07,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Sundaram Mutual Fund,sundaram,2026-08,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2025-09,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2025-10,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2025-11,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2025-12,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2026-01,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2026-02,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2026-03,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2026-04,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2026-05,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2026-06,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2026-07,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
-portfolio,Tata Mutual Fund,tata,2026-08,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,missing
+portfolio,Sundaram Mutual Fund,sundaram,2025-09,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2025-10,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2025-11,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2025-12,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2026-01,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2026-02,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2026-03,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2026-04,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2026-05,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2026-06,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2026-07,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Sundaram Mutual Fund,sundaram,2026-08,Sundaram Large Cap Fund ( Formerly Know as Sundaram Blue Chip Fund),data/raw/portfolios/sundaram/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2025-09,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2025-10,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2025-11,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2025-12,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2026-01,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2026-02,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2026-03,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2026-04,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2026-05,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2026-06,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2026-07,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
+portfolio,Tata Mutual Fund,tata,2026-08,Tata Large Cap Fund,data/raw/portfolios/tata/<original filename>,present
 portfolio,Taurus Mutual Fund,taurus,2025-09,Taurus Large Cap Fund,data/raw/portfolios/taurus/<original filename>,missing
 portfolio,Taurus Mutual Fund,taurus,2025-10,Taurus Large Cap Fund,data/raw/portfolios/taurus/<original filename>,missing
 portfolio,Taurus Mutual Fund,taurus,2025-11,Taurus Large Cap Fund,data/raw/portfolios/taurus/<original filename>,missing
@@ -335,18 +335,18 @@ portfolio,Taurus Mutual Fund,taurus,2026-05,Taurus Large Cap Fund,data/raw/portf
 portfolio,Taurus Mutual Fund,taurus,2026-06,Taurus Large Cap Fund,data/raw/portfolios/taurus/<original filename>,missing
 portfolio,Taurus Mutual Fund,taurus,2026-07,Taurus Large Cap Fund,data/raw/portfolios/taurus/<original filename>,missing
 portfolio,Taurus Mutual Fund,taurus,2026-08,Taurus Large Cap Fund,data/raw/portfolios/taurus/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2025-09,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2025-10,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2025-11,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2025-12,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2026-01,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2026-02,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2026-03,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2026-04,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2026-05,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2026-06,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2026-07,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
-portfolio,UTI Mutual Fund,uti,2026-08,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,missing
+portfolio,UTI Mutual Fund,uti,2025-09,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2025-10,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2025-11,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2025-12,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2026-01,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2026-02,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2026-03,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2026-04,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2026-05,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2026-06,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2026-07,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
+portfolio,UTI Mutual Fund,uti,2026-08,UTI - Large Cap Fund,data/raw/portfolios/uti/<original filename>,present
 portfolio,Union Mutual Fund,union,2025-09,Union Largecap Fund,data/raw/portfolios/union/<original filename>,missing
 portfolio,Union Mutual Fund,union,2025-10,Union Largecap Fund,data/raw/portfolios/union/<original filename>,missing
 portfolio,Union Mutual Fund,union,2025-11,Union Largecap Fund,data/raw/portfolios/union/<original filename>,missing
@@ -371,18 +371,18 @@ portfolio,WhiteOak Capital Mutual Fund,whiteoak_capital,2026-05,WhiteOak Capital
 portfolio,WhiteOak Capital Mutual Fund,whiteoak_capital,2026-06,WhiteOak Capital Large Cap Fund,data/raw/portfolios/whiteoak_capital/<original filename>,missing
 portfolio,WhiteOak Capital Mutual Fund,whiteoak_capital,2026-07,WhiteOak Capital Large Cap Fund,data/raw/portfolios/whiteoak_capital/<original filename>,missing
 portfolio,WhiteOak Capital Mutual Fund,whiteoak_capital,2026-08,WhiteOak Capital Large Cap Fund,data/raw/portfolios/whiteoak_capital/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2025-09,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2025-10,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2025-11,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2025-12,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2026-01,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2026-02,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2026-03,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2026-04,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2026-05,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2026-06,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2026-07,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
-portfolio,quant Mutual Fund,quant,2026-08,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,missing
+portfolio,quant Mutual Fund,quant,2025-09,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2025-10,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2025-11,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2025-12,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2026-01,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2026-02,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2026-03,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2026-04,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2026-05,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2026-06,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2026-07,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
+portfolio,quant Mutual Fund,quant,2026-08,quant Large Cap Fund,data/raw/portfolios/quant/<original filename>,present
 ter,aditya_birla_sun_life_lc,aditya_birla_sun_life_lc,2024-09,regular+direct,data/raw/ter/,missing
 ter,aditya_birla_sun_life_lc,aditya_birla_sun_life_lc,2024-10,regular+direct,data/raw/ter/,missing
 ter,aditya_birla_sun_life_lc,aditya_birla_sun_life_lc,2024-11,regular+direct,data/raw/ter/,missing

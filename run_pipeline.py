@@ -19,13 +19,16 @@ STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "checkl
 def step_universe(offline: bool) -> int:
     from src.ingest import amfi, universe
     if offline:
-        navall = amfi.latest_navall()
+        navall = amfi.navall_snapshot()
         hist = config.RAW_AMFI / f"NAVHistory_{config.SURVIVORSHIP_SNAPSHOT_DATE.isoformat()}.txt"
         if not hist.exists():
             raise FileNotFoundError(f"{hist} missing; run once without --offline")
     else:
-        navall = amfi.download_navall()
+        fresh = amfi.download_navall()  # archived only; the build uses the pinned snapshot (D-046)
         hist = amfi.download_history_snapshot(config.SURVIVORSHIP_SNAPSHOT_DATE)
+        navall = amfi.navall_snapshot()
+        if fresh != navall:
+            print(f"downloaded {fresh.name}; build still uses pinned {navall.name} (D-046)")
     universe.run(navall, hist)
     return 0
 

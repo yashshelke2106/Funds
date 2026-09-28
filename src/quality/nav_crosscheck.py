@@ -1,7 +1,7 @@
 """Cross-source NAV checks (project P1/P2 promise; DECISIONS D-029).
 
 1. mfapi vs AMFI: every study scheme's mfapi NAV must equal AMFI's official NAV on the two
-   AMFI snapshots we hold (NAVAll = latest date; NAV history report = 02-Sep-2024).
+   AMFI snapshots we hold (NAVAll = pinned config.NAVALL_SNAPSHOT_DATE, D-046; NAV history report = 02-Sep-2024).
    AMFI prints 4 decimals (some schemes 2-3), mfapi up to 5, so the tolerance is half a unit
    in the 4th decimal plus float noise.
 2. Direct vs Regular: for every fund, the Direct plan's return over the NAV window must be
@@ -15,7 +15,7 @@ from __future__ import annotations
 import pandas as pd
 
 from src import config
-from src.ingest.amfi import latest_navall, parse_amfi_text
+from src.ingest.amfi import navall_snapshot, parse_amfi_text
 
 NAV_TOL = 0.00051
 COLS = ["check", "severity", "fund_id", "scheme_code", "date", "value", "detail"]
@@ -72,7 +72,7 @@ def run() -> int:
             from src.ingest.nav import parse_mfapi
             full.append(parse_mfapi(json.loads(p.read_text(encoding="utf-8")), int(code))[1])
     navfull = pd.concat(full, ignore_index=True) if full else nav
-    now = parse_amfi_text(latest_navall().read_text(encoding="utf-8"), "navall")
+    now = parse_amfi_text(navall_snapshot().read_text(encoding="utf-8"), "navall")
     hist_path = config.RAW_AMFI / f"NAVHistory_{config.SURVIVORSHIP_SNAPSHOT_DATE.isoformat()}.txt"
     then = parse_amfi_text(hist_path.read_text(encoding="utf-8"), "history")
     issues = nav_vs_amfi(navfull, now, codes, "latest") + nav_vs_amfi(navfull, then, codes, "window_start")
@@ -82,8 +82,9 @@ def run() -> int:
     idf.to_csv(config.QUALITY / "nav_crosscheck_issues.csv", index=False)
     summ.to_csv(config.QUALITY / "direct_vs_regular.csv", index=False)
     n_latest = int(now.scheme_code.isin(codes).sum())
+    latest_dates = sorted({d.isoformat() for d in now[now.scheme_code.isin(codes)].nav_date})
     n_then = int(then.scheme_code.isin(codes).sum())
-    print(f"nav cross-check: mfapi vs AMFI on {max(now.nav_date)} ({n_latest} schemes) and "
+    print(f"nav cross-check: mfapi vs AMFI on {','.join(latest_dates)} ({n_latest} schemes) and "
           f"{config.SURVIVORSHIP_SNAPSHOT_DATE} ({n_then} schemes); direct>=regular for {len(summ)} funds; "
           f"issues={idf.groupby(['check','severity']).size().to_dict() if len(idf) else {}}")
     if len(summ):

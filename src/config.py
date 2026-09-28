@@ -34,6 +34,11 @@ HOLDINGS_START = date(2025, 9, 1)
 NAV_START = date(2023, 9, 1)
 # First trading day on/after WINDOW_START used for the survivorship snapshot.
 SURVIVORSHIP_SNAPSHOT_DATE = date(2024, 9, 2)
+# Pinned AMFI NAVAll snapshot (D-046). The universe and the mfapi-vs-AMFI cross-check read
+# data/raw/amfi/NAVAll_<this date>.txt, never "whatever was downloaded last": the cached mfapi
+# JSON is frozen (nav step never refetches), so an unpinned newer NAVAll is guaranteed to fail
+# the cross-check. To roll the data forward, refetch mfapi AND change this date together.
+NAVALL_SNAPSHOT_DATE = date(2026, 9, 24)
 
 # ---- Sources ---------------------------------------------------------------
 AMFI_NAVALL_URL = "https://portal.amfiindia.com/spages/NAVAll.txt"

@@ -161,3 +161,18 @@ def test_survivorship_counts_blank_option_growth_rows():
     then = parse_amfi_text((FX / "history_motilal_excerpt.txt").read_text(encoding="utf-8"), "history")
     ev = survivorship_events(then, now).set_index("scheme_code")
     assert ev.loc[152354, "event"] == "present_at_start_and_now"
+
+
+def test_navall_snapshot_uses_pinned_file_not_newest(tmp_path):
+    """D-046: a newer NAVAll on disk must not be picked up by the build."""
+    from src.ingest.amfi import navall_snapshot
+    (tmp_path / "NAVAll_2026-09-24.txt").write_text("x", encoding="utf-8")
+    (tmp_path / "NAVAll_2026-09-27.txt").write_text("y", encoding="utf-8")
+    assert navall_snapshot(date(2026, 9, 24), tmp_path).name == "NAVAll_2026-09-24.txt"
+
+
+def test_navall_snapshot_missing_stops(tmp_path):
+    from src.ingest.amfi import navall_snapshot
+    (tmp_path / "NAVAll_2026-09-27.txt").write_text("y", encoding="utf-8")
+    with pytest.raises(FileNotFoundError, match="NAVALL_SNAPSHOT_DATE"):
+        navall_snapshot(date(2026, 9, 24), tmp_path)
