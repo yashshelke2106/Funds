@@ -1,0 +1,7 @@
+name_key,old_isin,new_isin,old_last_month,new_first_month,same_issuer_code,months_overlap,accepted
+adani enterprises pp re,IN9423A01030,IN9423A01048,2025-12,2026-02,True,False,True
+bharti airtel,IN9397D01014,INE397D01024,2026-02,2025-09,False,True,False
+kotak mahindra bank,INE237A01028,INE237A01036,2025-12,2026-01,True,False,True
+kwality walls india,INE2KCE01013,INE775B01025,2026-06,2026-01,False,True,False
+tata motors,INE155A01022,INE1TAE01010,2025-10,2025-10,False,True,False
+tvs motor co,INE494B01023,INE494B04019,2026-08,2026-03,True,True,False

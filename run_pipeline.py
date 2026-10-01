@@ -13,7 +13,7 @@ import sys
 
 from src import config
 
-STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "checklist", "test"]
+STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "warehouse", "checklist", "test"]
 
 
 def step_universe(offline: bool) -> int:
@@ -68,6 +68,16 @@ def step_quality(offline: bool) -> int:
     if (config.INTERIM / "holdings.parquet").exists():
         rc = max(rc, holdings_checks.run())
     return rc
+
+
+def step_warehouse(offline: bool) -> int:
+    from src.warehouse import build
+    try:
+        build.run()
+    except build.WarehouseTestError as e:
+        print(e)
+        return 1
+    return 0
 
 
 def step_checklist(offline: bool) -> int:
