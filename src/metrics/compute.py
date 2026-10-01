@@ -39,25 +39,33 @@ def _drop_keys(con) -> pd.DataFrame:
     return cc
 
 
-def active_share_monthly(con) -> pd.DataFrame:
+def iter_weights(con):
+    """Yield (fund_id, month, w_main, w_equity_only, w_bench, dropped_main, dropped_equity_only, bench_dropped,
+    n_dropped) per fund-month after the D-055 exclusions, each weight dict renormalised to 1 with zero entries
+    removed. The single place the exclusions are applied; P4 and P5 both read weights through it."""
     w = con.execute("SELECT * FROM marts.fund_month_weights").df()
     cc = _drop_keys(con)
     cc_set = set(zip(cc.fund_id, cc.month.astype(str), cc.sec_key))
-    fm = con.execute("SELECT fund_id, month, available_from, role, report_group, option_net, no_isin_weight "
-                     "FROM marts.fund_month").df()
-    rows = []
     for (f, m), g in w.groupby(["fund_id", "month"]):
         drop = set(g.loc[g.non_ordinary, "sec_key"]) | {k for k in g.sec_key if (f, str(m), k) in cc_set}
         bench, b_drop = core.renormalise(dict(zip(g.sec_key, g.w_bench)), drop)
-        out = dict(fund_id=f, month=pd.Timestamp(m).strftime("%Y-%m"), bench_dropped=b_drop, n_dropped_keys=len(drop))
-        for v, col in (("main", "w_fund_main"), ("equity_only", "w_fund_equity_only")):
-            wf, dropped = core.renormalise(dict(zip(g.sec_key, g[col])), drop)
-            wf = {k: x for k, x in wf.items() if x != 0}
-            bb = {k: x for k, x in bench.items() if x != 0}
-            out[f"active_share_{v}"] = core.active_share(wf, bb)
+        main, d_main = core.renormalise(dict(zip(g.sec_key, g.w_fund_main)), drop)
+        eq, d_eq = core.renormalise(dict(zip(g.sec_key, g.w_fund_equity_only)), drop)
+        nz = lambda d: {k: x for k, x in d.items() if x != 0}
+        yield f, pd.Timestamp(m), nz(main), nz(eq), nz(bench), d_main, d_eq, b_drop, len(drop)
+
+
+def active_share_monthly(con) -> pd.DataFrame:
+    fm = con.execute("SELECT fund_id, month, available_from, role, report_group, option_net, no_isin_weight "
+                     "FROM marts.fund_month").df()
+    rows = []
+    for f, m, wm, we, wb, d_main, d_eq, b_drop, n_drop in iter_weights(con):
+        out = dict(fund_id=f, month=m.strftime("%Y-%m"), bench_dropped=b_drop, n_dropped_keys=n_drop)
+        for v, wf, dropped in (("main", wm, d_main), ("equity_only", we, d_eq)):
+            out[f"active_share_{v}"] = core.active_share(wf, wb)
             out[f"dropped_{v}"] = dropped
             out[f"n_holdings_{v}"] = len(wf)
-            out[f"overlap_{v}"] = sum(min(wf.get(k, 0), bb.get(k, 0)) for k in set(wf) | set(bb))
+            out[f"overlap_{v}"] = sum(min(wf.get(k, 0), wb.get(k, 0)) for k in set(wf) | set(wb))
         rows.append(out)
     a = pd.DataFrame(rows)
     fm["month"] = pd.to_datetime(fm.month).dt.strftime("%Y-%m")
@@ -65,26 +73,19 @@ def active_share_monthly(con) -> pd.DataFrame:
 
 
 def turnover_monthly(con) -> pd.DataFrame:
-    w = con.execute("SELECT * FROM marts.fund_month_weights").df()
-    cc = _drop_keys(con)
-    cc_set = set(zip(cc.fund_id, cc.month.astype(str), cc.sec_key))
     imap = dict(con.execute("SELECT old_isin, new_isin FROM staging.isin_changes").fetchall())
+    by_fund: dict[str, list] = {}
+    for f, m, wm, we, *_ in iter_weights(con):
+        by_fund.setdefault(f, []).append((m, wm, we))
     rows = []
-    for f, gf in w.groupby("fund_id"):
-        prev = {}
-        for m, g in sorted(gf.groupby("month"), key=lambda t: t[0]):
-            drop = set(g.loc[g.non_ordinary, "sec_key"]) | {k for k in g.sec_key if (f, str(m), k) in cc_set}
-            cur = {}
-            for v, col in (("main", "w_fund_main"), ("equity_only", "w_fund_equity_only")):
-                wv, _ = core.renormalise(dict(zip(g.sec_key, g[col])), drop)
-                cur[v] = {k: x for k, x in wv.items() if x != 0}
-            mo = pd.Timestamp(m)
-            if prev and (mo.to_period("M") - prev["m"].to_period("M")).n == 1:
-                rows.append(dict(fund_id=f, month=mo.strftime("%Y-%m"),
-                                 turnover_main=core.turnover(prev["main"], cur["main"], imap),
-                                 turnover_equity_only=core.turnover(prev["equity_only"], cur["equity_only"], imap)))
-            prev = dict(m=mo, **cur)
-    return pd.DataFrame(rows)
+    for f, months in by_fund.items():
+        months.sort(key=lambda t: t[0])
+        for (m0, wm0, we0), (m1, wm1, we1) in zip(months, months[1:]):
+            if (m1.to_period("M") - m0.to_period("M")).n == 1:
+                rows.append(dict(fund_id=f, month=m1.strftime("%Y-%m"),
+                                 turnover_main=core.turnover(wm0, wm1, imap),
+                                 turnover_equity_only=core.turnover(we0, we1, imap)))
+    return pd.DataFrame(rows, columns=["fund_id", "month", "turnover_main", "turnover_equity_only"])
 
 
 # ---- return-based ----------------------------------------------------------------------------

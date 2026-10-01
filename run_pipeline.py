@@ -13,7 +13,7 @@ import sys
 
 from src import config
 
-STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "warehouse", "metrics", "checklist", "test"]
+STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "warehouse", "metrics", "analysis", "checklist", "test"]
 
 
 def step_universe(offline: bool) -> int:
@@ -91,6 +91,36 @@ def step_metrics(offline: bool) -> int:
             "rs_per_lakh_regular_vs_bandhan": "rs_per_lakh_2y", "annual_cost_rs_crore_at_q4fy26_aaum": "rs_cr_per_yr"}
     with pd.option_context("display.width", 220, "display.max_columns", 20, "display.float_format", "{:.4f}".format):
         print(s[list(cols)].rename(columns=cols).to_string(index=False))
+    return 0
+
+
+def step_analysis(offline: bool) -> int:
+    import pandas as pd
+    from src.analysis import run as analysis
+    res = analysis.run()
+    pref, c, sens = res["passive_reference"], res["fund_classification"], res["threshold_sensitivity"]
+    print(f"analysis -> {analysis.OUT}")
+    print(f"passive floors (12-month mean active share vs Nifty 100 proxy): Nifty 50 ETF {pref.nifty50_etf_as.mean():.4f} "
+          f"(range {pref.nifty50_etf_as.min():.4f}-{pref.nifty50_etf_as.max():.4f}); 80% index + 20% outside "
+          f"{pref.index_plus_sleeve_as.mean():.4f}")
+    print(f"threshold {c.threshold_main.iloc[0]:.2f} (D-057); classification identical for any threshold in "
+          f"({c.stable_band_low.iloc[0]:.4f}, {c.stable_band_high.iloc[0]:.4f}]")
+    cols = {"fund_id": "fund", "active_share_main_mean": "AS", "within_part_mean": "AS_within", "out_of_index_weight_mean": "out_w",
+            "tracking_error_24m": "TE", "excess_direct_24m": "xs_dir", "excess_regular_24m": "xs_reg",
+            "alpha_ann_regular_24m": "alpha_reg", "beta_regular_24m": "beta_reg", "neg_share_12m_regular": "neg12",
+            "gap_pp_regular_vs_bandhan": "fee_pp", "annual_cost_rs_crore_at_q4fy26_aaum": "rs_cr_yr", "class_main": "class",
+            "agreement_at_main_threshold": "agree@0.40", "main_label_agreement": "agree_all"}
+    with pd.option_context("display.width", 250, "display.max_columns", 30, "display.float_format", "{:.4f}".format):
+        print(c.sort_values("active_share_main_mean")[list(cols)].rename(columns=cols).to_string(index=False))
+        print(f"agree@0.40 = variants at the main threshold (of {c.n_variants_at_main_threshold.iloc[0]}) giving the main label; "
+              f"agree_all = same across all {c.n_variants.iloc[0]} variants (thresholds 0.40/0.50/0.60)")
+        m = sens[sens.active_share == "active_share_main_mean"]
+        print("\nthreshold sensitivity (main active share):")
+        print(m.drop(columns=["active_share"]).to_string(index=False))
+    print("\nby class (main specification):")
+    with pd.option_context("display.width", 250, "display.max_columns", 30, "display.float_format", "{:.4f}".format):
+        print(res["class_summary"].drop(columns=["fund_ids"]).to_string(index=False))
+    print("\nsurvivorship:", dict(zip(res["survivorship"].event, res["survivorship"].scheme_codes)))
     return 0
 
 
