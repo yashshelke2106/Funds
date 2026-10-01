@@ -49,7 +49,7 @@ def q(con, sql):
 
 def test_builds_and_every_sql_test_passes(wh):
     counts, _ = wh
-    assert counts["tests"] == 7
+    assert counts["tests"] == 8
     assert counts["marts.fund_month"] == 9 and counts["marts.fund"] == 4
 
 

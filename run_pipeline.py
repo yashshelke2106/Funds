@@ -13,7 +13,7 @@ import sys
 
 from src import config
 
-STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "warehouse", "checklist", "test"]
+STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "warehouse", "metrics", "checklist", "test"]
 
 
 def step_universe(offline: bool) -> int:
@@ -77,6 +77,20 @@ def step_warehouse(offline: bool) -> int:
     except build.WarehouseTestError as e:
         print(e)
         return 1
+    return 0
+
+
+def step_metrics(offline: bool) -> int:
+    import pandas as pd
+    from src.metrics import compute
+    res = compute.run()
+    s = res["fund_summary"].sort_values("active_share_main_mean")
+    cols = {"fund_id": "fund", "report_group": "group", "active_share_main_mean": "AS_main",
+            "active_share_equity_only_mean": "AS_eq", "turnover_main_mean": "turnover", "tracking_error_24m": "TE_24m",
+            "excess_ann_24m": "excess_24m", "info_ratio_24m": "IR_24m", "gap_pp_regular_vs_bandhan": "fee_gap_pp",
+            "rs_per_lakh_regular_vs_bandhan": "rs_per_lakh_2y", "annual_cost_rs_crore_at_q4fy26_aaum": "rs_cr_per_yr"}
+    with pd.option_context("display.width", 220, "display.max_columns", 20, "display.float_format", "{:.4f}".format):
+        print(s[list(cols)].rename(columns=cols).to_string(index=False))
     return 0
 
 

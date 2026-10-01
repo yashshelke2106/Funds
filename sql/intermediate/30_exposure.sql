@@ -42,9 +42,10 @@ SELECT k.fund_id, k.month, k.sec_key,
        coalesce(op.option_w, 0)    AS option_w,
        k.sec_key LIKE 'NOISIN:%'   AS no_isin,
        k.sec_key LIKE 'OPTION:%'   AS is_option,
-       -- D-031: ISIN chars 8-9 = security type; '01' = ordinary equity share
-       (k.sec_key NOT LIKE 'NOISIN:%' AND k.sec_key NOT LIKE 'OPTION:%'
-            AND substr(k.sec_key, 8, 2) <> '01')           AS non_ordinary,
+       -- D-031: chars 8-9 of an INDIAN ISIN = security type ('01' ordinary share; e.g. '04' preference, '20'
+       -- rights entitlement). The convention is Indian only: a foreign ISIN (Cognizant US1924461023) is an
+       -- ordinary share outside the benchmark, never 'non-ordinary' (fix found in P4, D-056).
+       (k.sec_key LIKE 'IN%' AND substr(k.sec_key, 8, 2) <> '01') AS non_ordinary,
        (k.sec_key NOT LIKE 'NOISIN:%' AND k.sec_key NOT LIKE 'OPTION:%'
             AND substr(k.sec_key, 1, 2) <> 'IN')           AS foreign_isin
 FROM k
