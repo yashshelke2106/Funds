@@ -52,10 +52,11 @@ def step_portfolios(offline: bool) -> int:
 
 
 def step_ter(offline: bool) -> int:
-    from src.ingest import ter
-    if not any(config.RAW_TER.rglob("*.xlsx")):
-        print("no TER files yet - skipped")
-        return 0
+    from src.ingest import ter, ter_api
+    if not offline:
+        rc = ter_api.fetch_window()  # resumable; with every page cached it makes no network calls
+        if rc:
+            return rc
     ter.run()
     return 0
 

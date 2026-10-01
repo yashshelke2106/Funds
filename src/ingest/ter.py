@@ -157,25 +157,45 @@ def coverage(daily: pd.DataFrame, funds: list[str], start=config.WINDOW_START, e
 
 
 def run() -> Path:
+    """TER step. Source = AMFI TER API pages (D-049..D-052); the Excel exports are kept for two jobs:
+    the NSDL code map (ter_scheme_map.csv) and an exact cross-check against the API on every
+    (fund, plan, day) both sources hold. Any disagreement stops the build."""
+    import json
+    from src.ingest import ter_api, ter_api_parse
     files = sorted(p for p in config.RAW_TER.rglob("*.xlsx") if not p.name.startswith("~$"))
     if not files:
-        raise FileNotFoundError("no TER files in data/raw/ter")
+        raise FileNotFoundError("no TER Excel exports in data/raw/ter (needed for the code map and the cross-check)")
     ter = combine([parse_ter_file(p) for p in files])
     sm = pd.read_csv(config.REFERENCE / "scheme_map.csv")
     uni = pd.read_csv(config.REFERENCE / "universe.csv")
     cmap = map_codes(ter, sm)
     cmap.to_csv(config.REFERENCE / "ter_scheme_map.csv", index=False)
-    t = ter.merge(cmap[["nsdl_code", "fund_id"]], on="nsdl_code", how="inner")
-    daily = fill_daily(t)
+    excel = ter.merge(cmap[["nsdl_code", "fund_id"]], on="nsdl_code", how="inner")
+
+    mf_path = config.RAW_TER_API / "populate-mf.json"
+    if not mf_path.exists():
+        raise FileNotFoundError(f"{mf_path} missing - run `python -m src.ingest.ter_api fetch`")
+    mf_ids = ter_api.resolve_amcs(sm.amc, json.loads(mf_path.read_text(encoding="utf-8")))
+    months = ter_api.window_months()
+    exc = ter_api_parse.load_code_exceptions(config.REFERENCE / "ter_api_code_exceptions.csv")
+    api = ter_api_parse.build(config.RAW_TER_API, sm, uni, cmap, mf_ids, months, exc)
+    eq = ter_api_parse.compare_with_excel(api, excel)
+
+    daily = fill_daily(api.assign(source="api"))
     out = config.INTERIM / "ter_daily.parquet"
     daily.drop(columns=[c for c in ("month",) if c in daily], errors="ignore").to_parquet(out, index=False)
     funds = sorted(set(uni.loc[uni.eligible.astype(bool), "fund_id"]))
     cov = coverage(daily, funds)
     cov.to_csv(config.QUALITY / "ter_coverage.csv", index=False)
+    names = (api.assign(month=pd.to_datetime(api.ter_date).dt.strftime("%Y-%m"))
+             .groupby(["fund_id", "scheme_name"]).month.agg(["min", "max"]).reset_index())
+    names.to_csv(config.QUALITY / "ter_api_scheme_names.csv", index=False)  # renames made visible (D-050)
+    renamed = names.fund_id.value_counts().loc[lambda v: v > 1]
     s = cov.groupby("status").size().to_dict()
-    print(f"TER: {len(files)} files, {ter.nsdl_code.nunique()} schemes, formats={ter.format.value_counts().to_dict()}; "
-          f"mapped {len(cmap)}/{len(sm)} study funds -> {out}")
+    print(f"TER (API): {len(api):,} fund-plan-day rows, {api.fund_id.nunique()} funds, {months[0]}..{months[-1]}, "
+          f"formats={api.format.value_counts().to_dict()} -> {out}")
+    print(f"  Excel cross-check: {eq['rows_compared']:,} rows, {eq['funds']} funds, months {eq['months']}: identical")
+    print(f"  funds whose scheme name changed in the window: {len(renamed)} "
+          f"(detail: data/quality/ter_api_scheme_names.csv)")
     print(f"TER coverage (eligible funds x plan x month, {config.WINDOW_START:%Y-%m}..{config.WINDOW_END:%Y-%m}): {s}")
-    full = cov[cov.status == "complete"].groupby("month").fund_id.nunique()
-    print("  funds with complete TER by month:", {m: int(v) for m, v in full.items()})
     return out

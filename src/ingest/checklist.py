@@ -45,7 +45,7 @@ def build(universe: pd.DataFrame) -> pd.DataFrame:
         for (f, m), g in cov.groupby(["fund_id", "month"]):
             st = "present" if (g.status == "complete").all() else ("missing" if (g.status == "missing").all() else "partial")
             rows.append(dict(source="ter", amc=f, amc_slug=f, month=m, schemes="regular+direct",
-                             expected_path="data/raw/ter/", status=st))
+                             expected_path="data/raw/ter/api/ (python -m src.ingest.ter_api fetch)", status=st))
         ter_present = None
     if ter_present is not None:   # no parsed coverage yet: say only that files exist
         rows.append(dict(source="ter", amc="AMFI", amc_slug="amfi", month=f"{months()[0]}..{months()[-1]}",

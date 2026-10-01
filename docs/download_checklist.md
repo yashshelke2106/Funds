@@ -28,9 +28,12 @@ Start with 3 AMCs, then batch the rest.
 
 ## 2. TER (expense ratios)
 
-- AMFI → "Total Expense Ratio of Mutual Fund Schemes". Export the **daily or month-end TER** for
-  every eligible scheme (Direct and Regular) and the Nifty 100 index funds, Sep-2024 … Aug-2026.
-- Save in `data/raw/ter/` with the original filenames. Upload one sample before P2 TER parsing.
+- **No manual monthly downloads.** TER comes from AMFI's own JSON endpoint behind the TER page
+  (DECISIONS D-049..D-052): `python -m src.ingest.ter_api fetch` (resumable; about 1.5-2 h the first
+  time; `run_pipeline.py` without `--offline` runs it too). Pages land in `data/raw/ter/api/`.
+- Keep the Excel exports already in `data/raw/ter/` (Mar, Jul, Aug 2026). They are not the TER source
+  any more; they supply the NSDL code map and an exact cross-check: API and Excel must agree on every
+  (fund, plan, day) both hold, or the build stops.
 
 ## 3. Benchmark returns — Nifty 100 TRI
 

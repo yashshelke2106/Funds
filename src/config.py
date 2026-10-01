@@ -44,6 +44,18 @@ NAVALL_SNAPSHOT_DATE = date(2026, 9, 24)
 AMFI_NAVALL_URL = "https://portal.amfiindia.com/spages/NAVAll.txt"
 AMFI_HISTORY_URL = "https://portal.amfiindia.com/DownloadNAVHistoryReport_Po.aspx?frmdt={d}"
 MFAPI_URL = "https://api.mfapi.in/mf/{code}"
+# AMFI TER JSON API (D-049): the endpoint behind amfiindia.com/ter-of-mf-schemes.
+AMFI_TER_API_URL = "https://www.amfiindia.com/api/populate-te-rdata-revised"
+AMFI_MF_LIST_URL = "https://www.amfiindia.com/api/populate-mf"
+RAW_TER_API = RAW_TER / "api"
+TER_API_SLEEP_S = 1.5   # pause after every call; backoff between retries is 1.5 x 2^attempt
+TER_API_RETRIES = 5
+# Seen 2026-09-29: after a few hundred calls the server stops answering (no body at all, nothing in
+# _rejected/), rather than returning junk. A normal reply takes ~2 s, so a 20 s timeout detects a stall
+# without the 60 s-per-attempt cost of the generic HTTP_TIMEOUT_S; after a request fails every retry,
+# the fetch cools down so the server's limit can reset before the next request.
+TER_API_TIMEOUT_S = 20
+TER_API_COOLDOWN_S = 180
 
 HTTP_TIMEOUT_S = 60
 HTTP_RETRIES = 3
