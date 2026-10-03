@@ -1,0 +1,121 @@
+// =====================================================================================================
+// Closet Indexing dashboard: DAX measures (P6, DECISIONS D-058)
+// Create an empty table named _Measures (Home > Enter data > OK), then add each measure below to it.
+// Units: active share, returns, alpha and tracking error are FRACTIONS (0.287 = 28.7%) -> format as Percentage.
+//        TER and fee gaps are already PERCENTAGE POINTS (1.06 = 1.06 pp) -> format as Decimal, custom "0.00 \p\p".
+// =====================================================================================================
+
+// ---------- the threshold what-if parameter ----------------------------------------------------------
+// Modeling > New parameter > Numeric range: Name "Threshold", min 0.20, max 0.70, increment 0.01, default 0.40.
+// Power BI creates table 'Threshold' with column [Threshold] and a measure; replace that measure with:
+Threshold Value = SELECTEDVALUE ( 'Threshold'[Threshold], 0.40 )
+
+// ---------- headline counts (main specification, D-057) ----------------------------------------------
+Funds Classified =
+CALCULATE ( COUNTROWS ( dim_fund ), dim_fund[has_holdings] = TRUE () )
+
+Closet Funds =
+CALCULATE ( COUNTROWS ( dim_fund ), dim_fund[class_main] IN { "closet", "closet_underperforming" } )
+
+Closet Underperforming Funds =
+CALCULATE ( COUNTROWS ( dim_fund ), dim_fund[class_main] = "closet_underperforming" )
+
+Truly Active Funds =
+CALCULATE ( COUNTROWS ( dim_fund ), dim_fund[class_main] = "truly_active" )
+
+Funds Not Classified =
+CALCULATE ( COUNTROWS ( dim_fund ), dim_fund[class_main] = "not_classified" )
+
+// ---------- fees -------------------------------------------------------------------------------------
+// Fees PAID above the index-fund alternative, at Jan-Mar 2026 regular-plan AUM. Not a loss: most closet funds
+// beat the index after fees over 24 months (D-057). Label it "paid", never "lost".
+Annual Fee Gap Closet (Rs cr) =
+CALCULATE (
+    SUM ( dim_fund[annual_cost_rs_crore_at_q4fy26_aaum] ),
+    dim_fund[class_main] IN { "closet", "closet_underperforming" }
+)
+
+Annual Fee Gap (Rs cr) = SUM ( dim_fund[annual_cost_rs_crore_at_q4fy26_aaum] )
+
+Fee Gap pp (avg) = AVERAGE ( dim_fund[gap_pp_regular_vs_bandhan] )
+
+Fee per Rs 1 lakh, 2y (avg) = AVERAGE ( dim_fund[rs_per_lakh_regular_vs_bandhan] )
+
+Regular AUM (Rs cr) = SUM ( dim_fund[regular_aaum_crore] )
+
+// ---------- fund-level metrics (averaged over the funds in the current filter) -----------------------
+Active Share (12m avg) = AVERAGE ( dim_fund[active_share_main_mean] )
+Excess Regular 24m = AVERAGE ( dim_fund[excess_regular_24m] )
+Excess Regular 12m = AVERAGE ( dim_fund[excess_regular_12m] )
+Excess Direct 24m = AVERAGE ( dim_fund[excess_direct_24m] )
+Alpha Regular 24m = AVERAGE ( dim_fund[alpha_ann_regular_24m] )
+Tracking Error 24m = AVERAGE ( dim_fund[tracking_error_24m] )
+Turnover (monthly avg) = AVERAGE ( dim_fund[turnover_main_mean] )
+
+Main Label Agreement =
+VAR a = SUM ( dim_fund[agreement_at_main_threshold] )
+VAR n = SUM ( dim_fund[n_variants_at_main_threshold] )
+RETURN DIVIDE ( a, n )
+
+// ---------- passive floors (D-057) -------------------------------------------------------------------
+Passive Floor (80% index + 20% outside) = AVERAGE ( passive_floor[index_plus_sleeve_as] )
+Nifty 50 ETF Active Share = AVERAGE ( passive_floor[nifty50_etf_as] )
+
+// ---------- dynamic classification at the slider threshold (Robustness page) -------------------------
+Closet at Threshold =
+COUNTROWS (
+    FILTER ( dim_fund, dim_fund[has_holdings] = TRUE () && dim_fund[active_share_main_mean] < [Threshold Value] )
+)
+
+Closet Underperforming at Threshold =
+COUNTROWS (
+    FILTER (
+        dim_fund,
+        dim_fund[has_holdings] = TRUE ()
+            && dim_fund[active_share_main_mean] < [Threshold Value]
+            && dim_fund[excess_regular_24m] < 0
+    )
+)
+
+Truly Active at Threshold = [Funds Classified] - [Closet at Threshold]
+
+Class at Threshold =
+VAR a = SELECTEDVALUE ( dim_fund[active_share_main_mean] )
+VAR x = SELECTEDVALUE ( dim_fund[excess_regular_24m] )
+RETURN
+    SWITCH (
+        TRUE (),
+        NOT HASONEVALUE ( dim_fund[fund_id] ), BLANK (),
+        ISBLANK ( a ), "Not classified",
+        a >= [Threshold Value], "Truly active",
+        x < 0, "Closet + underperforming",
+        "Closet"
+    )
+
+// ---------- time series (Fund detail page) -----------------------------------------------------------
+// Shown only when exactly one fund and one plan are selected, so lines never average across funds.
+Fund Growth of 100 =
+IF ( HASONEVALUE ( dim_fund[fund_id] ) && HASONEVALUE ( dim_plan[plan] ), AVERAGE ( fact_daily[fund_growth_100] ) )
+
+Index Growth of 100 =
+IF ( HASONEVALUE ( dim_fund[fund_id] ) && HASONEVALUE ( dim_plan[plan] ), AVERAGE ( fact_daily[bench_growth_100] ) )
+
+Active Share (month) = AVERAGE ( fact_fund_month[active_share_main] )
+Out-of-Index Weight (month) = AVERAGE ( fact_fund_month[out_of_index_weight] )
+
+Rolling Tracking Error =
+CALCULATE ( AVERAGE ( fact_rolling[tracking_error] ), fact_rolling[status] = "ok" )
+
+Rolling Excess Return =
+CALCULATE ( AVERAGE ( fact_rolling[excess_ann] ), fact_rolling[status] = "ok" )
+
+Fund TER pp = AVERAGE ( fact_ter_daily[ter_fund] )
+Index Fund TER pp = AVERAGE ( fact_ter_daily[ter_comparator] )
+TER Gap pp = AVERAGE ( fact_ter_daily[ter_gap_pp] )
+
+// ---------- robustness -------------------------------------------------------------------------------
+Variant Agreement % =
+DIVIDE (
+    CALCULATE ( COUNTROWS ( fact_variant ), fact_variant[agrees_with_main] = TRUE () ),
+    COUNTROWS ( fact_variant )
+)

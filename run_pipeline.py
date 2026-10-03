@@ -13,7 +13,7 @@ import sys
 
 from src import config
 
-STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "warehouse", "metrics", "analysis", "checklist", "test"]
+STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "warehouse", "metrics", "analysis", "export", "checklist", "test"]
 
 
 def step_universe(offline: bool) -> int:
@@ -121,6 +121,16 @@ def step_analysis(offline: bool) -> int:
     with pd.option_context("display.width", 250, "display.max_columns", 30, "display.float_format", "{:.4f}".format):
         print(res["class_summary"].drop(columns=["fund_ids"]).to_string(index=False))
     print("\nsurvivorship:", dict(zip(res["survivorship"].event, res["survivorship"].scheme_codes)))
+    return 0
+
+
+def step_export(offline: bool) -> int:
+    from src.export import powerbi
+    try:
+        powerbi.run()
+    except powerbi.ExportError as e:
+        print(e)
+        return 1
     return 0
 
 
