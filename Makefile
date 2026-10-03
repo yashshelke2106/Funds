@@ -1,6 +1,6 @@
 PY ?= python
 
-.PHONY: setup all offline test universe nav quality checklist
+.PHONY: setup all offline test universe nav quality checklist report
 
 setup:
 	$(PY) -m pip install -r requirements.txt
@@ -14,5 +14,5 @@ offline:
 test:
 	$(PY) -m pytest -q
 
-universe nav quality checklist:
+universe nav quality checklist report:
 	$(PY) run_pipeline.py $@

@@ -3,7 +3,7 @@
 Steps run in order; pass step names to run a subset, e.g.
   python run_pipeline.py universe nav
   python run_pipeline.py --offline          # reuse cached raw files, no network
-Later phases append steps (ingest, warehouse, metrics, analysis).
+The `report` step rewrites README.md, reports/memo.md and docs/*.md from reports/templates/ (D-059).
 """
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ import sys
 
 from src import config
 
-STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "warehouse", "metrics", "analysis", "export", "checklist", "test"]
+STEPS = ["universe", "nav", "benchmark", "portfolios", "ter", "quality", "warehouse", "metrics", "analysis", "export", "report", "checklist", "test"]
 
 
 def step_universe(offline: bool) -> int:
@@ -131,6 +131,18 @@ def step_export(offline: bool) -> int:
     except powerbi.ExportError as e:
         print(e)
         return 1
+    return 0
+
+
+def step_report(offline: bool) -> int:
+    from src.report import numbers, render
+    try:
+        written = render.run()
+    except numbers.ReportError as e:
+        print(e)
+        return 1
+    for name, path in written.items():
+        print(f"{name} -> {path.relative_to(config.ROOT)}")
     return 0
 
 
